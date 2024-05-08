@@ -23,7 +23,7 @@ function Introduction() {
     flex flex-col">
       <p className="inline-block text-center pb-5 text-9xl font-sans font-bold tracking-wide 
       text-stone-900">Trevor Bedson</p>
-      <p className="text-center pt-5">"Banging stud"</p>
+      <p className="text-center pt-5">Banging stud</p>
     </div>
   );
 }
