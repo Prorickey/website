@@ -1,4 +1,6 @@
+'use client'
 import Image from "next/image";
+import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
 export default function Home() {
   return (
@@ -30,9 +32,32 @@ function Title() {
 
 function Projects() {
   return (
-    <div className="h-[50rem] bg-gradient-to-b from-[#d72e2e] to-[#D32F2F]">
+    <div className="min-h-[50rem] bg-gradient-to-b from-[#d72e2e] to-[#D32F2F] pb-10">
       <h1 className="text-8xl text-gray-200 font-bold text-center pt-10 pb-10">Projects</h1>
       <p className="text-2xl text-gray-200 text-center">Here are some of my projects</p>
+      <ResponsiveMasonry className="pt-16 px-8"
+        columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
+        <Masonry gutter="4rem">
+          <ProjectCard title="Project 1" height={40} />
+          <ProjectCard title="Project 2" height={96} />
+          <ProjectCard title="Project 3" height={36} />
+          <ProjectCard title="Project 4" height={96} />
+          <ProjectCard title="Project 5" height={36} />
+        </Masonry>
+      </ResponsiveMasonry>
     </div>
   )
+}
+
+function ProjectCard({ title, height }: ProjectCardProps) {
+  return (
+    <div className={"flex flex-row w-full rounded-lg bg-neutral-600 pr-10 pl-10 h-" + height}>
+      <h1 className="w-full text-center text-3xl font-semibold text-gray-200 pt-10">{title}</h1>
+    </div>
+  )
+}
+
+interface ProjectCardProps {
+  title: string
+  height: number
 }
