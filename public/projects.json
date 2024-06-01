@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Portfolio Website",
+    "description": "My portfolio website is this website your on right now. It contains information about me, project links and more. I built this to showcase my work and learn some languages and frameworks along the way. This website is built with NextJS, react and tailwind css. The primary languages utilized were typescript, html and css.",
+    "langs": ["react", "typescript", "html", "css", "tailwind", "nextjs"],
+    "link": "http://localhost:3000"
+  },
+  {
+    "title": "Test 2",
+    "description": "This is my test project or sum bs and it's pretty cool",
+    "langs": ["react", "react", "react", "react", "react", "react", "react", "react", "react", "react", "react", "react", "react", "react"],
+    "link": "https://google.com"
+  },
+  {
+    "title": "Test 3",
+    "description": "This is my test project or sum bs and it's pretty cool",
+    "langs": ["react", "typescript", "html", "css", "tailwind", "nextjs", "react", "typescript", "html", "css", "tailwind", "nextjs", "react", "typescript", "html", "css", "tailwind", "nextjs", "react", "typescript", "html", "css", "tailwind", "nextjs"],
+    "link": "http://localhost:3000"
+  },
+  {
+    "title": "Test 4",
+    "description": "This is my test project or sum bs and it's pretty cool",
+    "langs": ["react", "typescript", "html", "css", "tailwind", "nextjs"],
+    "link": "https://tailwindcss.com/docs/gap"
+  },
+  {
+    "title": "Test 5",
+    "description": "This is my test project or sum bs and it's pretty cool",
+    "langs": ["react", "typescript"],
+    "link": "https://nextjs.org/"
+  }
+]
