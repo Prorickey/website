@@ -37,12 +37,12 @@ function Projects() {
       <p className="text-2xl text-gray-200 text-center">Here are some of my projects</p>
       <ResponsiveMasonry className="pt-16 px-8"
         columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
-        <Masonry gutter="4rem">
-          <ProjectCard title="Project 1" height={40} />
-          <ProjectCard title="Project 2" height={96} />
-          <ProjectCard title="Project 3" height={36} />
-          <ProjectCard title="Project 4" height={96} />
-          <ProjectCard title="Project 5" height={36} />
+        <Masonry gutter="1rem">
+          <ProjectCard title="Project 1" height={10} />
+          <ProjectCard title="Project 2" height={50} />
+          <ProjectCard title="Project 3" height={20} />
+          <ProjectCard title="Project 4" height={50} />
+          <ProjectCard title="Project 5" height={20} />
         </Masonry>
       </ResponsiveMasonry>
     </div>
@@ -51,7 +51,7 @@ function Projects() {
 
 function ProjectCard({ title, height }: ProjectCardProps) {
   return (
-    <div className={"flex flex-row w-full rounded-lg bg-neutral-600 pr-10 pl-10 h-" + height}>
+    <div className={"flex flex-row w-full rounded-lg bg-neutral-600 pr-10 pl-10"} style={{height: `${height}rem`}}>
       <h1 className="w-full text-center text-3xl font-semibold text-gray-200 pt-10">{title}</h1>
     </div>
   )
