@@ -1,0 +1,8 @@
+[
+  {
+    "title": "Portfolio Website",
+    "description": "My portfolio website is this website your on right now. It contains information about me, project links and more. I built this to showcase my work and learn some languages and frameworks along the way. This website is built with NextJS, React and Tailwindcss. The primary languages utilized were typescript, html and css.",
+    "langs": ["react", "typescript", "html", "css", "tailwind", "nextjs"],
+    "link": "http://localhost:3000"
+  }
+]

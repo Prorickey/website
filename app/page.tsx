@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ProjectsCards from "@/app/projectcards";
 
 export default function Home() {
   return (
@@ -30,9 +31,10 @@ function Title() {
 
 function Projects() {
   return (
-    <div className="h-[50rem] bg-gradient-to-b from-[#d72e2e] to-[#D32F2F]">
+    <div className="min-h-[50rem] bg-gradient-to-b from-[#d72e2e] to-[#D32F2F] pb-10">
       <h1 className="text-8xl text-gray-200 font-bold text-center pt-10 pb-10">Projects</h1>
       <p className="text-2xl text-gray-200 text-center">Here are some of my projects</p>
+      <ProjectsCards />
     </div>
   )
 }
