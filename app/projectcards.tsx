@@ -41,7 +41,10 @@ function ProjectCard({ title, description, langs, link, langlinks }: ProjectCard
     <div className={"flex flex-col w-full rounded-lg bg-neutral-600 pr-10 pl-10"}>
       <div className="flex flex-row">
         <h1 className="grow w-full text-4xl font-semibold text-gray-200 pt-10 pb-5">{title}</h1>
-        <button onClick={() => window.open(link, "_blank")}>
+        <button onClick={ () => {
+          if (link == "http://localhost:3000") window.scrollTo({top: 0, behavior: 'smooth'})
+          else window.open(link, "_blank")
+        }}>
           {
             <Image
               src="/rocket.svg"
