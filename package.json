@@ -1,14 +1,13 @@
 {
   "name": "portfolio",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "dockerBuild": "docker build -t docker.prorickey.xyz/prorickey/nextjs-portfolio:0.1.0 .",
-    "dockerPush": "docker push docker.prorickey.xyz/prorickey/nextjs-portfolio:0.1.0"
+    "docker": "node docker.js"
   },
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
