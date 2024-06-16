@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "docker": "node docker.js"
+    "docker": "node docker.js",
+    "pretty": "prettier --write ."
   },
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
@@ -23,7 +24,9 @@
     "@types/react-responsive-masonry": "^2.1.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
+    "eslint-config-prettier": "^9.1.0",
     "postcss": "^8",
+    "prettier": "3.3.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
