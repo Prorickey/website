@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dockerBuild": "docker build -t docker.prorickey.xyz/prorickey/nextjs-portfolio:0.1.0 .",
+    "dockerPush": "docker push docker.prorickey.xyz/prorickey/nextjs-portfolio:0.1.0"
   },
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
