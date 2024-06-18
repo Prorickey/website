@@ -8,16 +8,19 @@
     "start": "next start",
     "lint": "next lint",
     "docker": "node docker.js",
-    "pretty": "prettier --write ."
+    "pretty": "prettier --write .",
+    "updatekube": "node kubernetes.js"
   },
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
+    "dotenv": "^16.4.5",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-responsive-masonry": "^2.2.0"
   },
   "devDependencies": {
+    "@kubernetes/client-node": "^0.21.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

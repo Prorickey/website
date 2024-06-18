@@ -7,3 +7,6 @@ README.md
 .git
 .idea
 docker.js
+kubernetes.js
+deployment.yml
+.env.local

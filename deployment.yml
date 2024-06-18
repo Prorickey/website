@@ -36,3 +36,33 @@ spec:
       targetPort: 3000
       nodePort: 30000
   type: LoadBalancer
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: prorickey-portfolio-role
+  namespace: prorickey
+rules:
+  - apiGroups: [""]
+    resources: ["deployments"]
+    verbs: ["update", "get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: prorickey-portfolio-rolebinding
+  namespace: prorickey
+subjects:
+  - kind: ServiceAccount
+    name: prorickey-portfolio-sa
+    namespace: prorickey
+roleRef:
+  kind: Role
+  name: prorickey-portfolio-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prorickey-portfolio-sa
+  namespace: prorickey
