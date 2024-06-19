@@ -52,7 +52,7 @@ function ProjectCard({
       className={"flex flex-col w-full rounded-lg bg-neutral-600 pr-10 pl-10"}
     >
       <div className="flex flex-row">
-        <h1 className="grow w-full text-4xl font-semibold text-gray-200 pt-10 pb-5">
+        <h1 className="grow w-full text-2xl xl:text-4xl font-semibold text-gray-200 pt-5 xl:pt-10 pb-5">
           {title}
         </h1>
         <button
@@ -66,7 +66,7 @@ function ProjectCard({
         </button>
       </div>
       <p className="text-lg text-gray-200 pb-5">{description}</p>
-      <div className="grid justify-start content-start grid-cols-10 gap-x-1 gap-y-1 pb-5">
+      <div className="grid justify-start content-start grid-cols-6 gap-x-1 gap-y-1 pb-5">
         {langs.map((lang: string) => {
           if (langlinks[lang] == null)
             return (
