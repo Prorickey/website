@@ -9,7 +9,8 @@
     "lint": "next lint",
     "docker": "node docker.js",
     "pretty": "prettier --write .",
-    "updatekube": "node kubernetes.js"
+    "updatekube": "node kubernetes.js",
+    "fullShabang": "npm run pretty && npm run lint && npm run docker && npm run updatekube"
   },
   "dependencies": {
     "@svgr/webpack": "^8.1.0",
