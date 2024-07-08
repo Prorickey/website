@@ -4,5 +4,17 @@
     "description": "My portfolio website is this website your on right now. It contains information about me, project links and more. I built this to showcase my work and learn some languages and frameworks along the way. This website is built with NextJS, React and Tailwindcss. The primary languages utilized were typescript, html and css.",
     "langs": ["react", "typescript", "html", "css", "tailwind", "nextjs"],
     "link": "http://localhost:3000"
+  },
+  {
+    "title": "Notion Calendar Updater",
+    "description": "This is a simple GoLang application which updates my calendar in notion with events in multiple google calendars. Before, I was having to deal with multiple google calendars to keep up with stuff, but with this, everything is centralized in my notion calendar.",
+    "langs": ["go"],
+    "link": "https://github.com/Prorickey/NotionCalendarUpdater"
+  },
+  {
+    "title": "Notion Calendar Updater",
+    "description": "This is a simple GoLang application which updates my calendar in notion with events in multiple google calendars. Before, I was having to deal with multiple google calendars to keep up with stuff, but with this, everything is centralized in my notion calendar.",
+    "langs": ["go"],
+    "link": "https://github.com/Prorickey/NotionCalendarUpdater"
   }
 ]
