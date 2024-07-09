@@ -1,5 +1,9 @@
 import Image from "next/image";
-import ProjectsCards from "@/app/projectcards";
+import dynamic from "next/dynamic";
+
+const ProjectsCards = dynamic(() => import("@/app/projectcards"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
