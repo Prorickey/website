@@ -2,3 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --background: #171717;
+    --foreground: #e7e7e7;
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Montserrat, serif;
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+.grecaptcha-badge {
+    visibility: hidden;
+}

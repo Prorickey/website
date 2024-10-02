@@ -1,29 +1,53 @@
 'use client';
-import Image from 'next/image';
 
-import './page.module.css'
-import waves from './waves.svg';
+import {useEffect, useState} from "react";
+import Navbar from "@/app/navbar";
+
+const whoAmIText = [
+  "a programmer.",
+  "a designer.",
+  "an engineer.",
+  "a creative thinker."
+]
 
 export default function Home() {
+  const [whoAmI, setWhoAmI] = useState('');
+  const [current, setCurrent] = useState(0);
+  const [wait, setWait] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+
+      if(direction == 0) {
+        if(whoAmI.length == whoAmIText[current].length) {
+          if(wait == 5) {
+            setWait(0)
+            setDirection(1);
+          } else setWait(wait+1)
+        }
+        else
+          setWhoAmI(whoAmIText[current].substring(0, whoAmI.length+1));
+      } else {
+        if(whoAmI.length == 0) {
+          setCurrent(current == whoAmIText.length-1 ? 0 : current+1)
+          setDirection(0);
+        }
+        else
+          setWhoAmI(whoAmIText[current].substring(0, whoAmI.length-1));
+      }
+
+    }, 125)
+  }, [whoAmI, current, wait, direction]);
+
   return (
     <main>
-      <Introduction />
-      <Image
-        src={waves}
-        alt="Waves"
-        className="absolute w-full z-1 top-[24rem]"
-      />
+      <Navbar />
+      <div className="pl-36 pt-36">
+        <h1 className="text-8xl font-semibold">...</h1>
+        <h1 className="text-6xl">i am {whoAmI}</h1>
+      </div>
+      <div className="h-[500rem]"></div>
     </main>
-  );
-}
-
-function Introduction() {
-  return (
-    <div className="w-full pt-36 pb-96 bg-gradient-to-b from-red-500 via-orange-600 to-amber-500 
-    flex flex-col">
-      <p className="inline-block text-center pb-5 text-9xl font-sans font-bold tracking-wide 
-      text-stone-900">Trevor Bedson</p>
-      <p className="text-center pt-5">Banging stud</p>
-    </div>
   );
 }
