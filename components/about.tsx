@@ -1,24 +1,47 @@
 import Image from "next/image";
 import {MutableRefObject} from "react";
 
+const today = new Date();
+const birthDate = new Date(2008, 2, 13)
+let age = today.getFullYear() - birthDate.getFullYear();
+if (
+  today.getMonth() < birthDate.getMonth() ||
+  (today.getMonth() === birthDate.getMonth() &&
+    today.getDate() < birthDate.getDate())
+) age--;
+
 export default function AboutMe({ divRef }: { divRef: MutableRefObject<HTMLDivElement | null> }) {
   return (
     <div ref={divRef}>
       <div className="w-full bg-[#db4c4c] h-[0.1rem]"></div>
       <p className="w-full text-center text-5xl font-semibold p-10">About Me</p>
       <div className="flex flex-row w-full">
-        <div className="w-full px-20 text-xl">
-          <p>Cookies are a beloved treat that come in various forms, from crunchy to
-            soft. The most iconic type is the chocolate chip cookie, invented by Ruth
-            Wakefield in the 1930s. Ingredients like flour, sugar, and butter are
-            essential in determining their texture and flavor. Cookies have a long
-            history, originating in 7th-century Persia and evolving across cultures.
-            Today, they are enjoyed globally in many different varieties and styles.</p>
+        <div className="w-full px-20 text-2xl pt-20">
+          <p>Hey there! I&#39;m a {age} year old full-stack developer that has a
+            passion for learning and an interest in computers. I enjoy creating
+            websites using React and have been learning to program robots recently.
+            I began my endeavours in programming by learning Java and nodejs to create
+            Minecraft game servers and have extensive experience with databases and
+            large codebases. I have taken up an interest in machine learning and hope
+            to pursue that passion.
+          </p>
         </div>
         <div className="w-full px-20 flex flex-row gap-4">
           <div className="w-full flex flex-col py-14 gap-4">
             <KnowCard name={"HTML"} id={"html"} url={null}/>
-            <KnowCard name={"Next.js"} id={"nextjs"} url={"https://nextjs.org/"}/>
+            <button
+              className="flex flex-col border-2 border-[#db4c4c] rounded-lg"
+              onClick={() => window.open("https://nextjs.org/")}
+            >
+              <Image
+                src={`/knows/nextjs.png`}
+                alt={"nextjs"}
+                width={75}
+                height={75}
+                className="self-center p-2 rounded-3xl"
+              />
+              <p className="w-full text-center text-lg">Next.js</p>
+            </button>
             <KnowCard name={"Git"} id={"git"} url={"https://git-scm.com/"}/>
           </div>
           <div className="w-full flex flex-col gap-4">

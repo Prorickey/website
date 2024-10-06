@@ -9,7 +9,7 @@ const whoAmIText = [
 ]
 
 export default function Introduction({ navbarRef }: { navbarRef: MutableRefObject<HTMLDivElement | null> }) {
-  const [introHeight, setIntroHeight] = useState(0);
+  const [introHeight, setIntroHeight] = useState(1000);
   const [whoAmI, setWhoAmI] = useState('');
   const [current, setCurrent] = useState(0);
   const [wait, setWait] = useState(0);
@@ -39,7 +39,7 @@ export default function Introduction({ navbarRef }: { navbarRef: MutableRefObjec
       }
 
     }, 125)
-  }, [whoAmI, current, wait, direction, introHeight]);
+  }, [whoAmI, current, wait, direction, introHeight, navbarRef]);
 
   return (
     <div className="pl-36 pt-36" style={{height: introHeight}}>
