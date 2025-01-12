@@ -1,4 +1,4 @@
-import styles from "@/styles/navbar.module.css";
+import styles from "@/app/navbar.module.css";
 import {MutableRefObject, useEffect, useState} from "react";
 
 export default function Navbar({ navbarRef, aboutRef }: { navbarRef: MutableRefObject<HTMLDivElement | null>, aboutRef: MutableRefObject<HTMLDivElement | null> }) {

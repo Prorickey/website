@@ -1,4 +1,4 @@
-import {MutableRefObject, useEffect, useState} from "react";
+import {RefObject, useEffect, useState} from "react";
 
 const whoAmIText = [
   "a programmer.",
@@ -8,7 +8,7 @@ const whoAmIText = [
   "a student."
 ]
 
-export default function Introduction({ navbarRef }: { navbarRef: MutableRefObject<HTMLDivElement | null> }) {
+export default function Introduction({ navbarRef }: { navbarRef: RefObject<HTMLDivElement | null> }) {
   const [introHeight, setIntroHeight] = useState(1000);
   const [whoAmI, setWhoAmI] = useState('');
   const [current, setCurrent] = useState(0);
@@ -43,8 +43,8 @@ export default function Introduction({ navbarRef }: { navbarRef: MutableRefObjec
 
   return (
     <div className="pl-36 pt-36" style={{height: introHeight}}>
-      <h1 className="text-8xl font-semibold">...</h1>
-      <h1 className="text-6xl">i am {whoAmI}</h1>
+      <h1 className="text-8xl font-semibold">Trevor Bedson</h1>
+      <h1 className="text-6xl pl-5">i am {whoAmI}</h1>
     </div>
   )
 }

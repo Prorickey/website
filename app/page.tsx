@@ -1,9 +1,9 @@
 'use client';
 
 import {useRef} from "react";
-import Navbar from "@/components/navbar";
-import AboutMe from "@/components/about";
-import Introduction from "@/components/intro";
+import Navbar from "@/app/navbar";
+import AboutMe from "@/app/about";
+import Introduction from "@/app/intro";
 
 export default function Home() {
   const aboutRef = useRef<HTMLDivElement | null>(null);

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {MutableRefObject} from "react";
+import {RefObject} from "react";
 
 const today = new Date();
 const birthDate = new Date(2008, 2, 13)
@@ -10,7 +10,7 @@ if (
     today.getDate() < birthDate.getDate())
 ) age--;
 
-export default function AboutMe({ divRef }: { divRef: MutableRefObject<HTMLDivElement | null> }) {
+export default function AboutMe({ divRef }: { divRef: RefObject<HTMLDivElement | null> }) {
   return (
     <div ref={divRef}>
       <div className="w-full bg-[#db4c4c] h-[0.1rem]"></div>
@@ -49,8 +49,22 @@ export default function AboutMe({ divRef }: { divRef: MutableRefObject<HTMLDivEl
             <KnowCard name={"TailwindCSS"} id={"tailwindcss"} url={"https://tailwindcss.com/"}/>
             <KnowCard name={"Redis"} id={"redis"} url={"https://redis.io/"}/>
             <KnowCard name={"Kubernetes"} id={"kubernetes"} url={"https://kubernetes.io/"}/>
+            <button
+                className="flex flex-col border-2 border-[#db4c4c] rounded-lg"
+                onClick={() => window.open("https://www.onshape.com/")}
+            >
+              <Image
+                  src={`/knows/onshape.png`}
+                  alt={"nextjs"}
+                  width={75}
+                  height={75}
+                  className="self-center p-2 rounded-3xl"
+              />
+              <p className="w-full text-center text-lg">OnShape</p>
+            </button>
           </div>
           <div className="w-full flex flex-col py-14 gap-4">
+            <KnowCard name={"Golang"} id={"golang"} url={"https://go.dev/"}/>
             <KnowCard name={"Javascript"} id={"javascript"} url={null}/>
             <KnowCard name={"Node.js"} id={"nodejs"} url={"https://nodejs.org/"}/>
             <KnowCard name={"MongoDB"} id={"mongodb"} url={"https://www.mongodb.com/"}/>
@@ -61,6 +75,7 @@ export default function AboutMe({ divRef }: { divRef: MutableRefObject<HTMLDivEl
             <KnowCard name={"Java"} id={"java"} url={"https://www.java.com/"}/>
             <KnowCard name={"MySQL"} id={"mysql"} url={"https://www.mysql.com/"}/>
             <KnowCard name={"Linux"} id={"linux"} url={null}/>
+            <KnowCard name={"SwiftUI"} id={"swiftui"} url={"https://developer.apple.com/xcode/swiftui/"} />
           </div>
           <div className="w-full flex flex-col py-14 gap-4">
             <KnowCard name={"React"} id={"react"} url={"https://react.dev/"}/>
