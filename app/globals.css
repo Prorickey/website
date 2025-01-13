@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --content-background: #0e0e0e;
   --background: #171717;
   --foreground: #e7e7e7;
 }
@@ -17,6 +18,10 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.content-background {
+  background: var(--content-background);
 }
 
 ::-webkit-scrollbar {
