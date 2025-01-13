@@ -1,4 +1,5 @@
 import { RefObject, useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const whoAmIText = [
   'a programmer.',
@@ -44,6 +45,16 @@ export default function Introduction({
     <div className='pl-36 pt-36' style={{ height: introHeight }}>
       <h1 className='text-8xl font-semibold'>Trevor Bedson</h1>
       <h1 className='pl-5 text-6xl'>i am {whoAmI}</h1>
+      <button onClick={() => window.open('https://github.com/Prorickey')}>
+        <div className='flex flex-row gap-x-3 pl-5 pt-10'>
+          <Image src={'/github.svg'} alt={'Github'} width={35} height={35} />
+          <h1 className='pt-1 text-center text-3xl'>Prorickey</h1>
+        </div>
+      </button>
+      <div className='flex flex-row gap-x-1 pl-[0.8rem] pt-3'>
+        <Image src={'/discord.svg'} alt={'Discord'} width={50} height={50} />
+        <h1 className='pt-1 text-center text-3xl'>prorickey</h1>
+      </div>
     </div>
   );
 }

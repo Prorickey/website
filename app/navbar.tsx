@@ -1,12 +1,14 @@
 import styles from '@/app/navbar.module.css';
-import { MutableRefObject, useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 
 export default function Navbar({
   navbarRef,
   aboutRef,
+  projectsRef,
 }: {
-  navbarRef: MutableRefObject<HTMLDivElement | null>;
-  aboutRef: MutableRefObject<HTMLDivElement | null>;
+  navbarRef: RefObject<HTMLDivElement | null>;
+  aboutRef: RefObject<HTMLDivElement | null>;
+  projectsRef: RefObject<HTMLDivElement | null>;
 }) {
   const [showName, setShowName] = useState(false);
   const [navOffset, setNavOffset] = useState(0);
@@ -52,13 +54,8 @@ export default function Navbar({
             <NavbarItem
               text={'Projects'}
               offset={
-                (aboutRef.current ? aboutRef.current.offsetTop : 0) - navOffset
-              }
-            />
-            <NavbarItem
-              text={'Contact Me'}
-              offset={
-                (aboutRef.current ? aboutRef.current.offsetTop : 0) - navOffset
+                (projectsRef.current ? projectsRef.current.offsetTop : 0) -
+                navOffset
               }
             />
           </div>
