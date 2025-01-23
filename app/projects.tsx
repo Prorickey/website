@@ -13,6 +13,9 @@ export default function Projects({
     if (projects.length === 0) {
       fetch('/projects.json', {
         cache: 'force-cache',
+        next: {
+          revalidate: 3600,
+        }
       })
         .then((res) => res.json())
         .then((data) => {
@@ -22,6 +25,9 @@ export default function Projects({
     if (!langlinks) {
       fetch('/langlinks.json', {
         cache: 'force-cache',
+        next: {
+          revalidate: 3600,
+        }
       })
         .then((res) => res.json())
         .then((data) => {
@@ -30,15 +36,13 @@ export default function Projects({
     }
   }, [projects, langlinks]);
 
-  console.log(projects);
-
   return (
     <div ref={divRef}>
       <h1 className='w-full p-5 text-center text-5xl font-semibold'>
         Projects
       </h1>
       <ResponsiveMasonry
-        className='px-8 pt-16'
+        className='px-2 pt-16 lg:px-8'
         columnsCountBreakPoints={{ 350: 1, 750: 2, 800: 3 }}
       >
         <Masonry gutter='1rem'>
@@ -100,19 +104,19 @@ function ProjectCard({
   return (
     <div className='content-background rounded-2xl px-6 py-4'>
       <div className='flex flex-row justify-between pb-2'>
-        <h1 className='whitespace-nowrap text-2xl font-semibold'>{title}</h1>
+        <h1 className='text-2xl font-semibold whitespace-nowrap'>{title}</h1>
         <div>
           {pageLink()}
           {sourceLink()}
         </div>
       </div>
       <p>{description}</p>
-      <div className='grid grid-cols-6 content-start justify-start gap-x-1 gap-y-1 py-3'>
+      <div className='grid grid-cols-6 content-start justify-start gap-x-1 gap-y-4 py-3'>
         {langs.map((lang: string) => {
           if (langlinks == null || langlinks[lang] == null)
             return (
               <Image
-                src={`/icons/${lang}.svg`}
+                src={`/knows/${lang}.svg`}
                 alt={`${lang}.svg`}
                 height={40}
                 width={40}
@@ -126,7 +130,7 @@ function ProjectCard({
                 key={lang}
               >
                 <Image
-                  src={`/icons/${lang}.svg`}
+                  src={`/knows/${lang}.svg`}
                   alt={`${lang}.svg`}
                   height={40}
                   width={40}

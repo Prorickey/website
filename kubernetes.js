@@ -40,16 +40,21 @@ const k8sApi = kc.makeApiClient(k8s.AppsV1Api);
 (async () => {
   try {
     const deployment = (
-      await k8sApi.readNamespacedDeployment('portfolio', 'prorickey')
-    ).body;
+      await k8sApi.readNamespacedDeployment({
+        name: 'portfolio',
+        namespace: "prorickey"
+      })
+    );
 
     deployment.spec.template.spec.containers[0].image = `docker.prorickey.xyz/prorickey/nextjs-portfolio:${version}`;
     deployment.spec.replicas = 3;
 
     await k8sApi.replaceNamespacedDeployment(
-      'portfolio',
-      'prorickey',
-      deployment
+      {
+        name: "portfolio",
+        namespace: "prorickey",
+        body: deployment
+      }
     );
   } catch (err) {
     console.error(err);

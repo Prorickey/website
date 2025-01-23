@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Trevor Bedson',
-  description: 'A display of my work',
+  description: 'A display of my skills and my work',
+  icons: '/icon.ico',
 };
 
 export default function RootLayout({

@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 :root {
   --content-background: #0e0e0e;
@@ -12,6 +10,10 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Montserrat, serif;
+}
+
+button {
+  cursor: pointer;
 }
 
 @layer utilities {

@@ -38,7 +38,7 @@ export default function Navbar({
         <div className='flex items-center justify-between p-5 pr-10'>
           <p
             className={
-              'inline text-nowrap text-2xl font-semibold ' +
+              'inline text-2xl font-semibold text-nowrap ' +
               (showName ? '' : 'hidden')
             }
           >

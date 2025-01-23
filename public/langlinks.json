@@ -2,6 +2,11 @@
   "react": "https://react.dev/",
   "typescript": "https://www.typescriptlang.org/",
   "nextjs": "https://nextjs.org/",
-  "tailwind": "https://tailwindcss.com/",
-  "go": "https://go.dev/"
+  "tailwindcss": "https://tailwindcss.com/",
+  "golang": "https://go.dev/",
+  "nodejs": "https://nodejs.org/en",
+  "docker": "https://www.docker.com/",
+  "kubernetes": "https://kubernetes.io/",
+  "git": "https://git-scm.com/",
+  "postgresql": "https://www.postgresql.org/"
 }

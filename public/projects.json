@@ -2,15 +2,43 @@
   {
     "title": "Portfolio Website",
     "description": "My portfolio website is this website your on right now. It contains information about me, project links and more. I built this to showcase my work and learn some languages and frameworks along the way. This website is built with NextJS, React and Tailwindcss. The primary languages utilized were typescript, html and css.",
-    "langs": ["react", "typescript", "html", "css", "tailwind", "nextjs"],
+    "langs": [
+      "nodejs",
+      "react",
+      "typescript",
+      "html",
+      "css",
+      "tailwindcss",
+      "nextjs"
+    ],
     "link": "https://prorickey.xyz",
     "source": "https://github.com/Prorickey/website"
   },
   {
     "title": "Notion Calendar Updater",
     "description": "This is a simple GoLang application which updates my calendar in notion with events in multiple google calendars. Before, I was having to deal with multiple google calendars to keep up with stuff, but with this, everything is centralized in my notion calendar.",
-    "langs": ["go"],
+    "langs": ["golang"],
     "link": null,
     "source": "https://github.com/Prorickey/NotionCalendarUpdater"
+  },
+  {
+    "title": "NCSSM Spoons Game Website",
+    "description": "This website is used to host NCSSM's annual game of spoons. It helps streamline the setup of the physical game, tracks how the game progresses, and reports fun statistics at the end of the game. It also shows good use of cybersecurity skills and good security practices. Alongside that, it showcases the use of kubernetes and docker to scale applications.",
+    "langs": [
+      "react",
+      "typescript",
+      "html",
+      "css",
+      "tailwindcss",
+      "nextjs",
+      "golang",
+      "docker",
+      "kubernetes",
+      "nodejs",
+      "postgresql",
+      "git"
+    ],
+    "link": "https://ncssm-spoons.com",
+    "source": null
   }
 ]
