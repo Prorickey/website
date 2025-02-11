@@ -12,14 +12,16 @@
       "nextjs"
     ],
     "link": "https://prorickey.xyz",
-    "source": "https://github.com/Prorickey/website"
+    "source": "https://github.com/Prorickey/website",
+    "date": "April 2024 - Present"
   },
   {
     "title": "Notion Calendar Updater",
     "description": "This is a simple GoLang application which updates my calendar in notion with events in multiple google calendars. Before, I was having to deal with multiple google calendars to keep up with stuff, but with this, everything is centralized in my notion calendar.",
     "langs": ["golang"],
     "link": null,
-    "source": "https://github.com/Prorickey/NotionCalendarUpdater"
+    "source": "https://github.com/Prorickey/NotionCalendarUpdater",
+    "date": "May-July 2024"
   },
   {
     "title": "NCSSM Spoons Game Website",
@@ -39,6 +41,15 @@
       "git"
     ],
     "link": "https://ncssm-spoons.com",
-    "source": null
+    "source": null,
+    "date": "January 2025 - Present"
+  },
+  {
+    "title": "SMathHacks Hackathon -> ARES-M",
+    "description": "In this project, I worked in a team of four to develop a prototype weather pod that could be used on mars to collect data and relay it back to earth. I was responsible for the software side of the project, which included developing a web interface to display the data collected by the pod. The project was developed in a 36 hour hackathon.",
+    "langs": ["nodejs", "react", "typescript", "html", "css", "tailwindcss", "nextjs", "postgresql"],
+    "link": "https://devpost.com/software/ares-udeksp",
+    "source": "https://github.com/Prorickey/SMathHacks25",
+    "date": "Febuary 8-9, 2025"
   }
 ]

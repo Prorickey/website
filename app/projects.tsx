@@ -9,32 +9,20 @@ export default function Projects({
 }) {
   const [projects, setProjects] = useState<Projects[]>([]);
   const [langlinks, setLanglinks] = useState<any>(null);
+
   useEffect(() => {
-    if (projects.length === 0) {
-      fetch('/projects.json', {
-        cache: 'force-cache',
-        next: {
-          revalidate: 3600,
-        }
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setProjects(data);
-        });
-    }
-    if (!langlinks) {
-      fetch('/langlinks.json', {
-        cache: 'force-cache',
-        next: {
-          revalidate: 3600,
-        }
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setLanglinks(data);
-        });
-    }
-  }, [projects, langlinks]);
+    fetch('/projects.json')
+      .then((res) => res.json())
+      .then((data) => {
+        setProjects(data);
+      });
+
+    fetch('/langlinks.json')
+      .then((res) => res.json())
+      .then((data) => {
+        setLanglinks(data);
+      });
+  }, []);
 
   return (
     <div ref={divRef}>
@@ -43,7 +31,7 @@ export default function Projects({
       </h1>
       <ResponsiveMasonry
         className='px-2 pt-16 lg:px-8'
-        columnsCountBreakPoints={{ 350: 1, 750: 2, 800: 3 }}
+        columnsCountBreakPoints={{ 350: 1, 800: 2, 1300: 3 }}
       >
         <Masonry gutter='1rem'>
           {projects.map((project: Projects) => (
@@ -55,6 +43,7 @@ export default function Projects({
               langlinks={langlinks}
               source={project.source}
               key={project.title}
+              date={project.date}
             />
           ))}
         </Masonry>
@@ -70,11 +59,12 @@ function ProjectCard({
   link,
   langlinks,
   source,
+  date
 }: ProjectCardProps) {
   const pageLink = () => {
     if (link != null) {
       return (
-        <button className='pr-2' onClick={() => window.open(link)}>
+        <button onClick={() => window.open(link)}>
           <Image
             src={'/rocket.svg'}
             alt={'Click to takeoff!'}
@@ -102,16 +92,17 @@ function ProjectCard({
   };
 
   return (
-    <div className='content-background rounded-2xl px-6 py-4'>
-      <div className='flex flex-row justify-between pb-2'>
-        <h1 className='text-2xl font-semibold whitespace-nowrap'>{title}</h1>
-        <div>
+    <div className="content-background rounded-2xl px-6 py-4">
+      <div className="flex flex-row-reverse justify-between gap-x-4 pb-2">
+        <div className="flex flex-row gap-x-2">
           {pageLink()}
           {sourceLink()}
         </div>
+        <p className="text-stone-400 top-0">{date}</p>
       </div>
+      <h1 className="text-2xl font-semibold whitespace-nowrap">{title}</h1>
       <p>{description}</p>
-      <div className='grid grid-cols-6 content-start justify-start gap-x-1 gap-y-4 py-3'>
+      <div className="grid grid-cols-6 content-start justify-start gap-x-1 gap-y-4 py-3">
         {langs.map((lang: string) => {
           if (langlinks == null || langlinks[lang] == null)
             return (
@@ -149,6 +140,7 @@ interface Projects {
   langs: string[];
   link: string | null;
   source: string | null;
+  date: string
 }
 
 interface ProjectCardProps extends Projects {

@@ -20,8 +20,8 @@ export default function AboutMe({
     <div ref={divRef}>
       <div className='h-[0.1rem] w-full bg-[#db4c4c]'></div>
       <p className='w-full p-10 text-center text-5xl font-semibold'>About Me</p>
-      <div className='flex w-full flex-col gap-4 lg:flex-row'>
-        <div className='w-full px-5 pt-4 text-center text-xl lg:px-20 lg:pt-20 lg:text-left'>
+      <div className='flex w-full lg:self-center flex-col gap-4 lg:flex-row'>
+        <div className='w-full lg:w-[40%] xl:w-full px-5 pt-4 text-center text-xl xl:px-20 xl:pt-20 lg:text-left'>
           <p>
             Hey there! I&#39;m a {age} year old full-stack developer that has a
             passion for learning and an interest in computers. I enjoy creating
@@ -32,20 +32,16 @@ export default function AboutMe({
             interest in machine learning and hope to pursue that passion.
           </p>
         </div>
-        <div className='flex w-full flex-row gap-2 px-2 py-10 lg:gap-4 lg:px-20 lg:py-0'>
-          <div className='flex w-full flex-col gap-2 py-14 lg:gap-4'>
+        <div className='flex w-[90%] md:w-3/4 lg:w-[60%] xl:w-full flex-row gap-2 px-2 lg:px-8 py-10 lg:gap-4 lg:py-0 self-center'>
+          <div className='flex flex-1 flex-col gap-2 py-14 lg:gap-4'>
             <KnowCard name={'HTML'} id={'html'} url={null} />
-            <KnowCard
-              name={'NextJS'}
-              id={'nextjs'}
-              url={'https://nextjs.org/'}
-            />
+            <KnowCard name={'NextJS'} id={'nextjs'} url={'https://nextjs.org/'} />
             <KnowCard name={'Git'} id={'git'} url={'https://git-scm.com/'} />
           </div>
-          <div className='flex w-full flex-col gap-2 lg:gap-4'>
+          <div className='flex flex-1 w-1/5 flex-col gap-2 lg:gap-4'>
             <KnowCard name={'CSS'} id={'css'} url={null} />
             <KnowCard
-              name={'TailwindCSS'}
+              name={'Tailwind'}
               id={'tailwindcss'}
               url={'https://tailwindcss.com/'}
             />
@@ -69,7 +65,7 @@ export default function AboutMe({
               <p className='w-full text-center text-sm lg:text-lg'>OnShape</p>
             </button>
           </div>
-          <div className='flex w-full flex-col gap-2 py-14 lg:gap-4'>
+          <div className='flex flex-1 w-full flex-col gap-2 py-14 lg:gap-4'>
             <KnowCard name={'Golang'} id={'golang'} url={'https://go.dev/'} />
             <KnowCard name={'Javascript'} id={'javascript'} url={null} />
             <KnowCard
@@ -88,7 +84,7 @@ export default function AboutMe({
               url={'https://www.docker.com/'}
             />
           </div>
-          <div className='flex w-full flex-col gap-2 lg:gap-4'>
+          <div className='flex flex-1 w-full flex-col gap-2 lg:gap-4'>
             <KnowCard
               name={'Typescript'}
               id={'typescript'}
@@ -107,7 +103,7 @@ export default function AboutMe({
               url={'https://developer.apple.com/xcode/swiftui/'}
             />
           </div>
-          <div className='flex w-full flex-col gap-2 py-14 lg:gap-4'>
+          <div className='flex flex-1 w-full flex-col gap-2 py-14 lg:gap-4'>
             <KnowCard name={'React'} id={'react'} url={'https://react.dev/'} />
             <KnowCard
               name={'Python'}
@@ -146,9 +142,9 @@ function KnowCard({
         alt={id}
         width={75}
         height={75}
-        className='self-center p-2 sm:w-1/2'
+        className='self-center p-2 w-1/2'
       />
-      <p className='w-full text-center text-sm lg:text-lg'>{name}</p>
+      <p className='w-full text-center lg:text-md xl:text-lg'>{name}</p>
     </button>
   );
 }
