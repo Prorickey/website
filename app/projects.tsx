@@ -59,7 +59,7 @@ function ProjectCard({
   link,
   langlinks,
   source,
-  date
+  date,
 }: ProjectCardProps) {
   const pageLink = () => {
     if (link != null) {
@@ -92,17 +92,17 @@ function ProjectCard({
   };
 
   return (
-    <div className="content-background rounded-2xl px-6 py-4">
-      <div className="flex flex-row-reverse justify-between gap-x-4 pb-2">
-        <div className="flex flex-row gap-x-2">
+    <div className='content-background rounded-2xl px-6 py-4'>
+      <div className='flex flex-row-reverse justify-between gap-x-4 pb-2'>
+        <div className='flex flex-row gap-x-2'>
           {pageLink()}
           {sourceLink()}
         </div>
-        <p className="text-stone-400 top-0">{date}</p>
+        <p className='top-0 text-stone-400'>{date}</p>
       </div>
-      <h1 className="text-2xl font-semibold whitespace-nowrap">{title}</h1>
+      <h1 className='text-2xl font-semibold'>{title}</h1>
       <p>{description}</p>
-      <div className="grid grid-cols-6 content-start justify-start gap-x-1 gap-y-4 py-3">
+      <div className='grid grid-cols-6 content-start justify-start gap-x-1 gap-y-4 py-3'>
         {langs.map((lang: string) => {
           if (langlinks == null || langlinks[lang] == null)
             return (
@@ -140,7 +140,7 @@ interface Projects {
   langs: string[];
   link: string | null;
   source: string | null;
-  date: string
+  date: string;
 }
 
 interface ProjectCardProps extends Projects {
