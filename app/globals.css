@@ -9,8 +9,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: "Bebas Neue", sans-serif;
-  //font-family: Montserrat, serif;
+  font-family: Montserrat, serif;
 }
 
 button {
