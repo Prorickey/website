@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { RefObject, useEffect, useState } from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import { motion } from "framer-motion";
 
 export default function Projects({
   divRef,
@@ -59,7 +60,7 @@ function ProjectCard({
   link,
   langlinks,
   source,
-  date,
+  date
 }: ProjectCardProps) {
   const pageLink = () => {
     if (link != null) {
@@ -92,7 +93,16 @@ function ProjectCard({
   };
 
   return (
-    <div className='content-background rounded-2xl px-6 py-4'>
+    <motion.div 
+      whileInView="visible"
+      viewport={{ amount: 0.1, once: true }}
+      transition={{ ease: "easeInOut", duration: 0.75 }}
+      initial={{ opacity: 0, y: 50 }}
+      variants={{
+        visible: { opacity: 1, y: 0 },
+        hidden: { opacity: 0, y: 50 }
+      }}
+      className='content-background rounded-2xl px-6 py-4'>
       <div className='flex flex-row-reverse justify-between gap-x-4 pb-2'>
         <div className='flex flex-row gap-x-2'>
           {pageLink()}
@@ -130,7 +140,7 @@ function ProjectCard({
             );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

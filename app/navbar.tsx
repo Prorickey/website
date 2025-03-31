@@ -47,16 +47,11 @@ export default function Navbar({
           <div className='flex w-full flex-row justify-end gap-x-10 text-lg'>
             <NavbarItem
               text={'About'}
-              offset={
-                (aboutRef.current ? aboutRef.current.offsetTop : 0) - navOffset
-              }
+              ref={aboutRef}
             />
             <NavbarItem
               text={'Projects'}
-              offset={
-                (projectsRef.current ? projectsRef.current.offsetTop : 0) -
-                navOffset
-              }
+              ref={projectsRef}
             />
           </div>
         </div>
@@ -65,10 +60,10 @@ export default function Navbar({
   );
 }
 
-function NavbarItem({ text, offset }: { text: string; offset: number }) {
+function NavbarItem({ text, ref }: { text: string; ref: RefObject<HTMLDivElement | null> }) {
   return (
     <button
-      onClick={() => window.scrollTo({ top: offset, behavior: 'smooth' })}
+      onClick={() => window.scrollTo({ top: (ref.current?.getBoundingClientRect() ? ref.current?.getBoundingClientRect().top : 0) + window.scrollY - 70, behavior: 'smooth' })}
     >
       <p>{text}</p>
     </button>

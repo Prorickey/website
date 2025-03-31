@@ -50,19 +50,21 @@ export default function Introduction({
         Trevor Bedson
       </h1>
       <h1 className='pl-5 text-3xl lg:text-6xl'>i am {whoAmI}</h1>
-      <div className={`flex flex-col gap-y-2`}>
-        <button onClick={() => window.open('https://github.com/Prorickey')}>
-          <div className='flex flex-row gap-x-3 pt-10 pl-5'>
-            <Image src={'/github.svg'} alt={'Github'} width={35} height={35} />
-            <h1 className='pt-1 text-center text-xl lg:text-3xl'>Prorickey</h1>
-          </div>
-        </button>
-        <button onClick={() => window.open('https://www.linkedin.com/in/trevor-bedson-756195339/')}>
-          <div className='flex flex-row gap-x-1 pl-3'>
-            <Image src={'/linkedin.svg'} alt={'LinkedIn'} width={50} height={50} />
-            <h1 className='pt-2 text-center text-xl lg:text-3xl'>Trevor Bedson</h1>
-          </div>
-        </button>
+      <div className={`flex flex-row gap-x-3 p-3`}>
+        <Image 
+          src={'/github.svg'} 
+          alt={'Github'} 
+          width={35} 
+          height={35} 
+          className={'hover:cursor-pointer'}
+          onClick={() => window.open('https://github.com/Prorickey')} />
+        <Image 
+          src={'/linkedin.svg'} 
+          alt={'LinkedIn'} 
+          width={50} 
+          height={50} 
+          className={'hover:cursor-pointer'}
+          onClick={() => window.open('https://www.linkedin.com/in/trevor-bedson-756195339/')} />
       </div>
     </div>
   );
