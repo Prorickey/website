@@ -1,10 +1,10 @@
 'use client';
 
 import { useRef } from 'react';
-import Navbar from '@/app/navbar';
-import AboutMe from '@/app/about';
-import Introduction from '@/app/intro';
-import Projects from '@/app/projects';
+import { Projects } from '@/components/Projects';
+import Navbar from '@/components/Navbar';
+import Introduction from '@/components/Introduction';
+import { About } from '@/components/About';
 
 export default function Home() {
   const aboutRef = useRef<HTMLDivElement | null>(null);
@@ -19,7 +19,7 @@ export default function Home() {
         projectsRef={projectsRef}
       />
       <Introduction navbarRef={navbarRef} />
-      <AboutMe divRef={aboutRef} />
+      <About divRef={aboutRef} />
       <Projects divRef={projectsRef} />
       <div className='h-[15rem] bg-[#171717]'></div>
     </main>

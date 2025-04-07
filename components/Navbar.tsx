@@ -1,4 +1,4 @@
-import styles from '@/app/navbar.module.css';
+import styles from '@/styles/navbar.module.css';
 import { RefObject, useEffect, useState } from 'react';
 
 export default function Navbar({

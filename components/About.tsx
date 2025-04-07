@@ -14,7 +14,7 @@ if (
 )
   age--;
 
-export default function AboutMe({
+export function About({
   divRef,
 }: {
   divRef: RefObject<HTMLDivElement | null>;

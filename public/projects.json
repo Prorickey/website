@@ -1,7 +1,7 @@
 [
   {
-    "title": "Portfolio Website",
-    "description": "My portfolio website is the one you're on right now. It contains information about me, project links, and more. I built this to showcase my work and learn some languages and frameworks. This website is built with NextJS, React, and TailwindCSS. The primary languages utilized were Typescript, HTML, and CSS.",
+    "title": "North Carolina TSA Conference App",
+    "description": "This app was designed to help facilitate the North Carolina TSA State Conference. It posts the agenda, sends out notifications, makes resources available, and more. I was the development lead, and soley developed the backend and management website. I also was responsible for hosting, and set up kubernetes for the application and connected it with two dedicated databases, redis and postgresql. I did a lot of the internal programming for the app, and did some of the UI work.",
     "langs": [
       "nodejs",
       "react",
@@ -10,19 +10,36 @@
       "css",
       "tailwindcss",
       "nextjs",
-      "git"
+      "git",
+      "docker",
+      "kubernetes",
+      "postgresql",
+      "redis",
+      "golang",
+      "expo",
+      "python"
     ],
-    "link": "https://prorickey.xyz",
-    "source": "https://github.com/Prorickey/website",
-    "date": "April 2024 - Present"
+    "link": "https://apps.apple.com/us/app/north-carolina-tsa-conference/id6743861783",
+    "source": "https://github.com/Prorickey/northcarolinatsa",
+    "date": "March 2025 - Present"
   },
   {
-    "title": "Notion Calendar Updater",
-    "description": "This is a simple GoLang application that updates my Notion calendar with events in multiple Google calendars. Before, I had to deal with multiple Google calendars to keep up with things, but with this, everything is centralized in my Notion calendar. I created this application before the Notion Calendar was released.",
-    "langs": ["golang", "git"],
-    "link": null,
-    "source": "https://github.com/Prorickey/NotionCalendarUpdater",
-    "date": "May-July 2024"
+    "title": "SMathHacks Hackathon -> ARES-M",
+    "description": "For this project, I worked in a team of four to develop a prototype weather pod that could be used on Mars to collect data and relay it back to Earth. I was responsible for the software side of the project, which included developing a web interface to display the data collected by the pod. The project was developed in a 36-hour hackathon.",
+    "langs": [
+      "nodejs",
+      "react",
+      "typescript",
+      "html",
+      "css",
+      "tailwindcss",
+      "nextjs",
+      "postgresql",
+      "git"
+    ],
+    "link": "https://devpost.com/software/ares-udeksp",
+    "source": "https://github.com/Prorickey/SMathHacks25",
+    "date": "Febuary 8-9, 2025"
   },
   {
     "title": "NCSSM Spoons Game Website",
@@ -46,8 +63,8 @@
     "date": "January 2025 - Present"
   },
   {
-    "title": "SMathHacks Hackathon -> ARES-M",
-    "description": "For this project, I worked in a team of four to develop a prototype weather pod that could be used on Mars to collect data and relay it back to Earth. I was responsible for the software side of the project, which included developing a web interface to display the data collected by the pod. The project was developed in a 36-hour hackathon.",
+    "title": "Portfolio Website",
+    "description": "My portfolio website is the one you're on right now. It contains information about me, project links, and more. I built this to showcase my work and learn some languages and frameworks. This website is built with NextJS, React, and TailwindCSS. The primary languages utilized were Typescript, HTML, and CSS.",
     "langs": [
       "nodejs",
       "react",
@@ -56,12 +73,11 @@
       "css",
       "tailwindcss",
       "nextjs",
-      "postgresql",
       "git"
     ],
-    "link": "https://devpost.com/software/ares-udeksp",
-    "source": "https://github.com/Prorickey/SMathHacks25",
-    "date": "Febuary 8-9, 2025"
+    "link": "https://prorickey.xyz",
+    "source": "https://github.com/Prorickey/website",
+    "date": "April 2024 - Present"
   },
   {
     "title": "RoboKnights Website",
@@ -82,14 +98,6 @@
     "date": "September - Present"
   },
   {
-    "title": "Minecraft Game Server -> Hiant",
-    "description": "I hosted this Minecraft server for the most part of three years. Minecraft game servers introduced me to programming, and I gained much of my experience using Java, Docker, Databases, and Git through programming for this server. I also got experience working with small developer teams and managing teams. I shut down the server to focus on school.",
-    "langs": ["java", "mysql", "linux", "redis", "git", "mongodb"],
-    "link": null,
-    "source": "https://github.com/HiantNetwork",
-    "date": "November 2021 - August 2024"
-  },
-  {
     "title": "Minecraft Game Server -> ClassicDupe",
     "description": "I hosted this Minecraft server for a few months during a break from hosting Hiant. This server was a different game mode, but it was a fresh start for me and didn't include my old codebase, which had outdated code and amateur practices. This server featured a more advanced codebase and a more fruitful experience.",
     "langs": [
@@ -105,5 +113,21 @@
     "link": null,
     "source": "https://github.com/Classicdupe",
     "date": "May 2023 - July 2023"
+  },
+  {
+    "title": "Minecraft Game Server -> Hiant",
+    "description": "I hosted this Minecraft server for the most part of three years. Minecraft game servers introduced me to programming, and I gained much of my experience using Java, Docker, Databases, and Git through programming for this server. I also got experience working with small developer teams and managing teams. I shut down the server to focus on school.",
+    "langs": ["java", "mysql", "linux", "redis", "git", "mongodb"],
+    "link": null,
+    "source": "https://github.com/HiantNetwork",
+    "date": "November 2021 - August 2024"
+  },
+  {
+    "title": "Notion Calendar Updater",
+    "description": "This is a simple GoLang application that updates my Notion calendar with events in multiple Google calendars. Before, I had to deal with multiple Google calendars to keep up with things, but with this, everything is centralized in my Notion calendar. I created this application before the Notion Calendar was released.",
+    "langs": ["golang", "git"],
+    "link": null,
+    "source": "https://github.com/Prorickey/NotionCalendarUpdater",
+    "date": "May-July 2024"
   }
 ]
