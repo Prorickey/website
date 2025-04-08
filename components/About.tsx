@@ -55,8 +55,9 @@ export function About({
             websites using React and have been learning to program robots
             recently. I began my endeavours in programming by learning Java and
             nodejs to create Minecraft game servers and have extensive
-            experience with databases and large codebases. I have taken up an
-            interest in machine learning and hope to pursue that passion.
+            experience with databases and large codebases. I&#39;ve also been
+            working on creating apps with expo and react-native, check out my 
+            latest app North Carolina TSA Conference below!
           </p>
         </motion.div>
         {typeof window !== 'undefined' && window.innerWidth > 600 ? (

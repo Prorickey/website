@@ -64,7 +64,7 @@ export default function Introduction({
           width={50} 
           height={50} 
           className={'hover:cursor-pointer'}
-          onClick={() => window.open('https://www.linkedin.com/in/trevor-bedson-756195339/')} />
+          onClick={() => window.open('https://www.linkedin.com/in/trevor-bedson/')} />
       </div>
     </div>
   );
