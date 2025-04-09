@@ -20,7 +20,7 @@ export function ProjectCard({
         return (
           <button onClick={() => window.open(link)}>
             <Image
-              src={'/rocket.svg'}
+              src={'/icons/rocket.svg'}
               alt={'Click to takeoff!'}
               width={32}
               height={32}
@@ -35,7 +35,7 @@ export function ProjectCard({
         return (
           <button onClick={() => window.open(source)}>
             <Image
-              src={'/github.svg'}
+              src={'/icons/github.svg'}
               alt={'Click to visit source!'}
               width={32}
               height={32}
@@ -57,7 +57,7 @@ export function ProjectCard({
         }}
         className='content-background rounded-2xl px-6 py-4'>
         <div className='flex flex-row-reverse justify-between gap-x-4 pb-2'>
-          <div className='flex flex-row gap-x-2'>
+          <div className='flex flex-row gap-x-3'>
             {pageLink()}
             {sourceLink()}
           </div>
