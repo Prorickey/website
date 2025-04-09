@@ -4,13 +4,13 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ProjectCard } from './ProjectCard';
 
 export interface Projects {
-    title: string;
-    description: string;
-    langs: string[];
-    link: string | null;
-    source: string | null;
-    date: string;
-  }
+  title: string;
+  description: string;
+  langs: string[];
+  link: string | null;
+  source: string | null;
+  date: string;
+}
 
 export function Projects({
   divRef,

@@ -7,7 +7,7 @@ const whoAmIText = [
   'an engineer.',
   'a creative thinker.',
   'a student.',
-  'an architect.'
+  'an architect.',
 ];
 
 export default function Introduction({
@@ -52,32 +52,36 @@ export default function Introduction({
       </h1>
       <h1 className='pl-5 text-3xl lg:text-6xl'>i am {whoAmI}</h1>
       <div className={`flex flex-row gap-x-3 p-3`}>
-        <Image 
-          src={'/icons/github.svg'} 
-          alt={'Github'} 
-          width={35} 
-          height={35} 
+        <Image
+          src={'/icons/github.svg'}
+          alt={'Github'}
+          width={35}
+          height={35}
           className={'hover:cursor-pointer'}
-          onClick={() => window.open('https://github.com/Prorickey')} />
-        <Image 
-          src={'/icons/linkedin.svg'} 
-          alt={'LinkedIn'} 
-          width={50} 
-          height={50} 
+          onClick={() => window.open('https://github.com/Prorickey')}
+        />
+        <Image
+          src={'/icons/linkedin.svg'}
+          alt={'LinkedIn'}
+          width={50}
+          height={50}
           className={'hover:cursor-pointer'}
-          onClick={() => window.open('https://www.linkedin.com/in/trevor-bedson/')} />
-        <div className="relative group w-fit">
-          <Image 
-            src="/icons/mail.svg" 
-            alt="Email" 
-            width={50} 
-            height={50} 
-            className="hover:cursor-pointer"
+          onClick={() =>
+            window.open('https://www.linkedin.com/in/trevor-bedson/')
+          }
+        />
+        <div className='group relative w-fit'>
+          <Image
+            src='/icons/mail.svg'
+            alt='Email'
+            width={50}
+            height={50}
+            className='hover:cursor-pointer'
             onClick={() => window.open('mailto:trevor@bedson.tech')}
           />
-          <p className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-1 rounded 
-          bg-white text-stone-900 text-sm opacity-0 group-hover:opacity-100 transition-opacity 
-          duration-200 pointer-events-none">trevor@bedson.tech</p>
+          <p className='pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded bg-white px-2 py-1 text-sm text-stone-900 opacity-0 transition-opacity duration-200 group-hover:opacity-100'>
+            trevor@bedson.tech
+          </p>
         </div>
       </div>
     </div>

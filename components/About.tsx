@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { RefObject, useEffect, useState } from 'react';
 
@@ -39,16 +39,17 @@ export function About({
       <div className='h-[0.1rem] w-full bg-[#db4c4c]'></div>
       <p className='w-full p-10 text-center text-5xl font-semibold'>About Me</p>
       <div className='flex w-full flex-col gap-4 lg:flex-row lg:self-center'>
-        <motion.div 
-          whileInView="visible"
+        <motion.div
+          whileInView='visible'
           viewport={{ once: true }}
-          transition={{ ease: "easeInOut", duration: 0.75 }}
+          transition={{ ease: 'easeInOut', duration: 0.75 }}
           initial={{ opacity: 0, x: -150 }}
           variants={{
             visible: { opacity: 1, x: 0 },
-            hidden: { opacity: 0, x: -150 }
+            hidden: { opacity: 0, x: -150 },
           }}
-          className='w-full px-5 pt-4 text-center text-xl lg:w-[40%] lg:text-left xl:w-full xl:px-20 xl:pt-20'>
+          className='w-full px-5 pt-4 text-center text-xl lg:w-[40%] lg:text-left xl:w-full xl:px-20 xl:pt-20'
+        >
           <p>
             Hey there! I&#39;m a {age} year old full-stack developer that has a
             passion for learning and an interest in computers. I enjoy creating
@@ -56,7 +57,7 @@ export function About({
             recently. I began my endeavours in programming by learning Java and
             nodejs to create Minecraft game servers and have extensive
             experience with databases and large codebases. I&#39;ve also been
-            working on creating apps with expo and react-native, check out my 
+            working on creating apps with expo and react-native, check out my
             latest app North Carolina TSA Conference below!
           </p>
         </motion.div>
@@ -73,14 +74,15 @@ export function About({
 function ComeFromTop({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
-      whileInView="visible"
+      whileInView='visible'
       viewport={{ amount: 0.1, once: true }}
-      transition={{ ease: "easeInOut", duration: 0.75 }}
+      transition={{ ease: 'easeInOut', duration: 0.75 }}
       initial={{ opacity: 0, y: 150 }}
       variants={{
         visible: { opacity: 1, y: 0 },
-        hidden: { opacity: 0, y: 150 }
-      }}>
+        hidden: { opacity: 0, y: 150 },
+      }}
+    >
       {children}
     </motion.div>
   );
@@ -89,14 +91,15 @@ function ComeFromTop({ children }: { children: React.ReactNode }) {
 function ComeFromBottom({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
-      whileInView="visible"
+      whileInView='visible'
       viewport={{ amount: 0.5, once: true }}
-      transition={{ ease: "easeInOut", duration: 0.75 }}
+      transition={{ ease: 'easeInOut', duration: 0.75 }}
       initial={{ opacity: 0, y: -150 }}
       variants={{
         visible: { opacity: 1, y: 0 },
-        hidden: { opacity: 0, y: -150 }
-      }}>
+        hidden: { opacity: 0, y: -150 },
+      }}
+    >
       {children}
     </motion.div>
   );
@@ -163,7 +166,11 @@ function KnowCardsNormal() {
         <div className='flex flex-1 flex-col gap-2 py-14 lg:gap-4'>
           <KnowCard name={'Golang'} id={'golang'} url={'https://go.dev/'} />
           <KnowCard name={'Javascript'} id={'javascript'} url={null} />
-          <KnowCard name={'Node.js'} id={'nodejs'} url={'https://nodejs.org/'} />
+          <KnowCard
+            name={'Node.js'}
+            id={'nodejs'}
+            url={'https://nodejs.org/'}
+          />
           <KnowCard
             name={'MongoDB'}
             id={'mongodb'}
@@ -174,7 +181,11 @@ function KnowCardsNormal() {
             id={'docker'}
             url={'https://www.docker.com/'}
           />
-          <KnowCard name={'MySQL'} id={'mysql'} url={'https://www.mysql.com/'} />
+          <KnowCard
+            name={'MySQL'}
+            id={'mysql'}
+            url={'https://www.mysql.com/'}
+          />
           <KnowCard
             name={'Typescript'}
             id={'typescript'}
@@ -229,7 +240,11 @@ function KnowCardsHeart() {
         <div className='flex w-full flex-1 flex-col gap-2 py-14 lg:gap-4'>
           <KnowCard name={'Golang'} id={'golang'} url={'https://go.dev/'} />
           <KnowCard name={'Javascript'} id={'javascript'} url={null} />
-          <KnowCard name={'Node.js'} id={'nodejs'} url={'https://nodejs.org/'} />
+          <KnowCard
+            name={'Node.js'}
+            id={'nodejs'}
+            url={'https://nodejs.org/'}
+          />
           <KnowCard
             name={'MongoDB'}
             id={'mongodb'}
@@ -250,7 +265,11 @@ function KnowCardsHeart() {
             url={'https://www.typescriptlang.org/'}
           />
           <KnowCard name={'Java'} id={'java'} url={'https://www.java.com/'} />
-          <KnowCard name={'MySQL'} id={'mysql'} url={'https://www.mysql.com/'} />
+          <KnowCard
+            name={'MySQL'}
+            id={'mysql'}
+            url={'https://www.mysql.com/'}
+          />
           <KnowCard name={'Linux'} id={'linux'} url={null} />
           <KnowCard
             name={'SwiftUI'}

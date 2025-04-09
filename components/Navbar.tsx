@@ -45,14 +45,8 @@ export default function Navbar({
             Trevor Bedson
           </p>
           <div className='flex w-full flex-row justify-end gap-x-10 text-lg'>
-            <NavbarItem
-              text={'About'}
-              ref={aboutRef}
-            />
-            <NavbarItem
-              text={'Projects'}
-              ref={projectsRef}
-            />
+            <NavbarItem text={'About'} ref={aboutRef} />
+            <NavbarItem text={'Projects'} ref={projectsRef} />
           </div>
         </div>
       </div>
@@ -60,10 +54,26 @@ export default function Navbar({
   );
 }
 
-function NavbarItem({ text, ref }: { text: string; ref: RefObject<HTMLDivElement | null> }) {
+function NavbarItem({
+  text,
+  ref,
+}: {
+  text: string;
+  ref: RefObject<HTMLDivElement | null>;
+}) {
   return (
     <button
-      onClick={() => window.scrollTo({ top: (ref.current?.getBoundingClientRect() ? ref.current?.getBoundingClientRect().top : 0) + window.scrollY - 70, behavior: 'smooth' })}
+      onClick={() =>
+        window.scrollTo({
+          top:
+            (ref.current?.getBoundingClientRect()
+              ? ref.current?.getBoundingClientRect().top
+              : 0) +
+            window.scrollY -
+            70,
+          behavior: 'smooth',
+        })
+      }
     >
       <p>{text}</p>
     </button>
