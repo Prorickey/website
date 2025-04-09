@@ -7,6 +7,7 @@ const whoAmIText = [
   'an engineer.',
   'a creative thinker.',
   'a student.',
+  'an architect.'
 ];
 
 export default function Introduction({

@@ -25,7 +25,7 @@
   },
   {
     "title": "SMathHacks Hackathon -> ARES-M",
-    "description": "For this project, I worked in a team of four to develop a prototype weather pod that could be used on Mars to collect data and relay it back to Earth. I was responsible for the software side of the project, which included developing a web interface to display the data collected by the pod. The project was developed in a 36-hour hackathon.",
+    "description": "For this project, I worked in a team of four to develop a prototype weather pod that could be used on Mars to collect data and relay it back to Earth. I was responsible for the software side of the project, which included developing a web interface to display the data collected by the pod. The project was developed in a 36-hour hackathon. The team and I are continuing this project and will be installing a weather station at NCSSM in late April/early May.",
     "langs": [
       "nodejs",
       "react",
@@ -43,7 +43,7 @@
   },
   {
     "title": "NCSSM Spoons Game Website",
-    "description": "This website hosts NCSSM's annual game of spoons. It helps streamline the setup of the physical game, tracks how the game progresses, and reports fun statistics at the end of the game. It also shows good use of cybersecurity skills and security practices and showcases the use of Kubernetes and Docker to scale applications. I will release the source code in April/May.",
+    "description": "This website hosts NCSSM's annual game of spoons. It helps streamline the setup of the physical game, tracks how the game progresses, and reports fun statistics at the end of the game. It also shows good use of cybersecurity skills and security practices and showcases the use of Kubernetes and Docker to scale applications.",
     "langs": [
       "react",
       "typescript",
@@ -59,7 +59,7 @@
       "git"
     ],
     "link": "https://ncssm-spoons.com",
-    "source": null,
+    "source": "https://github.com/Prorickey/spoons",
     "date": "January 2025 - Present"
   },
   {
