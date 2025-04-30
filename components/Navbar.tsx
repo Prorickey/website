@@ -26,7 +26,7 @@ export default function Navbar({
   }, [navOffset, navbarRef]);
 
   return (
-    <div className={'sticky top-0 w-full bg-[#171717]'} ref={navbarRef}>
+    <div className={'sticky top-0 w-full bg-[#171717] z-50'} ref={navbarRef}>
       <div
         className={
           'w-full ' +
