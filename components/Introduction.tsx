@@ -113,7 +113,7 @@ export default function Introduction({
           alt={'NCTSA App Team'}
           width={IMAGE_SIZE}
           height={IMAGE_SIZE}
-          className='w-[90%] lg:absolute rounded-2xl object-cover lg:w-2/3 lg:right-10 lg:top-0 mx-auto lg:mx-0 z-20 cursor-pointer'
+          className='w-[90%] lg:absolute rounded-2xl object-cover lg:w-2/3 2xl:w-[60%] lg:right-10 lg:top-0 mx-auto lg:mx-0 z-20 cursor-pointer'
           onClick={() => window.open('https://apps.apple.com/us/app/north-carolina-tsa-conference/id6743861783')}
         />
         <Image
@@ -121,7 +121,7 @@ export default function Introduction({
           alt={'SmathHacks Action Shot'}
           width={IMAGE_SIZE}
           height={IMAGE_SIZE}
-          className='w-[90%] lg:absolute rounded-2xl object-cover lg:w-2/3 lg:top-[15rem] lg:left-0 mx-auto lg:mx-0 z-10 lg:-translate-x-1/3 cursor-pointer'
+          className='w-[90%] lg:absolute rounded-2xl object-cover lg:w-2/3 2xl:w-[60%] lg:top-[15rem] lg:left-0 mx-auto lg:mx-0 z-10 lg:-translate-x-1/3 2xl:top-[18rem] cursor-pointer'
           onClick={() => window.open('https://devpost.com/software/ares-udeksp')}
         />
         <Image
@@ -130,7 +130,7 @@ export default function Introduction({
           width={IMAGE_SIZE}
           height={IMAGE_SIZE}
           ref={lowestImageRef}
-          className='w-[90%] lg:absolute rounded-2xl object-cover lg:w-2/3 top-[27rem] right-0 mx-auto lg:mx-0 cursor-pointer'
+          className='w-[90%] lg:absolute rounded-2xl object-cover lg:w-2/3 top-[27rem] 2xl:w-[60%] 2xl:top-[32rem] right-0 mx-auto lg:mx-0 cursor-pointer'
           onClick={() => window.open('https://www.instagram.com/roboknights8569/')}
         />
       </div>
