@@ -42,7 +42,7 @@ export default function Introduction({
     handleSizing();
     window.addEventListener('resize', handleSizing);
     return () => window.removeEventListener('resize', handleSizing);
-  }, [])
+  }, [handleSizing])
 
   useEffect(() => {
     setTimeout(() => {
