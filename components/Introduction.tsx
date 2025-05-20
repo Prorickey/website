@@ -8,41 +8,42 @@ const whoAmIText = [
   'a creative thinker.',
   'a student.',
   'an architect.',
+  'a leader.'
 ];
 
-const IMAGE_SIZE = 500;
+const IMAGE_SIZE = 450
 
 export default function Introduction({
   navbarRef,
 }: {
   navbarRef: RefObject<HTMLDivElement | null>;
 }) {
-  const [introHeight, setIntroHeight] = useState<number | null>(1000);
+  const [introHeight, setIntroHeight] = useState<number | string>(1000);
   const [whoAmI, setWhoAmI] = useState('');
   const [current, setCurrent] = useState(0);
   const [wait, setWait] = useState(0);
   const [direction, setDirection] = useState(0);
-  const lowestImageRef = useRef<HTMLImageElement | null>(null);
 
-  const handleSizing = () => {
-    if(window.innerWidth > 1024) {
-      if (navbarRef.current) {
-        const height = window.innerHeight - navbarRef.current.clientHeight;
-        const lowestImageBottom = lowestImageRef.current?.getBoundingClientRect().top
-        if(lowestImageBottom && lowestImageBottom + window.scrollY > height) 
-          // Don't ask how I arrived at this calculation, just know it works
-          setIntroHeight(lowestImageBottom + lowestImageRef.current?.getBoundingClientRect().height!/2 + window.scrollY);
-        else setIntroHeight(window.innerHeight - navbarRef.current.clientHeight);
-      }
-      else setIntroHeight(window.innerHeight);
-    } else setIntroHeight(null);
-  }
+  const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
 
   useEffect(() => {
-    handleSizing();
-    window.addEventListener('resize', handleSizing);
-    return () => window.removeEventListener('resize', handleSizing);
-  }, [handleSizing])
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if(width < 1024) {
+      setIntroHeight("auto")
+    } else {
+      if (navbarRef.current)
+        setIntroHeight(window.innerHeight - navbarRef.current.clientHeight);
+      else setIntroHeight(window.innerHeight);
+    }
+  }, [introHeight, navbarRef, width]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -63,10 +64,10 @@ export default function Introduction({
   }, [whoAmI, current, wait, direction, introHeight, navbarRef]);
 
   return (
-    <div className='flex flex-col lg:flex-row'>
+    <div className='flex flex-col lg:flex-row lg:justify-center'>
       <div
-        className='pt-8 pl-5 pr-5 lg:pt-18 lg:pl-20 w-full lg:w-1/2'
-        style={introHeight ? { height: introHeight } : {}}
+        className='flex-1 pt-8 pl-5 pr-5 lg:pt-18 lg:pl-20 w-full lg:max-w-4xl'
+        style={{ height: introHeight }}
       >
         <h1 className='pl-3 text-6xl xl:text-nowrap font-semibold lg:pl-0 lg:text-8xl'>
           Trevor Bedson
@@ -107,13 +108,13 @@ export default function Introduction({
           </div>
         </div>
       </div>
-      <div className='relative flex flex-col lg:flex-row gap-y-5 lg:gap-y-0 justify-start lg:justify-center align-middle w-full lg:w-1/2 mx-auto lg:m-15 pb-5 lg:pb-0'>
+      <div className={`flex-2 pb-4 lg:pr-24 w-full max-w-4xl`}>
         <Image
           src={'/images/nctsa.png'}
           alt={'NCTSA App Team'}
           width={IMAGE_SIZE}
           height={IMAGE_SIZE}
-          className='w-[90%] lg:absolute rounded-2xl object-cover lg:w-2/3 2xl:w-[60%] lg:right-10 lg:top-0 mx-auto lg:mx-0 z-20 cursor-pointer'
+          className='resize mx-auto lg:mx-0 mt-2 lg:mt-0 rounded-lg lg:translate-y-15 lg:float-right'
           onClick={() => window.open('https://apps.apple.com/us/app/north-carolina-tsa-conference/id6743861783')}
         />
         <Image
@@ -121,7 +122,7 @@ export default function Introduction({
           alt={'SmathHacks Action Shot'}
           width={IMAGE_SIZE}
           height={IMAGE_SIZE}
-          className='w-[90%] lg:absolute rounded-2xl object-cover lg:w-2/3 2xl:w-[60%] lg:top-[15rem] lg:left-0 mx-auto lg:mx-0 z-10 lg:-translate-x-1/3 2xl:top-[18rem] cursor-pointer'
+          className='resize mx-auto lg:mx-0 mt-4 lg:mt-0 rounded-lg'
           onClick={() => window.open('https://devpost.com/software/ares-udeksp')}
         />
         <Image
@@ -129,8 +130,7 @@ export default function Introduction({
           alt={'Robotics Action Shot'}
           width={IMAGE_SIZE}
           height={IMAGE_SIZE}
-          ref={lowestImageRef}
-          className='w-[90%] lg:absolute rounded-2xl object-cover lg:w-2/3 top-[27rem] 2xl:w-[60%] 2xl:top-[32rem] right-0 mx-auto lg:mx-0 cursor-pointer'
+          className='resize mx-auto lg:mx-0 mt-4 lg:mt-0 rounded-lg lg:float-right lg:-translate-y-15'
           onClick={() => window.open('https://www.instagram.com/roboknights8569/')}
         />
       </div>

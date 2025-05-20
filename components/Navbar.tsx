@@ -35,7 +35,7 @@ export default function Navbar({
           (showName ? styles.navAdded : styles.navRemoved)
         }
       >
-        <div className='flex items-center justify-between p-5 pr-10'>
+        <div className='flex items-center justify-between p-5 lg:pr-10'>
           <p
             className={
               'inline text-2xl font-semibold text-nowrap ' +
@@ -44,7 +44,7 @@ export default function Navbar({
           >
             Trevor Bedson
           </p>
-          <div className='flex w-full flex-row justify-end gap-x-10 text-lg'>
+          <div className='flex w-full flex-row justify-end gap-x-3 lg:gap-x-10 text-lg'>
             <NavbarItem text={'About'} ref={aboutRef} />
             <NavbarItem text={'Projects'} ref={projectsRef} />
           </div>
