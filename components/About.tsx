@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { RefObject, useEffect, useState } from 'react';
+import styles from '@/styles/About.module.css';
 
 const today = new Date();
 const birthDate = new Date(2008, 2, 13);
@@ -60,6 +61,11 @@ export function About({
             working on creating apps with expo and react-native, check out my
             latest app North Carolina TSA Conference below!
           </p>
+          <div className='flex flex-row mt-8'>
+            <a className={styles.checkOutBlog} href='/blog'>
+              <span className={styles.checkOutBlogText}>Check out my Blog</span>
+            </a>
+          </div>
         </motion.div>
         {typeof window !== 'undefined' && window.innerWidth > 600 ? (
           <KnowCardsHeart />

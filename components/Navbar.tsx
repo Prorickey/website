@@ -17,7 +17,7 @@ export default function Navbar({
     if (window.scrollY > 5) setShowName(true);
     else setShowName(false);
   };
-
+``
   useEffect(() => {
     if (navbarRef.current)
       setNavOffset(navbarRef.current.getBoundingClientRect().height);
@@ -47,6 +47,7 @@ export default function Navbar({
           <div className='flex w-full flex-row justify-end gap-x-3 lg:gap-x-10 text-lg'>
             <NavbarItem text={'About'} ref={aboutRef} />
             <NavbarItem text={'Projects'} ref={projectsRef} />
+            <a href='/blog'>Blog</a>
           </div>
         </div>
       </div>
