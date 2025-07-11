@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { Projects } from './Projects';
 import { motion } from 'framer-motion';

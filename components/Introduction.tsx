@@ -1,3 +1,5 @@
+'use client';
+
 import { RefObject, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
@@ -64,7 +66,7 @@ export default function Introduction({
   }, [whoAmI, current, wait, direction, introHeight, navbarRef]);
 
   return (
-    <div className='flex flex-col lg:flex-row lg:justify-center'>
+    <div id="introduction" className='flex flex-col lg:flex-row lg:justify-center'>
       <div
         className='flex-1 pt-8 pl-5 pr-5 lg:pt-18 lg:pl-20 w-full lg:max-w-4xl'
         style={{ height: introHeight }}

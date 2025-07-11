@@ -36,7 +36,7 @@ export function About({
   }, [refresh]);
 
   return (
-    <div ref={divRef}>
+    <div ref={divRef} id="about">
       <div className='h-[0.1rem] w-full bg-[#db4c4c]'></div>
       <p className='w-full p-10 text-center text-5xl font-semibold'>About Me</p>
       <div className='flex w-full flex-col gap-4 lg:flex-row lg:self-center'>

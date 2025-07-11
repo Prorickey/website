@@ -1,4 +1,5 @@
-import Image from 'next/image';
+'use client';
+
 import { RefObject, useEffect, useState } from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ProjectCard } from './ProjectCard';
@@ -35,7 +36,7 @@ export function Projects({
   }, []);
 
   return (
-    <div ref={divRef}>
+    <div ref={divRef} id="projects">
       <h1 className='w-full p-5 text-center text-5xl font-semibold'>
         Projects
       </h1>
