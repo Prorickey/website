@@ -36,7 +36,7 @@ export function Projects({
   }, []);
 
   return (
-    <div ref={divRef} id="projects">
+    <div ref={divRef} id='projects'>
       <h1 className='w-full p-5 text-center text-5xl font-semibold'>
         Projects
       </h1>

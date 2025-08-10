@@ -1,5 +1,5 @@
-import NCTSAApp from "./NCTSAApp";
+import NCTSAApp from './NCTSAApp';
 
 export default {
-	NCTSAApp: NCTSAApp
-}
+  NCTSAApp: NCTSAApp,
+};

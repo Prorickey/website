@@ -1,6 +1,7 @@
 'use client';
 
 import styles from '@/styles/navbar.module.css';
+import Link from 'next/link';
 import { RefObject, useEffect, useState } from 'react';
 
 export default function Navbar({
@@ -28,7 +29,7 @@ export default function Navbar({
   }, [navOffset, navbarRef]);
 
   return (
-    <div className={'sticky top-0 w-full bg-[#171717] z-50'} ref={navbarRef}>
+    <div className={'sticky top-0 z-50 w-full bg-[#171717]'} ref={navbarRef}>
       <div
         className={
           'w-full ' +
@@ -46,10 +47,14 @@ export default function Navbar({
           >
             Trevor Bedson
           </p>
-          <div className='flex w-full flex-row justify-end gap-x-3 lg:gap-x-10 text-lg'>
-            <NavbarItem text={'About'} ref={aboutRef} link={"/#about"} />
-            <NavbarItem text={'Projects'} ref={projectsRef} link={"/#projects"} />
-            <a href='/blog'>Blog</a>
+          <div className='flex w-full flex-row justify-end gap-x-3 text-lg lg:gap-x-10'>
+            <NavbarItem text={'About'} ref={aboutRef} link={'/#about'} />
+            <NavbarItem
+              text={'Projects'}
+              ref={projectsRef}
+              link={'/#projects'}
+            />
+            <Link href='/blog'>Blog</Link>
           </div>
         </div>
       </div>
@@ -60,15 +65,15 @@ export default function Navbar({
 function NavbarItem({
   text,
   ref,
-  link
+  link,
 }: {
   text: string;
   ref: RefObject<HTMLDivElement | null> | null;
   link: string;
 }) {
-
   const actionFunc = () => {
-    if(ref != null) window.scrollTo({
+    if (ref != null)
+      window.scrollTo({
         top:
           (ref.current?.getBoundingClientRect()
             ? ref.current?.getBoundingClientRect().top
@@ -76,15 +81,12 @@ function NavbarItem({
           window.scrollY -
           70,
         behavior: 'smooth',
-      })
-    else 
-      window.location.href = link
-  }
+      });
+    else window.location.href = link;
+  };
 
   return (
-    <button
-      onClick={actionFunc}
-    >
+    <button onClick={actionFunc}>
       <p>{text}</p>
     </button>
   );

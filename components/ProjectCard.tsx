@@ -70,11 +70,13 @@ export function ProjectCard({
       <p>{description}</p>
       <div className='grid grid-cols-6 content-start justify-start gap-x-1 gap-y-4 py-3'>
         {langs.map((lang: string) => {
+          const icon = lang == 'onshape' ? 'onshape.png' : `${lang}.svg`;
+
           if (langlinks == null || langlinks[lang] == null)
             return (
               <Image
-                src={`/knows/${lang}.svg`}
-                alt={`${lang}.svg`}
+                src={`/knows/${icon}`}
+                alt={`${icon}`}
                 height={40}
                 width={40}
                 key={lang}
@@ -87,8 +89,8 @@ export function ProjectCard({
                 key={lang}
               >
                 <Image
-                  src={`/knows/${lang}.svg`}
-                  alt={`${lang}.svg`}
+                  src={`/knows/${icon}`}
+                  alt={`${icon}`}
                   height={40}
                   width={40}
                 />

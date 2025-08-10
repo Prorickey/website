@@ -1,5 +1,21 @@
 [
   {
+    "title": "IntoTheDeep - Team 8569 RoboKnights Robotics",
+    "description": "Before I arrived at NCSSM, I had never known that I could get involved with robotics. But ever since I've joined the RoboKnights at the beginning of junior year, I've been building systems that turn ideas into reality. Throughout my rookie year, I've learned how to create PID controllers, create controllable systems, implement vision systems, and more. Just recently at the 2025 Chicago Robotics Invitation, I implemented a camera vision system that leveraged on board computing to spot, identify, and locate game pieces on the field. My system even went as far as to move the arm to the game piece for pickup. I'm excited to be the captain of RoboKnights for the upcoming season, and hope to make strides in the FTC world.",
+    "langs": ["onshape", "java", "git"],
+    "link": null,
+    "source": "https://github.com/ftc8569/2024-IntoTheDeep",
+    "date": "September 2024 - Present"
+  },
+  {
+    "title": "SightLine",
+    "description": "SightLine is a pair of AI powered glasses that help visually impaired people navigate the world. It combines a mobile app with powerful server infrastructure to enable the glasses to see the world, and allow the user to ask about their surroundings. By simply asking, \"Hey SightLine, where is the nearest chair\", you can learn about not only where the nearest chair is, but how far it is from you, in which direction, and how many steps it will take to get there.",
+    "langs": ["onshape", "swiftui", "docker", "kubernetes", "python", "git"],
+    "link": null,
+    "source": null,
+    "date": "June 2025 - July 2025"
+  },
+  {
     "title": "North Carolina TSA Conference App",
     "description": "This app was designed to help facilitate the North Carolina TSA State Conference. It posts the agenda, sends out notifications, makes resources available, and more. I was the development lead, and soley developed the backend and management website. I also was responsible for hosting, and set up kubernetes for the application and connected it with two dedicated databases, redis and postgresql. I did a lot of the internal programming for the app, and did some of the UI work.",
     "langs": [
@@ -114,7 +130,7 @@
     ],
     "link": null,
     "source": "https://github.com/ftc8569/Website",
-    "date": "September - Present"
+    "date": "September 2024 - Present"
   },
   {
     "title": "Minecraft Game Server -> ClassicDupe",
@@ -147,6 +163,6 @@
     "langs": ["golang", "git"],
     "link": null,
     "source": "https://github.com/Prorickey/NotionCalendarUpdater",
-    "date": "May-July 2024"
+    "date": "May 2024 - July 2024"
   }
 ]

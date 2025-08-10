@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { RefObject, useEffect, useState } from 'react';
 import styles from '@/styles/About.module.css';
+import Link from 'next/link';
 
 const today = new Date();
 const birthDate = new Date(2008, 2, 13);
@@ -36,7 +37,7 @@ export function About({
   }, [refresh]);
 
   return (
-    <div ref={divRef} id="about">
+    <div ref={divRef} id='about'>
       <div className='h-[0.1rem] w-full bg-[#db4c4c]'></div>
       <p className='w-full p-10 text-center text-5xl font-semibold'>About Me</p>
       <div className='flex w-full flex-col gap-4 lg:flex-row lg:self-center'>
@@ -53,18 +54,26 @@ export function About({
         >
           <p>
             Hey there! I&#39;m a {age} year old full-stack developer that has a
-            passion for learning and an interest in computers. I enjoy creating
-            websites using React and have been learning to program robots
-            recently. I began my endeavours in programming by learning Java and
-            nodejs to create Minecraft game servers and have extensive
-            experience with databases and large codebases. I&#39;ve also been
-            working on creating apps with expo and react-native, check out my
-            latest app North Carolina TSA Conference below!
+            passion for learning and an interest in computers. I currently study
+            at the{' '}
+            <span
+              onClick={() => window.open('https://ncssm.edu')}
+              className='cursor-pointer underline decoration-amber-500 underline-offset-2'
+            >
+              North Carolina School of Science and Mathematics
+            </span>{' '}
+            but in my free time enjoy creating websites using React and have
+            been learning to program robots recently. I began my endeavours in
+            programming by learning Java and nodejs to create Minecraft game
+            servers and have extensive experience with databases and large
+            codebases. I&#39;ve also been working on creating apps with expo and
+            react-native, check out my latest app North Carolina TSA Conference
+            below!
           </p>
-          <div className='flex flex-row mt-8'>
-            <a className={styles.checkOutBlog} href='/blog'>
+          <div className='mt-8 flex flex-row'>
+            <Link className={styles.checkOutBlog} href='/blog'>
               <span className={styles.checkOutBlogText}>Check out my Blog</span>
-            </a>
+            </Link>
           </div>
         </motion.div>
         {typeof window !== 'undefined' && window.innerWidth > 600 ? (

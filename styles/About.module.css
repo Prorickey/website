@@ -1,34 +1,34 @@
 .checkOutBlog {
-    --gradient: linear-gradient(-35deg, #db4c4c, rgb(255, 151, 65));
+  --gradient: linear-gradient(-35deg, #db4c4c, rgb(255, 151, 65));
 
-	border: none;
-	cursor: pointer;
-	outline: none;
-	font-size: 1.15rem;
-	font-weight: 600;
-	transform: translate(0);
-	background-image: var(--gradient);
-	padding: 1rem 2rem;
-	border-radius: 2rem;
-	box-shadow: 0 22px 44px rgba(gray, 0.1);
-	transition: box-shadow .25s;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-size: 1.15rem;
+  font-weight: 600;
+  transform: translate(0);
+  background-image: var(--gradient);
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 22px 44px rgba(gray, 0.1);
+  transition: box-shadow 0.25s;
 
-    .checkOutBlogText {
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        background-image: var(--gradient);
+  .checkOutBlogText {
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-image: var(--gradient);
 
-        &::after {
-            content: '';
-            border-radius: 2rem;
-            position: absolute;
-            margin: 2px;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            z-index: -1;
-            background: var(--background);
-        }
+    &::after {
+      content: '';
+      border-radius: 2rem;
+      position: absolute;
+      margin: 2px;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+      background: var(--background);
     }
+  }
 }
