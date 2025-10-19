@@ -8,11 +8,11 @@
     "date": "September 2024 - Present"
   },
   {
-    "title": "SightLine",
-    "description": "SightLine is a pair of AI powered glasses that help visually impaired people navigate the world. It combines a mobile app with powerful server infrastructure to enable the glasses to see the world, and allow the user to ask about their surroundings. By simply asking, \"Hey SightLine, where is the nearest chair\", you can learn about not only where the nearest chair is, but how far it is from you, in which direction, and how many steps it will take to get there.",
+    "title": "SightLine - Intel Global AI Award 2025",
+    "description": "SightLine is a pair of AI powered glasses that help visually impaired people navigate the world. It combines a mobile app with powerful server infrastructure to enable the glasses to see the world, and allow the user to ask about their surroundings. By simply asking, \"Hey SightLine, where is the nearest chair\", you can learn about not only where the nearest chair is, but how far it is from you, in which direction, and how many steps it will take to get there. With SightLine, we competed against thousands of students in the Intel Global AI Festival, and won the First Place Global Award for 2025.",
     "langs": ["onshape", "swiftui", "docker", "kubernetes", "python", "git"],
     "link": "https://www.intel.com/content/www/us/en/corporate/artificial-intelligence/winner2025.html#tab-blade-1-0",
-    "source": null,
+    "source": "https://github.com/JoshuaChil/SightLine",
     "date": "June 2025 - July 2025"
   },
   {
