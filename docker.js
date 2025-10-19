@@ -7,7 +7,7 @@ console.log('Building Docker image...');
 const dockerBuildChild = spawn('docker', [
   'build',
   '-t',
-  `docker.prorickey.xyz/prorickey/nextjs-portfolio:${version}`,
+  `docker.bedson.tech/tbedson/portfolio:${version}`,
   '.',
 ]);
 
@@ -20,7 +20,7 @@ dockerBuildChild.on('exit', (code) => {
 
   const dockerPushChild = spawn('docker', [
     'push',
-    `docker.prorickey.xyz/prorickey/nextjs-portfolio:${version}`,
+    `docker.bedson.tech/tbedson/portfolio:${version}`,
   ]);
 
   dockerPushChild.stdout.pipe(process.stdout);

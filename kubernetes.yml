@@ -14,9 +14,11 @@ spec:
     spec:
       containers:
         - name: portfolio-container
-          image: docker.prorickey.xyz/prorickey/nextjs-portfolio:latest
+          image: docker.bedson.tech/tbedson/portfolio:2.0.1
           ports:
             - containerPort: 3000
+      imagePullSecrets:
+        - name: docker.bedson.tech
 ---
 apiVersion: v1
 kind: Service
