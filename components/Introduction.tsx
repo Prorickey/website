@@ -111,7 +111,7 @@ export default function Introduction({
               onClick={() => window.open('mailto:trevor@bedson.tech')}
             />
             <p className='pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 rounded bg-white px-2 py-1 text-sm text-stone-900 opacity-0 transition-opacity duration-200 group-hover:opacity-100'>
-              trevobedson@gmail.com
+              trevor@bedson.tech
             </p>
           </div>
         </div>
