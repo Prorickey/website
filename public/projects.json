@@ -43,6 +43,7 @@
     "title": "SMathHacks Hackathon -> ARES-M",
     "description": "For this project, I worked in a team of four to develop a prototype weather pod that could be used on Mars to collect data and relay it back to Earth. I was responsible for the software side of the project, which included developing a web interface to display the data collected by the pod. The project was developed in a 36-hour hackathon. The team and I are continuing this project and will be installing a weather station at NCSSM in late April/early May.",
     "langs": [
+      "cpp",
       "nodejs",
       "react",
       "typescript",
