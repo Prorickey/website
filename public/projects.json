@@ -77,6 +77,25 @@
     "date": "March 2025 - Present"
   },
   {
+    "title": "Attic Weather Station",
+    "description": "This is one of my early, and simple hardware projects that helped get me introduced to working with dev boards, breadboarding, and small devices. This project also helped me investigate an hypothesis about a problem in my life. I needed to figure out why my house got so hot, and by tracking the temperature in my attic, I could graph it over time and visualize if the heat in my attic was causing my whole house to get hot.",
+    "langs": [
+      "cpp",
+      "react",
+      "typescript",
+      "html",
+      "css",
+      "tailwindcss",
+      "nextjs",
+      "docker",
+      "nodejs",
+      "git"
+    ],
+    "link": null,
+    "source": "https://github.com/Prorickey/AtticWeatherStation",
+    "date": "June 2025 - July 2025"
+  },
+  {
     "title": "NCSSM Spoons Game Website",
     "description": "This website hosts NCSSM's annual game of spoons. It helps streamline the setup of the physical game, tracks how the game progresses, and reports fun statistics at the end of the game. It also shows good use of cybersecurity skills and security practices and showcases the use of Kubernetes and Docker to scale applications.",
     "langs": [
