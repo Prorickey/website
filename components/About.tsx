@@ -2,25 +2,11 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { RefObject, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '@/styles/About.module.css';
 import Link from 'next/link';
 
-const today = new Date();
-const birthDate = new Date(2008, 2, 13);
-let age = today.getFullYear() - birthDate.getFullYear();
-if (
-  today.getMonth() < birthDate.getMonth() ||
-  (today.getMonth() === birthDate.getMonth() &&
-    today.getDate() < birthDate.getDate())
-)
-  age--;
-
-export function About({
-  divRef,
-}: {
-  divRef: RefObject<HTMLDivElement | null>;
-}) {
+export function About({ age }: { age: number }) {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
@@ -36,8 +22,22 @@ export function About({
     };
   }, [refresh]);
 
+  const [mounted, setMounted] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    setMounted(true);
+    setWindowWidth(window.innerWidth);
+
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
   return (
-    <div ref={divRef} id='about'>
+    <div id='about'>
       <div className='h-[0.1rem] w-full bg-[#db4c4c]'></div>
       <p className='w-full p-10 text-center text-5xl font-semibold'>About Me</p>
       <div className='flex w-full flex-col gap-4 lg:flex-row lg:self-center'>
@@ -76,11 +76,7 @@ export function About({
             </Link>
           </div>
         </motion.div>
-        {typeof window !== 'undefined' && window.innerWidth > 600 ? (
-          <KnowCardsHeart />
-        ) : (
-          <KnowCardsNormal />
-        )}
+        {mounted && windowWidth > 600 ? <KnowCardsHeart /> : <KnowCardsNormal />}
       </div>
     </div>
   );

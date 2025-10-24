@@ -15,11 +15,7 @@ const whoAmIText = [
 
 const IMAGE_SIZE = 450;
 
-export default function Introduction({
-  navbarRef,
-}: {
-  navbarRef: RefObject<HTMLDivElement | null>;
-}) {
+export default function Introduction() {
   const [introHeight, setIntroHeight] = useState<number | string>(1000);
   const [whoAmI, setWhoAmI] = useState('');
   const [current, setCurrent] = useState(0);
@@ -43,11 +39,12 @@ export default function Introduction({
     if (width < 1024) {
       setIntroHeight('auto');
     } else {
-      if (navbarRef.current)
-        setIntroHeight(window.innerHeight - navbarRef.current.clientHeight);
+      const navbar = document.getElementById('navbar');
+      if (navbar)
+        setIntroHeight(window.innerHeight - navbar.clientHeight);
       else setIntroHeight(window.innerHeight);
     }
-  }, [introHeight, navbarRef, width]);
+  }, [introHeight, width]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -65,7 +62,7 @@ export default function Introduction({
         } else setWhoAmI(whoAmIText[current].substring(0, whoAmI.length - 1));
       }
     }, 125);
-  }, [whoAmI, current, wait, direction, introHeight, navbarRef]);
+  }, [whoAmI, current, wait, direction, introHeight]);
 
   return (
     <div

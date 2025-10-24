@@ -2,17 +2,9 @@
 
 import styles from '@/styles/navbar.module.css';
 import Link from 'next/link';
-import { RefObject, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function Navbar({
-  navbarRef,
-  aboutRef,
-  projectsRef,
-}: {
-  navbarRef: RefObject<HTMLDivElement | null> | null;
-  aboutRef: RefObject<HTMLDivElement | null> | null;
-  projectsRef: RefObject<HTMLDivElement | null> | null;
-}) {
+export default function Navbar() {
   const [showName, setShowName] = useState(false);
   const [navOffset, setNavOffset] = useState(0);
 
@@ -22,14 +14,15 @@ export default function Navbar({
   };
 
   useEffect(() => {
-    if (navbarRef && navbarRef.current)
-      setNavOffset(navbarRef.current.getBoundingClientRect().height);
+    const navbar = document.getElementById('navbar');
+    if (navbar)
+      setNavOffset(navbar.getBoundingClientRect().height);
     window.addEventListener('scroll', onscroll);
     return () => window.removeEventListener('scroll', onscroll);
-  }, [navOffset, navbarRef]);
+  }, [navOffset]);
 
   return (
-    <div className={'sticky top-0 z-50 w-full bg-[#171717]'} ref={navbarRef}>
+    <div id={"navbar"} className={'sticky top-0 z-50 w-full bg-[#171717]'}>
       <div
         className={
           'w-full ' +
@@ -48,12 +41,8 @@ export default function Navbar({
             Trevor Bedson
           </p>
           <div className='flex w-full flex-row justify-end gap-x-3 text-lg lg:gap-x-10'>
-            <NavbarItem text={'About'} ref={aboutRef} link={'/#about'} />
-            <NavbarItem
-              text={'Projects'}
-              ref={projectsRef}
-              link={'/#projects'}
-            />
+            <NavbarItem text={'About'} link={'/#about'} />
+            <NavbarItem text={'Projects'} link={'/#projects'}/>
             <Link href='/blog'>Blog</Link>
           </div>
         </div>
@@ -64,30 +53,14 @@ export default function Navbar({
 
 function NavbarItem({
   text,
-  ref,
-  link,
+  link
 }: {
   text: string;
-  ref: RefObject<HTMLDivElement | null> | null;
   link: string;
 }) {
-  const actionFunc = () => {
-    if (ref != null)
-      window.scrollTo({
-        top:
-          (ref.current?.getBoundingClientRect()
-            ? ref.current?.getBoundingClientRect().top
-            : 0) +
-          window.scrollY -
-          70,
-        behavior: 'smooth',
-      });
-    else window.location.href = link;
-  };
-
   return (
-    <button onClick={actionFunc}>
+    <a href={link}>
       <p>{text}</p>
-    </button>
+    </a>
   );
 }

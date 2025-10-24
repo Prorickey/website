@@ -1,6 +1,6 @@
 'use client';
 
-import { RefObject, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ProjectCard } from './ProjectCard';
 
@@ -13,15 +13,14 @@ export interface Projects {
   date: string;
 }
 
-export function Projects({
-  divRef,
-}: {
-  divRef: RefObject<HTMLDivElement | null>;
-}) {
+export function Projects() {
   const [projects, setProjects] = useState<Projects[]>([]);
   const [langlinks, setLanglinks] = useState<any>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true); 
+
     fetch('/projects.json')
       .then((res) => res.json())
       .then((data) => {
@@ -35,8 +34,10 @@ export function Projects({
       });
   }, []);
 
+  if (!mounted || projects.length === 0 || !langlinks) return null;
+
   return (
-    <div ref={divRef} id='projects'>
+    <div id='projects'>
       <h1 className='w-full p-5 text-center text-5xl font-semibold'>
         Projects
       </h1>
