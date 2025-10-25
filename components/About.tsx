@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import styles from '@/styles/About.module.css';
+import styles from '@/components/About.module.css';
 import Link from 'next/link';
 
 export function About({ age }: { age: number }) {
@@ -26,7 +26,7 @@ export function About({ age }: { age: number }) {
 
   useEffect(() => {
     // mark as client after mount
-    const timeout = setTimeout(() => setIsClient(true), 0); 
+    const timeout = setTimeout(() => setIsClient(true), 0);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -83,7 +83,11 @@ export function About({ age }: { age: number }) {
             </Link>
           </div>
         </motion.div>
-        {isClient && windowWidth > 600 ? <KnowCardsHeart /> : <KnowCardsNormal />}
+        {isClient && windowWidth > 600 ? (
+          <KnowCardsHeart />
+        ) : (
+          <KnowCardsNormal />
+        )}
       </div>
     </div>
   );

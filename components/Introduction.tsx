@@ -30,7 +30,9 @@ export default function Introduction() {
       return 'auto';
     } else {
       const navbar = document.getElementById('navbar');
-      return navbar ? window.innerHeight - navbar.clientHeight : window.innerHeight;
+      return navbar
+        ? window.innerHeight - navbar.clientHeight
+        : window.innerHeight;
     }
   }, [width]);
 

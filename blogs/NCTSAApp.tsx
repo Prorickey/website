@@ -150,6 +150,6 @@ const blog = {
   description:
     'Learn about my journey making my first production app, from never having coded an app before to being deployed to hundreds of users weeks later.',
   component: <NCTSAApp />,
-}
+};
 
-export default blog
+export default blog;

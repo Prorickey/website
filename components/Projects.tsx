@@ -20,7 +20,7 @@ export function Projects() {
 
   useEffect(() => {
     // mark as client after mount
-    const timeout = setTimeout(() => setIsClient(true), 0); 
+    const timeout = setTimeout(() => setIsClient(true), 0);
     return () => clearTimeout(timeout);
   }, []);
 

@@ -1,6 +1,6 @@
 'use client';
 
-import styles from '@/styles/navbar.module.css';
+import styles from '@/components/Navbar.module.css';
 import Link from 'next/link';
 import { useLayoutEffect, useState } from 'react';
 
@@ -18,7 +18,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div id={"navbar"} className={'sticky top-0 z-50 w-full bg-[#171717]'}>
+    <div id={'navbar'} className={'sticky top-0 z-50 w-full bg-[#171717]'}>
       <div
         className={
           'w-full ' +
@@ -38,7 +38,7 @@ export default function Navbar() {
           </p>
           <div className='flex w-full flex-row justify-end gap-x-3 text-lg lg:gap-x-10'>
             <NavbarItem text={'About'} link={'/#about'} />
-            <NavbarItem text={'Projects'} link={'/#projects'}/>
+            <NavbarItem text={'Projects'} link={'/#projects'} />
             <Link href='/blog'>Blog</Link>
           </div>
         </div>
@@ -47,13 +47,7 @@ export default function Navbar() {
   );
 }
 
-function NavbarItem({
-  text,
-  link
-}: {
-  text: string;
-  link: string;
-}) {
+function NavbarItem({ text, link }: { text: string; link: string }) {
   return (
     <a href={link}>
       <p>{text}</p>
