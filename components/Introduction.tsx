@@ -13,37 +13,11 @@ const whoAmIText = [
   'a leader.',
 ];
 
-const IMAGE_SIZE = 450;
-
 export default function Introduction() {
   const [whoAmI, setWhoAmI] = useState('');
   const [current, setCurrent] = useState(0);
   const [wait, setWait] = useState(0);
   const [direction, setDirection] = useState(0);
-
-  const [width, setWidth] = useState(
-    typeof window !== 'undefined' ? window.innerWidth : 0
-  );
-
-  const introHeight = useMemo(() => {
-    if (width < 1024) {
-      return 'auto';
-    } else {
-      const navbar = document.getElementById('navbar');
-      return navbar
-        ? window.innerHeight - navbar.clientHeight
-        : window.innerHeight;
-    }
-  }, [width]);
-
-  useEffect(() => {
-    function handleResize() {
-      setWidth(window.innerWidth);
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -61,93 +35,69 @@ export default function Introduction() {
         } else setWhoAmI(whoAmIText[current].substring(0, whoAmI.length - 1));
       }
     }, 125);
-  }, [whoAmI, current, wait, direction, introHeight]);
+  }, [whoAmI, current, wait, direction]);
 
   return (
     <div
       id='introduction'
-      className='flex flex-col lg:flex-row lg:justify-center'
+      className={`flex-1 w-full mb-20 py-8 px-[10%] pt-24 lg:pt-48
+        bg-linear-to-b from-[#db4c4c33] to-45% to-[#171717]`}
     >
-      <div
-        className='w-full flex-1 pt-8 pr-5 pl-5 lg:max-w-4xl lg:pt-18 lg:pl-20'
-        style={{ height: introHeight }}
-      >
-        <h1 className='pl-3 text-6xl font-semibold lg:pl-0 lg:text-8xl xl:text-nowrap'>
-          Trevor Bedson
-        </h1>
-        <h1 className='mt-2 pl-5 text-3xl md:mr-5 lg:mr-10 lg:text-6xl'>
-          i am {whoAmI}
-        </h1>
-        <div className={`ml-1 flex flex-row p-3 lg:ml-0`}>
+      <div className='flex flex-1 flex-col justify-center gap-x-4 lg:flex-row'>
+        <div className='mx-auto w-1/3 md:w-1/4'>
           <Image
-            src={'/icons/github.svg'}
-            alt={'Github'}
-            width={35}
-            height={35}
-            className={'mr-2 hover:cursor-pointer'}
-            onClick={() => window.open('https://github.com/Prorickey')}
+            src={'/trevor.png'}
+            priority
+            height={250}
+            width={250}
+            alt={'Portrait Picture'}
+            className='aspect-square w-full rounded-full border-2 border-[#db4c4c]'
           />
-          <Image
-            src={'/icons/linkedin.svg'}
-            alt={'LinkedIn'}
-            width={50}
-            height={50}
-            className={'hover:cursor-pointer'}
-            onClick={() =>
-              window.open('https://www.linkedin.com/in/trevor-bedson/')
-            }
-          />
-          <div className='group relative w-fit'>
+          <div
+            className={`flex flex-row items-center justify-center p-3`}
+          >
+            <div className='h-1 w-6' />
             <Image
-              src='/icons/mail.png'
-              alt='Email'
-              width={80}
-              height={80}
-              className='-translate-x-2 hover:cursor-pointer'
-              onClick={() => window.open('mailto:trevor@bedson.tech')}
+              src={'/icons/github.svg'}
+              alt={'Github'}
+              width={35}
+              height={35}
+              className={'mr-2 hover:cursor-pointer'}
+              onClick={() => window.open('https://github.com/Prorickey')}
             />
-            <p className='pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 rounded bg-white px-2 py-1 text-sm text-stone-900 opacity-0 transition-opacity duration-200 group-hover:opacity-100'>
-              trevor@bedson.tech
-            </p>
+            <Image
+              src={'/icons/linkedin.svg'}
+              alt={'LinkedIn'}
+              width={50}
+              height={50}
+              className={'hover:cursor-pointer'}
+              onClick={() =>
+                window.open('https://www.linkedin.com/in/trevor-bedson/')
+              }
+            />
+            <div className='group relative'>
+              <Image
+                src='/icons/mail.png'
+                alt='Email'
+                width={80}
+                height={80}
+                className='min-w-20 min-h-20 -translate-x-3 hover:cursor-pointer'
+                onClick={() => window.open('mailto:trevor@bedson.tech')}
+              />
+              <p className='pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 rounded bg-white px-2 py-1 text-sm text-stone-900 opacity-0 transition-opacity duration-200 group-hover:opacity-100'>
+                trevor@bedson.tech
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className={`w-full max-w-4xl flex-2 pb-4 lg:pr-24`}>
-        <Image
-          src={'/images/nctsa.png'}
-          alt={'NCTSA App Team'}
-          width={IMAGE_SIZE}
-          height={IMAGE_SIZE}
-          className='mx-auto mt-2 resize rounded-lg lg:float-right lg:mx-0 lg:mt-0 lg:translate-y-15'
-          priority
-          onClick={() =>
-            window.open(
-              'https://apps.apple.com/us/app/north-carolina-tsa-conference/id6743861783'
-            )
-          }
-        />
-        <Image
-          src={'/images/smathhacks.jpg'}
-          alt={'SmathHacks Action Shot'}
-          width={IMAGE_SIZE}
-          height={IMAGE_SIZE}
-          className='mx-auto mt-4 resize rounded-lg lg:mx-0 lg:mt-0'
-          priority
-          onClick={() =>
-            window.open('https://devpost.com/software/ares-udeksp')
-          }
-        />
-        <Image
-          src={'/images/robotics.jpeg'}
-          alt={'Robotics Action Shot'}
-          width={IMAGE_SIZE}
-          height={IMAGE_SIZE}
-          className='mx-auto mt-4 resize rounded-lg lg:float-right lg:mx-0 lg:mt-0 lg:-translate-y-15'
-          priority
-          onClick={() =>
-            window.open('https://www.instagram.com/roboknights8569/')
-          }
-        />
+        <div className='lg:mt-10'>
+          <h1 className='text-center text-6xl font-semibold lg:pl-0 lg:text-8xl xl:text-nowrap'>
+            Trevor Bedson
+          </h1>
+          <h1 className='mt-2 text-center text-3xl lg:text-6xl'>
+            i am {whoAmI}
+          </h1>
+        </div>
       </div>
     </div>
   );

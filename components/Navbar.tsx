@@ -18,7 +18,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div id={'navbar'} className={'sticky top-0 z-50 w-full bg-[#171717]'}>
+    <div id={'navbar'} className={`fixed top-0 z-50 w-full transition-all duration-500 ${showName ? 'bg-[#171717ee]' : 'bg-[#17171700]'}`}>
       <div
         className={
           'w-full ' +

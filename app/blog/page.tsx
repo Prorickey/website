@@ -16,6 +16,7 @@ export default function BlogPage() {
 
   return (
     <main>
+      <div className='mt-20 w-full' />
       <Navbar />
       <p className='mx-10 mb-4 text-3xl font-semibold'>Featured Blog</p>
       <div className='mx-10 flex flex-row'>
