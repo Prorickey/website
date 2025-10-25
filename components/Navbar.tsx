@@ -2,24 +2,20 @@
 
 import styles from '@/styles/navbar.module.css';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 export default function Navbar() {
   const [showName, setShowName] = useState(false);
-  const [navOffset, setNavOffset] = useState(0);
 
-  const onscroll = () => {
-    if (window.scrollY > 5) setShowName(true);
-    else setShowName(false);
-  };
+  useLayoutEffect(() => {
+    const onscroll = () => {
+      if (window.scrollY > 5) setShowName(true);
+      else setShowName(false);
+    };
 
-  useEffect(() => {
-    const navbar = document.getElementById('navbar');
-    if (navbar)
-      setNavOffset(navbar.getBoundingClientRect().height);
     window.addEventListener('scroll', onscroll);
     return () => window.removeEventListener('scroll', onscroll);
-  }, [navOffset]);
+  }, []);
 
   return (
     <div id={"navbar"} className={'sticky top-0 z-50 w-full bg-[#171717]'}>

@@ -122,7 +122,7 @@ function NCTSAApp() {
           The success of the NC TSA app opened doors to other opportunities and
           gave me the confidence to tackle even more ambitious projects. It
           proved that with determination, good resources, and a willingness to
-          learn, it's possible to go from zero to production-ready in a
+          learn, it&apos;s possible to go from zero to production-ready in a
           remarkably short time.
         </p>
 
@@ -138,7 +138,7 @@ function NCTSAApp() {
   );
 }
 
-export default {
+const blog = {
   name: 'NCTSAApp',
   publishedAt: Date.parse(
     'Fri Jul 11 2025 13:01:13 GMT-0400 (Eastern Daylight Time)'
@@ -150,4 +150,6 @@ export default {
   description:
     'Learn about my journey making my first production app, from never having coded an app before to being deployed to hundreds of users weeks later.',
   component: <NCTSAApp />,
-};
+}
+
+export default blog

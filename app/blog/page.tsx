@@ -16,7 +16,7 @@ export default function BlogPage() {
 
   return (
     <main>
-      <Navbar navbarRef={null} aboutRef={null} projectsRef={null} />
+      <Navbar />
       <p className='mx-10 mb-4 text-3xl font-semibold'>Featured Blog</p>
       <div className='mx-10 flex flex-row'>
         <div

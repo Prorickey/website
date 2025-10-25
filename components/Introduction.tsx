@@ -1,6 +1,6 @@
 'use client';
 
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 
 const whoAmIText = [
@@ -16,7 +16,6 @@ const whoAmIText = [
 const IMAGE_SIZE = 450;
 
 export default function Introduction() {
-  const [introHeight, setIntroHeight] = useState<number | string>(1000);
   const [whoAmI, setWhoAmI] = useState('');
   const [current, setCurrent] = useState(0);
   const [wait, setWait] = useState(0);
@@ -26,6 +25,15 @@ export default function Introduction() {
     typeof window !== 'undefined' ? window.innerWidth : 0
   );
 
+  const introHeight = useMemo(() => {
+    if (width < 1024) {
+      return 'auto';
+    } else {
+      const navbar = document.getElementById('navbar');
+      return navbar ? window.innerHeight - navbar.clientHeight : window.innerHeight;
+    }
+  }, [width]);
+
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
@@ -34,17 +42,6 @@ export default function Introduction() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  useEffect(() => {
-    if (width < 1024) {
-      setIntroHeight('auto');
-    } else {
-      const navbar = document.getElementById('navbar');
-      if (navbar)
-        setIntroHeight(window.innerHeight - navbar.clientHeight);
-      else setIntroHeight(window.innerHeight);
-    }
-  }, [introHeight, width]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -120,6 +117,7 @@ export default function Introduction() {
           width={IMAGE_SIZE}
           height={IMAGE_SIZE}
           className='mx-auto mt-2 resize rounded-lg lg:float-right lg:mx-0 lg:mt-0 lg:translate-y-15'
+          priority
           onClick={() =>
             window.open(
               'https://apps.apple.com/us/app/north-carolina-tsa-conference/id6743861783'
@@ -132,6 +130,7 @@ export default function Introduction() {
           width={IMAGE_SIZE}
           height={IMAGE_SIZE}
           className='mx-auto mt-4 resize rounded-lg lg:mx-0 lg:mt-0'
+          priority
           onClick={() =>
             window.open('https://devpost.com/software/ares-udeksp')
           }
@@ -142,6 +141,7 @@ export default function Introduction() {
           width={IMAGE_SIZE}
           height={IMAGE_SIZE}
           className='mx-auto mt-4 resize rounded-lg lg:float-right lg:mx-0 lg:mt-0 lg:-translate-y-15'
+          priority
           onClick={() =>
             window.open('https://www.instagram.com/roboknights8569/')
           }

@@ -22,19 +22,26 @@ export function About({ age }: { age: number }) {
     };
   }, [refresh]);
 
-  const [mounted, setMounted] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    setWindowWidth(window.innerWidth);
-
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
+    // mark as client after mount
+    const timeout = setTimeout(() => setIsClient(true), 0); 
+    return () => clearTimeout(timeout);
   }, []);
 
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 0
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div id='about'>
@@ -76,7 +83,7 @@ export function About({ age }: { age: number }) {
             </Link>
           </div>
         </motion.div>
-        {mounted && windowWidth > 600 ? <KnowCardsHeart /> : <KnowCardsNormal />}
+        {isClient && windowWidth > 600 ? <KnowCardsHeart /> : <KnowCardsNormal />}
       </div>
     </div>
   );

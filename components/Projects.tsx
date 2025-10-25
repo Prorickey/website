@@ -15,12 +15,16 @@ export interface Projects {
 
 export function Projects() {
   const [projects, setProjects] = useState<Projects[]>([]);
-  const [langlinks, setLanglinks] = useState<any>(null);
-  const [mounted, setMounted] = useState(false);
+  const [langlinks, setLanglinks] = useState<Record<string, string>>({});
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setMounted(true); 
+    // mark as client after mount
+    const timeout = setTimeout(() => setIsClient(true), 0); 
+    return () => clearTimeout(timeout);
+  }, []);
 
+  useEffect(() => {
     fetch('/projects.json')
       .then((res) => res.json())
       .then((data) => {
@@ -34,7 +38,7 @@ export function Projects() {
       });
   }, []);
 
-  if (!mounted || projects.length === 0 || !langlinks) return null;
+  if (!isClient || projects.length === 0 || !langlinks) return null;
 
   return (
     <div id='projects'>

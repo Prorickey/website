@@ -1,5 +1,7 @@
 import NCTSAApp from './NCTSAApp';
 
-export default {
+const blogList = {
   NCTSAApp: NCTSAApp,
-};
+}
+
+export default blogList

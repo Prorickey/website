@@ -5,7 +5,7 @@ import { Projects } from './Projects';
 import { motion } from 'framer-motion';
 
 export interface ProjectCardProps extends Projects {
-  langlinks: any;
+  langlinks: Record<string, string>;
 }
 
 export function ProjectCard({

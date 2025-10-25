@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "docker": "node docker.js"
@@ -21,9 +21,8 @@
     "react-responsive-masonry": "^2.6.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.2.0",
     "@kubernetes/client-node": "^1.0.0",
-    "@tailwindcss/postcss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.1.16",
     "@types/node": "^24",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
@@ -34,7 +33,7 @@
     "postcss": "^8",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
-    "tailwindcss": "^4.0.0",
+    "tailwindcss": "^4.1.16",
     "typescript": "^5"
   },
   "overrides": {
