@@ -18,7 +18,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div id={'navbar'} className={'sticky top-0 z-50 w-full bg-[#171717]'}>
+    <div
+      id={'navbar'}
+      className={`fixed top-0 z-50 w-full transition-all duration-500 ${showName ? 'bg-[#171717ee]' : 'bg-[#17171700]'}`}
+    >
       <div
         className={
           'w-full ' +
@@ -28,14 +31,16 @@ export default function Navbar() {
         }
       >
         <div className='flex items-center justify-between p-5 lg:pr-10'>
-          <p
+          <Link
+            href={'/'}
+            onClick={() => window.scrollTo({ top: 0 })}
             className={
               'inline text-2xl font-semibold text-nowrap ' +
               (showName ? '' : 'hidden')
             }
           >
-            Trevor Bedson
-          </p>
+            <p>Trevor Bedson</p>
+          </Link>
           <div className='flex w-full flex-row justify-end gap-x-3 text-lg lg:gap-x-10'>
             <NavbarItem text={'About'} link={'/#about'} />
             <NavbarItem text={'Projects'} link={'/#projects'} />

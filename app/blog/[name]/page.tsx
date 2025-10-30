@@ -26,7 +26,7 @@ export default function IndividualBlogPage() {
   return (
     <main>
       <Navbar />
-      <article className='mx-auto w-1/2 max-w-4xl rounded-2xl bg-stone-950 px-6 py-8'>
+      <article className='mx-auto my-20 w-1/2 max-w-4xl rounded-2xl bg-stone-950 px-6 py-8'>
         <header className='mb-8'>
           <h1 className='mb-4 text-4xl font-bold text-gray-200'>
             {currentBlog.title}

@@ -20,7 +20,7 @@ export default function Home() {
       <Introduction />
       <About age={age} />
       <Projects />
-      <div className='h-[15rem] bg-[#171717]'></div>
+      <div className='h-60 bg-[#171717]'></div>
     </main>
   );
 }
