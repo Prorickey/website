@@ -21,7 +21,7 @@ export default function BlogPage() {
       <p className='mx-10 mb-4 text-3xl font-semibold'>Featured Blog</p>
       <div className='mx-10 flex flex-row'>
         <div
-          className='content-background w-full cursor-pointer rounded-2xl pb-4'
+          className='content-background w-full max-w-1/3 cursor-pointer rounded-2xl pb-4'
           onClick={() => (window.location.href = `/blog/${featuredBlog.name}`)}
         >
           <Image
@@ -32,7 +32,7 @@ export default function BlogPage() {
             height={400}
           />
 
-          <div className='h-[2px] bg-[#db4c4c]'></div>
+          <div className='h-0.5 bg-[#db4c4c]'></div>
 
           <p className='mx-4 mt-2 text-3xl font-semibold'>
             {featuredBlog.title}
@@ -51,8 +51,6 @@ export default function BlogPage() {
               : ''}
           </p>
         </div>
-        <div className='w-full'></div>
-        <div className='w-full'></div>
       </div>
     </main>
   );

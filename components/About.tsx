@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import styles from '@/components/About.module.css';
 import Link from 'next/link';
+import { ImageCarousel } from './ImageCarousel';
 
 export function About({ age }: { age: number }) {
   const [refresh, setRefresh] = useState(false);
@@ -89,6 +90,7 @@ export function About({ age }: { age: number }) {
           <KnowCardsNormal />
         )}
       </div>
+      <ImageCarousel />
     </div>
   );
 }

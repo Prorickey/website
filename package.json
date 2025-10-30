@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,13 +9,13 @@
     "lint": "eslint .",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
-    "docker": "node docker.js"
+    "docker": "node docker.mjs"
   },
   "dependencies": {
     "dotenv": "^17.2.0",
     "framer-motion": "^12.6.2",
     "motion": "^12.6.2",
-    "next": "16.0.0",
+    "next": "16.0.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-responsive-masonry": "^2.6.0"
@@ -28,7 +28,7 @@
     "@types/react-dom": "19.2.2",
     "@types/react-responsive-masonry": "^2.1.3",
     "eslint": "^9",
-    "eslint-config-next": "16.0.0",
+    "eslint-config-next": "16.0.1",
     "eslint-config-prettier": "^10.0.1",
     "postcss": "^8",
     "prettier": "^3.4.2",
