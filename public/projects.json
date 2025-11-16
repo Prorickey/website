@@ -2,7 +2,7 @@
   {
     "title": "IntoTheDeep - Team 8569 RoboKnights Robotics",
     "description": "Before I arrived at NCSSM, I had never known that I could get involved with robotics. But ever since I've joined the RoboKnights at the beginning of junior year, I've been building systems that turn ideas into reality. Throughout my rookie year, I've learned how to create PID controllers, create controllable systems, implement vision systems, and more. Just recently at the 2025 Chicago Robotics Invitation, I implemented a camera vision system that leveraged on board computing to spot, identify, and locate game pieces on the field. My system even went as far as to move the arm to the game piece for pickup. I'm excited to be the captain of RoboKnights for the upcoming season, and hope to make strides in the FTC world.",
-    "langs": ["onshape", "java", "git"],
+    "langs": ["onshape", "java", "kotlin", "rust", "git"],
     "link": "https://roboknights.net",
     "source": "https://github.com/ftc8569/2024-IntoTheDeep",
     "date": "September 2024 - Present"
@@ -38,6 +38,27 @@
     "link": "https://apps.apple.com/us/app/north-carolina-tsa-conference/id6743861783",
     "source": "https://github.com/Prorickey/northcarolinatsa",
     "date": "March 2025 - Present"
+  },
+  {
+    "title": "North Carolina DECA App",
+    "description": "This app was designed to help connect the North Carolina DECA student officer board with the DECA students across the state. It’s crucial that the student officers can quickly get information out to their districts and post invaluable resources for students to use to study and prepare for their events. Featured on the app is an authentication system, notifications, and resource tabs. I helped lead the development of the app, focusing on the backend infrastructure and frontend user experience. Kubernetes is used to host the database and backend, which is built with gin.",
+    "langs": [
+      "nodejs",
+      "react",
+      "typescript",
+      "html",
+      "css",
+      "tailwindcss",
+      "nextjs",
+      "git",
+      "docker",
+      "kubernetes",
+      "postgresql",
+      "golang",
+      "expo"
+    ],
+    "link": "https://apps.apple.com/us/app/north-carolina-deca/id6753982793",
+    "date": "September 2025 - Present"
   },
   {
     "title": "SMathHacks Hackathon -> ARES-M",
@@ -130,7 +151,7 @@
       "nextjs",
       "git"
     ],
-    "link": "https://prorickey.xyz",
+    "link": "https://bedson.tech",
     "source": "https://github.com/Prorickey/website",
     "date": "April 2024 - Present"
   },

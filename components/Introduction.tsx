@@ -123,8 +123,8 @@ export default function Introduction() {
         id='intro-bg'
         className='absolute top-0 left-0 z-0 h-full w-full'
       />
-      <div className='relative z-20 flex flex-1 flex-col justify-center gap-x-4 lg:flex-row'>
-        <div className='mx-auto w-1/3 md:w-1/4'>
+      <div className='relative z-20 flex flex-1 flex-col items-center justify-center gap-x-4 lg:flex-row'>
+        <div className='mx-auto w-3/4 lg:w-1/4'>
           <Image
             src={'/trevor.png'}
             priority
@@ -134,13 +134,12 @@ export default function Introduction() {
             className='aspect-square w-full rounded-full border-2 border-[#db4c4c]'
           />
           <div className={`flex flex-row items-center justify-center p-3`}>
-            <div className='h-1 w-6' />
             <Image
               src={'/icons/github.svg'}
               alt={'Github'}
               width={35}
               height={35}
-              className={'mr-2 hover:cursor-pointer'}
+              className={'hover:cursor-pointer'}
               onClick={() => window.open('https://github.com/Prorickey')}
             />
             <Image
@@ -153,13 +152,13 @@ export default function Introduction() {
                 window.open('https://www.linkedin.com/in/trevor-bedson/')
               }
             />
-            <div className='group relative'>
+            <div className='group relative flex'>
               <Image
-                src='/icons/mail.png'
+                src='/icons/mail.svg'
                 alt='Email'
-                width={80}
-                height={80}
-                className='min-h-20 min-w-20 -translate-x-3 hover:cursor-pointer'
+                width={50}
+                height={50}
+                className='shrink-0 hover:cursor-pointer'
                 onClick={() => window.open('mailto:trevor@bedson.tech')}
               />
               <p className='pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 rounded bg-white px-2 py-1 text-sm text-stone-900 opacity-0 transition-opacity duration-200 group-hover:opacity-100'>
@@ -168,7 +167,7 @@ export default function Introduction() {
             </div>
           </div>
         </div>
-        <div className='lg:mt-10'>
+        <div>
           <h1 className='text-center text-6xl font-semibold lg:pl-0 lg:text-8xl xl:text-nowrap'>
             Trevor Bedson
           </h1>

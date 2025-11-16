@@ -11,9 +11,10 @@
   "postgresql": "https://www.postgresql.org/",
   "mongodb": "https://www.mongodb.com/",
   "redis": "https://redis.io/",
-  "mysql": "https://www.mysql.com/",
   "linux": "https://www.kernel.org/",
   "java": "https://www.java.com/",
   "expo": "https://expo.dev/",
-  "python": "https://www.python.org/"
+  "python": "https://www.python.org/",
+  "kotlin": "https://kotlinlang.org/",
+  "rust": "https://rust-lang.org/"
 }

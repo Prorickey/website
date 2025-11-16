@@ -70,15 +70,14 @@ export function About({ age }: { age: number }) {
             >
               North Carolina School of Science and Mathematics
             </span>{' '}
-            but in my free time enjoy creating websites using React and have
-            been learning to program robots recently. I began my endeavours in
-            programming by learning Java and nodejs to create Minecraft game
-            servers and have extensive experience with databases and large
-            codebases. I&#39;ve also been working on creating apps with expo and
-            react-native, check out my latest app North Carolina TSA Conference
-            below!
+            but in my free time enjoy creating websites and mobile apps using React and 
+            enjoy programming robots while leading my robotics team. I began my endeavours in
+            programming by learning Java and NodeJS to create Minecraft game
+            servers and that gave me experience with databases and large
+            codebases. Now I do a lot of work with creating mobile apps and communication 
+            systems for student organizations like TSA and DECA in NC.
           </p>
-          <div className='mt-8 flex flex-row'>
+          <div className='mt-8 flex flex-row justify-center lg:justify-start'>
             <Link className={styles.checkOutBlog} href='/blog'>
               <span className={styles.checkOutBlogText}>Check out my Blog</span>
             </Link>
@@ -206,9 +205,9 @@ function KnowCardsNormal() {
             url={'https://www.docker.com/'}
           />
           <KnowCard
-            name={'MySQL'}
-            id={'mysql'}
-            url={'https://www.mysql.com/'}
+            name={'Kotlin'}
+            id={'kotlin'}
+            url={'https://kotlinlang.org/'}
           />
           <KnowCard
             name={'Typescript'}
@@ -290,9 +289,9 @@ function KnowCardsHeart() {
           />
           <KnowCard name={'Java'} id={'java'} url={'https://www.java.com/'} />
           <KnowCard
-            name={'MySQL'}
-            id={'mysql'}
-            url={'https://www.mysql.com/'}
+            name={'Kotlin'}
+            id={'kotlin'}
+            url={'https://kotlinlang.org/'}
           />
           <KnowCard name={'Linux'} id={'linux'} url={null} />
           <KnowCard
