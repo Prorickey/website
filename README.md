@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Portfolio
+
+My personal portfolio website — a showcase of my projects, skills, and blog posts.
+
+## Tech Stack
+
+- [Next.js 16](https://nextjs.org/) (App Router)
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/) for animations
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npm run format` | Check Prettier formatting |
+| `npm run format:fix` | Auto-fix formatting |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/                  Next.js App Router pages
+├── page.tsx          Home (intro, about, projects)
+├── blog/
+│   ├── page.tsx      Blog listing
+│   └── [name]/       Dynamic blog post routes
+components/           Reusable UI components
+blogs/                Blog post content (TSX) and registry
+public/
+├── projects.json     Project data
+├── langlinks.json    Technology → documentation URL mapping
+├── icons/            SVG icons
+├── images/           Portfolio images
+└── knows/            Technology logos
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Adding a Blog Post
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Create a new TSX file in `blogs/` that exports an object with `title`, `publishedAt`, `readTime`, and `component`
+2. Add it to the registry in `blogs/index.tsx`
+3. The post will be accessible at `/blog/<registry-key>`
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Pushes to `main` trigger a GitHub Actions workflow that:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Builds a Docker image (multi-stage, Node 22-alpine)
+2. Pushes to `docker.bedson.tech`
+3. Deploys to the server via SSH + Docker Compose
+
+See `SETUP.md` for required secrets and server configuration.
