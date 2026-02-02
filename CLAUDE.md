@@ -13,7 +13,6 @@ Personal portfolio website built with Next.js 16 (App Router), React 19, TypeScr
 - `npm run lint` — ESLint
 - `npm run format` — Check formatting with Prettier
 - `npm run format:fix` — Auto-fix formatting
-- `npm run docker` — Build Docker image via `docker.mjs`
 
 ## Architecture
 
@@ -42,9 +41,9 @@ Personal portfolio website built with Next.js 16 (App Router), React 19, TypeScr
 - Prettier: 2-space indent, single quotes, JSX single quotes, ES5 trailing commas, semicolons
 - Tailwind CSS plugin for Prettier handles class sorting
 - `@/*` path alias maps to project root (configured in tsconfig.json)
-- Standalone output mode for Docker/Kubernetes deployment
+- Standalone output mode for Docker deployment
 
 ## Deployment
 
+- GitHub Actions workflow (`.github/workflows/deploy.yml`) builds and pushes Docker image on push to `main`, then deploys via SSH
 - Dockerfile: multi-stage build on Node 22-alpine, runs as non-root user `nextjs:1001`
-- `kubernetes.yml` defines deployment and service configs
