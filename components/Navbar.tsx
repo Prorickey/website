@@ -44,7 +44,9 @@ export default function Navbar() {
           <div className='flex w-full flex-row justify-end gap-x-3 text-lg lg:gap-x-10'>
             <NavbarItem text={'About'} link={'/#about'} />
             <NavbarItem text={'Projects'} link={'/#projects'} />
-            <Link href='/blog'>Blog</Link>
+            <Link href='/blog' className={styles.navItem}>
+              Blog
+            </Link>
           </div>
         </div>
       </div>
@@ -54,7 +56,7 @@ export default function Navbar() {
 
 function NavbarItem({ text, link }: { text: string; link: string }) {
   return (
-    <a href={link}>
+    <a href={link} className={styles.navItem}>
       <p>{text}</p>
     </a>
   );
