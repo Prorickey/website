@@ -70,12 +70,13 @@ export function About({ age }: { age: number }) {
             >
               North Carolina School of Science and Mathematics
             </span>{' '}
-            but in my free time enjoy creating websites and mobile apps using React and 
-            enjoy programming robots while leading my robotics team. I began my endeavours in
-            programming by learning Java and NodeJS to create Minecraft game
-            servers and that gave me experience with databases and large
-            codebases. Now I do a lot of work with creating mobile apps and communication 
-            systems for student organizations like TSA and DECA in NC.
+            but in my free time enjoy creating websites and mobile apps using
+            React and enjoy programming robots while leading my robotics team. I
+            began my endeavours in programming by learning Java and NodeJS to
+            create Minecraft game servers and that gave me experience with
+            databases and large codebases. Now I do a lot of work with creating
+            mobile apps and communication systems for student organizations like
+            TSA and DECA in NC.
           </p>
           <div className='mt-8 flex flex-row justify-center lg:justify-start'>
             <Link className={styles.checkOutBlog} href='/blog'>

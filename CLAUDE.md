@@ -17,24 +17,34 @@ Personal portfolio website built with Next.js 16 (App Router), React 19, TypeScr
 ## Architecture
 
 **Routing (Next.js App Router):**
+
 - `app/page.tsx` — Home page, assembles Navbar, Introduction, About, and Projects sections
 - `app/blog/page.tsx` — Blog listing
 - `app/blog/[name]/page.tsx` — Dynamic blog post pages, resolved via blog registry
 
 **Blog System:**
+
 - Blog posts are TSX components in `blogs/` with metadata (title, publishedAt, readTime, component)
 - `blogs/index.tsx` is the registry — add new blogs there as keyed exports
 - Blog URLs use the registry key as the route param (e.g., `NCTSAApp` → `/blog/NCTSAApp`)
 
 **Data Files (public/):**
+
 - `projects.json` — Project entries with title, description, languages, links, dates
 - `langlinks.json` — Maps technology names to documentation URLs (used in ProjectCard)
 
 **Components (`components/`):**
+
 - `Introduction.tsx` uses a Web Worker (`animation.worker.ts`) for canvas background animation
 - `Projects.tsx` fetches `projects.json` at runtime and renders a responsive masonry grid
 - `About.tsx` and `ImageCarousel.tsx` use Framer Motion for animations
 - Some components use CSS Modules (`.module.css`) alongside Tailwind
+
+**React Bits (`components/react-bits/`):**
+
+- Components from [reactbits.dev](https://reactbits.dev) must be placed in `components/react-bits/[ComponentName].tsx`
+- Always use the **TypeScript + Tailwind CSS** variant when downloading from the code tab (e.g., `https://reactbits.dev/animations/star-border` → select TS + TW)
+- Do not install react-bits as an npm package — copy the component source directly
 
 ## Code Style
 

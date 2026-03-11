@@ -4,12 +4,12 @@
 
 Go to **Settings > Secrets and variables > Actions** in the GitHub repo and add:
 
-| Secret             | Description                                                  |
-| ------------------ | ------------------------------------------------------------ |
-| `SERVER_HOST`        | IP address or hostname of the deployment server              |
-| `SERVER_USER`        | SSH username on the server                                   |
-| `SSH_PRIVATE_KEY`    | Private SSH key for authentication (the full PEM block)      |
-| `REGISTRY_PASSWORD`  | Password for `tbedson-deploy` on `docker.bedson.tech`        |
+| Secret              | Description                                             |
+| ------------------- | ------------------------------------------------------- |
+| `SERVER_HOST`       | IP address or hostname of the deployment server         |
+| `SERVER_USER`       | SSH username on the server                              |
+| `SSH_PRIVATE_KEY`   | Private SSH key for authentication (the full PEM block) |
+| `REGISTRY_PASSWORD` | Password for `tbedson-deploy` on `docker.bedson.tech`   |
 
 ## Server Setup
 
@@ -65,7 +65,7 @@ services:
   app:
     image: docker.bedson.tech/tbedson/portfolio:latest
     ports:
-      - "3000:3000"
+      - '3000:3000'
     restart: unless-stopped
 ```
 

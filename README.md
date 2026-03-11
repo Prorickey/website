@@ -21,14 +21,14 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## Scripts
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start development server |
-| `npm run build` | Production build |
-| `npm run start` | Start production server |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Check Prettier formatting |
-| `npm run format:fix` | Auto-fix formatting |
+| Command              | Description               |
+| -------------------- | ------------------------- |
+| `npm run dev`        | Start development server  |
+| `npm run build`      | Production build          |
+| `npm run start`      | Start production server   |
+| `npm run lint`       | Run ESLint                |
+| `npm run format`     | Check Prettier formatting |
+| `npm run format:fix` | Auto-fix formatting       |
 
 ## Project Structure
 
