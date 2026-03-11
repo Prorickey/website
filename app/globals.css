@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 
+
 :root {
   --content-background: #0e0e0e;
   --background: #171717;
@@ -25,6 +26,70 @@ button {
 .content-background {
   background: var(--content-background);
 }
+
+.card-border-wrap {
+  --card-radius: 1rem;
+  --glow-speed: 6s;
+  position: relative;
+  padding: 2px;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  background: var(--content-background);
+  box-shadow: 6px 6px 12px #050505, -6px -6px 12px #222222;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-border-wrap .glow-trail {
+  position: absolute;
+  z-index: 0;
+  width: 540px;
+  aspect-ratio: 2 / 1;
+  border-radius: 50%;
+  filter: blur(120px);
+  offset-path: rect(0 100% 100% 0 round var(--card-radius));
+  offset-anchor: 50% 50%;
+  opacity: 0;
+  animation: glow-travel var(--glow-speed) linear infinite paused;
+  transition: opacity 0.3s ease;
+}
+
+.card-border-wrap .glow-trail--red {
+  background: radial-gradient(circle, rgba(255, 60, 60, 0.9), transparent 70%);
+  animation-delay: 0s;
+}
+
+.card-border-wrap .glow-trail--blue {
+  background: radial-gradient(circle, rgba(60, 120, 255, 0.9), transparent 70%);
+  animation-delay: calc(var(--glow-speed) / -2);
+}
+
+.card-border-wrap:hover {
+  background: var(--content-background);
+  transform: scale(1.02);
+  box-shadow: 8px 8px 16px #030303, -8px -8px 16px #282828;
+}
+
+.card-border-wrap:hover .glow-trail {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.card-border-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: inherit;
+  background: var(--content-background);
+}
+
+@keyframes glow-travel {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
 
 ::-webkit-scrollbar {
   width: 0.5rem;
