@@ -1,0 +1,22 @@
+{
+  "title": "North Carolina DECA App",
+  "shortDescription": "Mobile app connecting NC DECA officers with students statewide, featuring authentication, notifications, and resource management.",
+  "langs": [
+    "nodejs",
+    "react",
+    "typescript",
+    "html",
+    "css",
+    "tailwindcss",
+    "nextjs",
+    "git",
+    "docker",
+    "kubernetes",
+    "postgresql",
+    "golang",
+    "expo"
+  ],
+  "link": "https://apps.apple.com/us/app/north-carolina-deca/id6753982793",
+  "source": null,
+  "date": "September 2025 - Present"
+}

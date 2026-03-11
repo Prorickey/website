@@ -1,0 +1,19 @@
+{
+  "title": "NC(SMC)\u00b2 Math Competition Website",
+  "shortDescription": "Website for the annual NC(SMC)\u00b2 state-wide math competition, hosting information, practice sets, schedules, and sign-ups for middle schoolers.",
+  "langs": [
+    "react",
+    "typescript",
+    "html",
+    "css",
+    "tailwindcss",
+    "nextjs",
+    "docker",
+    "kubernetes",
+    "nodejs",
+    "git"
+  ],
+  "link": "https://ncsmc2.org",
+  "source": "https://github.com/Prorickey/ncsmc2",
+  "date": "March 2025 - Present"
+}

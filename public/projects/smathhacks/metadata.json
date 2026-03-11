@@ -1,0 +1,19 @@
+{
+  "title": "SMathHacks Hackathon -> ARES-M",
+  "shortDescription": "Mars weather pod prototype with a web dashboard, built in a 36-hour hackathon. Now being installed as a weather station at NCSSM.",
+  "langs": [
+    "cpp",
+    "nodejs",
+    "react",
+    "typescript",
+    "html",
+    "css",
+    "tailwindcss",
+    "nextjs",
+    "postgresql",
+    "git"
+  ],
+  "link": "https://devpost.com/software/ares-udeksp",
+  "source": "https://github.com/Prorickey/SMathHacks25",
+  "date": "Febuary 8-9, 2025"
+}

@@ -1,0 +1,1 @@
+I hosted this Minecraft server for a few months during a break from hosting Hiant. This server was a different game mode, but it was a fresh start for me and didn't include my old codebase, which had outdated code and amateur practices. This server featured a more advanced codebase and a more fruitful experience.

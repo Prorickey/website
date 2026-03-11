@@ -1,0 +1,24 @@
+{
+  "title": "North Carolina TSA Conference App",
+  "shortDescription": "Mobile app for the NC TSA State Conference featuring agenda posting, push notifications, and resource management with a Kubernetes-hosted backend.",
+  "langs": [
+    "nodejs",
+    "react",
+    "typescript",
+    "html",
+    "css",
+    "tailwindcss",
+    "nextjs",
+    "git",
+    "docker",
+    "kubernetes",
+    "postgresql",
+    "redis",
+    "golang",
+    "expo",
+    "python"
+  ],
+  "link": "https://apps.apple.com/us/app/north-carolina-tsa-conference/id6743861783",
+  "source": "https://github.com/Prorickey/northcarolinatsa",
+  "date": "March 2025 - Present"
+}

@@ -1,0 +1,17 @@
+{
+  "title": "FTC Metrics - Scouting & Analytics Platform",
+  "shortDescription": "Scouting and analytics platform for FTC teams with EPA/OPR rankings, match predictions, offline PWA support, and real-time WebSocket updates.",
+  "langs": [
+    "nextjs",
+    "typescript",
+    "tailwindcss",
+    "react",
+    "bun",
+    "postgresql",
+    "docker",
+    "git"
+  ],
+  "link": "https://ftcmetrics.roboknights.net",
+  "source": "https://github.com/ftc8569/ftcmetrics",
+  "date": "January 2026 - Present"
+}

@@ -1,0 +1,19 @@
+{
+  "title": "Attic Weather Station",
+  "shortDescription": "Hardware project using dev boards to track attic temperature over time, investigating household heat patterns.",
+  "langs": [
+    "cpp",
+    "react",
+    "typescript",
+    "html",
+    "css",
+    "tailwindcss",
+    "nextjs",
+    "docker",
+    "nodejs",
+    "git"
+  ],
+  "link": null,
+  "source": "https://github.com/Prorickey/AtticWeatherStation",
+  "date": "June 2025 - July 2025"
+}

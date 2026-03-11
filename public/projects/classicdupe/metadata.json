@@ -1,0 +1,17 @@
+{
+  "title": "Minecraft Game Server -> ClassicDupe",
+  "shortDescription": "Minecraft game server with an advanced codebase, featuring improved architecture over previous server projects.",
+  "langs": [
+    "java",
+    "mysql",
+    "linux",
+    "redis",
+    "git",
+    "mongodb",
+    "typescript",
+    "nodejs"
+  ],
+  "link": null,
+  "source": "https://github.com/Classicdupe",
+  "date": "May 2023 - July 2023"
+}

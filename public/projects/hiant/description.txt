@@ -1,0 +1,1 @@
+I hosted this Minecraft server for the most part of three years. Minecraft game servers introduced me to programming, and I gained much of my experience using Java, Docker, Databases, and Git through programming for this server. I also got experience working with small developer teams and managing teams. I shut down the server to focus on school.

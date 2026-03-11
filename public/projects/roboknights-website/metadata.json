@@ -1,0 +1,18 @@
+{
+  "title": "RoboKnights Website",
+  "shortDescription": "Team website for the RoboKnights robotics team at NCSSM, featuring team info, robot showcases, and a team blog.",
+  "langs": [
+    "nodejs",
+    "react",
+    "typescript",
+    "html",
+    "css",
+    "tailwindcss",
+    "nextjs",
+    "postgresql",
+    "git"
+  ],
+  "link": "https://roboknights.net",
+  "source": "https://github.com/ftc8569/Website",
+  "date": "September 2024 - Present"
+}

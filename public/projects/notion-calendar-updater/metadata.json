@@ -1,0 +1,8 @@
+{
+  "title": "Notion Calendar Updater",
+  "shortDescription": "GoLang app that syncs multiple Google calendars into Notion, centralizing all events in one place.",
+  "langs": ["golang", "git"],
+  "link": null,
+  "source": "https://github.com/Prorickey/NotionCalendarUpdater",
+  "date": "May 2024 - July 2024"
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Minecraft Game Server -> Hiant",
+  "shortDescription": "Minecraft game server hosted for three years, where I learned Java, Docker, databases, Git, and team management.",
+  "langs": ["java", "mysql", "linux", "redis", "git", "mongodb"],
+  "link": null,
+  "source": "https://github.com/HiantNetwork",
+  "date": "November 2021 - August 2024"
+}

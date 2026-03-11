@@ -1,0 +1,8 @@
+{
+  "title": "IntoTheDeep - Team 8569 RoboKnights Robotics",
+  "shortDescription": "FTC robotics season project featuring PID controllers, vision systems, and autonomous game piece pickup using on-board computing.",
+  "langs": ["onshape", "java", "kotlin", "rust", "git"],
+  "link": "https://roboknights.net",
+  "source": "https://github.com/ftc8569/2024-IntoTheDeep",
+  "date": "September 2024 - Present"
+}

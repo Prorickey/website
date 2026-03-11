@@ -1,0 +1,1 @@
+My portfolio website is the one you're on right now. It contains information about me, project links, and more. I built this to showcase my work and learn some languages and frameworks. This website is built with NextJS, React, and TailwindCSS. The primary languages utilized were Typescript, HTML, and CSS.

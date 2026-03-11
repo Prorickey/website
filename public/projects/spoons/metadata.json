@@ -1,0 +1,21 @@
+{
+  "title": "NCSSM Spoons Game Website",
+  "shortDescription": "Website hosting NCSSM's annual spoons game with setup management, game tracking, and end-of-game statistics.",
+  "langs": [
+    "react",
+    "typescript",
+    "html",
+    "css",
+    "tailwindcss",
+    "nextjs",
+    "golang",
+    "docker",
+    "kubernetes",
+    "nodejs",
+    "postgresql",
+    "git"
+  ],
+  "link": "https://ncssm-spoons.com",
+  "source": "https://github.com/Prorickey/spoons",
+  "date": "January 2025 - Present"
+}

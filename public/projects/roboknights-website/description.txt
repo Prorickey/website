@@ -1,0 +1,1 @@
+This website showcases the RoboKnights robotics team at NCSSM. It contains information about the team, the robots we build, and the competitions we participate in. It also includes a blog that the team posts to. I built the website with NextJS, React, and TailwindCSS. The primary languages utilized were typescript, HTML, and CSS.

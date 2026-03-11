@@ -1,0 +1,1 @@
+This website hosts information, practice sets, schedules, and the sign-up for the annual NC(SMC)² competition hosted at NCSSM. NC(SMC)² is a state-wide math competition that invites middle schoolers to compete online in three rounds to solve math problems. I helped build the website from scratch this year and set up the hosting.

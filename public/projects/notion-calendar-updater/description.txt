@@ -1,0 +1,1 @@
+This is a simple GoLang application that updates my Notion calendar with events in multiple Google calendars. Before, I had to deal with multiple Google calendars to keep up with things, but with this, everything is centralized in my Notion calendar. I created this application before the Notion Calendar was released.

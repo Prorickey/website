@@ -1,0 +1,17 @@
+{
+  "title": "Portfolio Website",
+  "shortDescription": "Personal portfolio website built with Next.js, React, and Tailwind CSS to showcase projects and skills.",
+  "langs": [
+    "nodejs",
+    "react",
+    "typescript",
+    "html",
+    "css",
+    "tailwindcss",
+    "nextjs",
+    "git"
+  ],
+  "link": "https://bedson.tech",
+  "source": "https://github.com/Prorickey/website",
+  "date": "April 2024 - Present"
+}

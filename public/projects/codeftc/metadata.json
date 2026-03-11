@@ -1,0 +1,17 @@
+{
+  "title": "CodeFTC - Interactive FTC Programming Lessons",
+  "shortDescription": "Interactive platform teaching FTC robot programming in Java with a live code editor, automated tests, and 15 modules of curriculum.",
+  "langs": [
+    "nextjs",
+    "typescript",
+    "java",
+    "docker",
+    "react",
+    "tailwindcss",
+    "bun",
+    "git"
+  ],
+  "link": "https://codeftc.roboknights.net",
+  "source": null,
+  "date": "February 2026 - Present"
+}
