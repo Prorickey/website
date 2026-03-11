@@ -3,39 +3,69 @@
 import { useEffect, useState } from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ProjectCard } from './ProjectCard';
+import { ProjectModal } from './ProjectModal';
 
-export interface Projects {
+export interface ProjectMetadata {
+  slug: string;
   title: string;
-  description: string;
+  shortDescription: string;
   langs: string[];
   link: string | null;
   source: string | null;
   date: string;
+  image: string | null;
 }
 
 export function Projects() {
-  const [projects, setProjects] = useState<Projects[]>([]);
+  const [projects, setProjects] = useState<ProjectMetadata[]>([]);
   const [langlinks, setLanglinks] = useState<Record<string, string>>({});
   const [isClient, setIsClient] = useState(false);
+  const [selectedProject, setSelectedProject] =
+    useState<ProjectMetadata | null>(null);
 
   useEffect(() => {
-    // mark as client after mount
     const timeout = setTimeout(() => setIsClient(true), 0);
     return () => clearTimeout(timeout);
   }, []);
 
   useEffect(() => {
-    fetch('/projects.json')
-      .then((res) => res.json())
-      .then((data) => {
-        setProjects(data);
+    async function loadProjects() {
+      const indexRes = await fetch('/projects/index.json');
+      const slugs: string[] = await indexRes.json();
+
+      // Initialize with nulls to preserve order
+      const ordered: (ProjectMetadata | null)[] = new Array(slugs.length).fill(
+        null,
+      );
+
+      slugs.forEach(async (slug, index) => {
+        const res = await fetch(`/projects/${slug}/metadata.json`);
+        const metadata = await res.json();
+
+        // Check for image (try png first, then jpeg)
+        let image: string | null = null;
+        for (const ext of ['png', 'jpeg', 'jpg']) {
+          const imgRes = await fetch(`/projects/${slug}/image.${ext}`, {
+            method: 'HEAD',
+          });
+          if (imgRes.ok) {
+            image = `/projects/${slug}/image.${ext}`;
+            break;
+          }
+        }
+
+        ordered[index] = { ...metadata, slug, image } as ProjectMetadata;
+        setProjects(
+          ordered.filter((p): p is ProjectMetadata => p !== null),
+        );
       });
+    }
+
+    loadProjects();
 
     fetch('/langlinks.json')
       .then((res) => res.json())
-      .then((data) => {
-        setLanglinks(data);
-      });
+      .then((data) => setLanglinks(data));
   }, []);
 
   if (!isClient || projects.length === 0 || !langlinks) return null;
@@ -48,22 +78,26 @@ export function Projects() {
       <ResponsiveMasonry
         className='px-2 pt-16 lg:px-8'
         columnsCountBreakPoints={{ 350: 1, 800: 2, 1300: 3 }}
+        gutterBreakPoints={{ 350: '1.5rem', 800: '1.5rem', 1300: '1.5rem' }}
       >
-        <Masonry gutter='1rem'>
-          {projects.map((project: Projects) => (
+        <Masonry>
+          {projects.map((project) => (
             <ProjectCard
-              title={project.title}
-              description={project.description}
-              langs={project.langs}
-              link={project.link}
+              key={project.slug}
+              project={project}
               langlinks={langlinks}
-              source={project.source}
-              key={project.title}
-              date={project.date}
+              onSelect={() => setSelectedProject(project)}
             />
           ))}
         </Masonry>
       </ResponsiveMasonry>
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          langlinks={langlinks}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </div>
   );
 }
