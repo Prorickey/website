@@ -71,8 +71,6 @@ export function ProjectCard({
       onClick={onSelect}
     >
       <div className='card-border-wrap'>
-        <div className='glow-trail glow-trail--red' />
-        <div className='glow-trail glow-trail--blue' />
         <div className='card-border-inner overflow-hidden'>
         {image && (
           <div className='relative aspect-video w-full overflow-hidden rounded-t-2xl'>

@@ -74,9 +74,23 @@ export function About({ age }: { age: number }) {
             React and enjoy programming robots while leading my robotics team. I
             began my endeavours in programming by learning Java and NodeJS to
             create Minecraft game servers and that gave me experience with
-            databases and large codebases. Now I do a lot of work with creating
-            mobile apps and communication systems for student organizations like
-            TSA and DECA in NC.
+            databases and large codebases. Now I work with organizations like 
+            TSA and DECA to create mobile apps, and I also am building robots with 
+            FTC teams{' '}
+            <span 
+              onClick={() => window.open("https://roboknights.net/")}
+              className='cursor-pointer underline decoration-amber-500 underline-offset-2'
+            >
+              8569 RoboKnights 
+            </span>
+            {' '}
+            and{' '}
+            <span 
+              onClick={() => window.open("https://www.sigmacorns.org/")}
+              className='cursor-pointer underline decoration-amber-500 underline-offset-2'
+            >
+              22377 SigmaCorns 
+            </span>.
           </p>
           <div className='mt-8 flex flex-row justify-center lg:justify-start'>
             <Link className={styles.checkOutBlog} href='/blog'>
