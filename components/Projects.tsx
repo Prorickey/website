@@ -42,17 +42,9 @@ export function Projects() {
         const res = await fetch(`/projects/${slug}/metadata.json`);
         const metadata = await res.json();
 
-        // Check for image (try png first, then jpeg)
-        let image: string | null = null;
-        for (const ext of ['png', 'jpeg', 'jpg']) {
-          const imgRes = await fetch(`/projects/${slug}/image.${ext}`, {
-            method: 'HEAD',
-          });
-          if (imgRes.ok) {
-            image = `/projects/${slug}/image.${ext}`;
-            break;
-          }
-        }
+        const image = metadata.image
+          ? `/projects/${slug}/${metadata.image}`
+          : null;
 
         ordered[index] = { ...metadata, slug, image } as ProjectMetadata;
         setProjects(

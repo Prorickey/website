@@ -4,5 +4,6 @@
   "langs": ["java", "mysql", "linux", "redis", "git", "mongodb"],
   "link": null,
   "source": "https://github.com/HiantNetwork",
-  "date": "November 2021 - August 2024"
+  "date": "November 2021 - August 2024",
+  "image": null
 }
