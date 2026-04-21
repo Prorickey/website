@@ -144,14 +144,6 @@ export function FeaturedProjects() {
         aria-label='Featured projects'
       >
         <div className='sticky top-0 flex h-screen w-full flex-col overflow-hidden bg-[color:var(--background)]'>
-          <div className='relative h-[2px] w-full bg-[color:var(--border-subtle)]'>
-            <div
-              ref={progressBarRef}
-              className='h-full origin-left bg-[color:var(--accent)]'
-              style={{ transform: 'scaleX(0)' }}
-            />
-          </div>
-
           <header className='pointer-events-none absolute top-[3.5vh] left-[8vw] z-10'>
             <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
               03 — Featured Work
@@ -160,7 +152,7 @@ export function FeaturedProjects() {
 
           <div
             ref={trackRef}
-            className='flex h-full will-change-transform'
+            className='flex min-h-0 flex-1 will-change-transform'
             style={{ width: `${n * 100}vw` }}
           >
             {featured.map((project, i) => (
@@ -175,6 +167,14 @@ export function FeaturedProjects() {
                 onExpand={() => setExpandedIndex(i)}
               />
             ))}
+          </div>
+
+          <div className='relative h-[2px] w-full'>
+            <div
+              ref={progressBarRef}
+              className='h-full origin-left bg-[color:var(--accent)]'
+              style={{ transform: 'scaleX(0)' }}
+            />
           </div>
         </div>
       </section>
