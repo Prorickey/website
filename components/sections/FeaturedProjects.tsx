@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import type { ProjectMetadata } from '@/components/Projects';
 import { useLenis } from '@/components/providers/LenisProvider';
 import { Panel } from './featured/Panel';
@@ -12,6 +12,18 @@ const EXTRA_SCROLL_VH = 40;
 
 function clamp01(v: number) {
   return v < 0 ? 0 : v > 1 ? 1 : v;
+}
+
+function useReducedMotion() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      mq.addEventListener('change', onChange);
+      return () => mq.removeEventListener('change', onChange);
+    },
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    () => false
+  );
 }
 
 async function loadFeatured(): Promise<ProjectMetadata[]> {
@@ -40,6 +52,7 @@ export function FeaturedProjects() {
   const [featured, setFeatured] = useState<ProjectMetadata[]>([]);
   const [langlinks, setLanglinks] = useState<Record<string, string>>({});
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const reducedMotion = useReducedMotion();
   const lenisRef = useLenis();
 
   useEffect(() => {
@@ -65,7 +78,7 @@ export function FeaturedProjects() {
   }, [expandedIndex, lenisRef]);
 
   useEffect(() => {
-    if (featured.length === 0) return;
+    if (featured.length === 0 || reducedMotion) return;
     const n = featured.length;
 
     let raf = 0;
@@ -111,19 +124,22 @@ export function FeaturedProjects() {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [featured.length]);
+  }, [featured.length, reducedMotion]);
 
   if (featured.length === 0) return null;
 
   const n = featured.length;
   const sectionHeight = n * 100 + EXTRA_SCROLL_VH;
 
+  const desktopVisibility = reducedMotion ? 'hidden' : 'hidden md:block';
+  const mobileVisibility = reducedMotion ? 'block' : 'md:hidden';
+
   return (
     <>
       <section
         ref={sectionRef}
         id='featured'
-        className='relative hidden md:block'
+        className={`relative ${desktopVisibility}`}
         style={{ height: `${sectionHeight}vh` }}
         aria-label='Featured projects'
       >
@@ -165,7 +181,7 @@ export function FeaturedProjects() {
 
       <section
         id='featured-mobile'
-        className='relative md:hidden'
+        className={`relative ${mobileVisibility}`}
         aria-label='Featured projects'
       >
         <div className='px-6 pt-16 pb-6'>

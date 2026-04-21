@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import type { ProjectMetadata } from '@/components/Projects';
 import { useProjectDescription } from '@/hooks/useProjectDescription';
 import { LanguageIcons } from '@/components/projects/LanguageIcons';
@@ -15,13 +15,20 @@ type Props = {
 
 export function ExpandedCaseStudy({ project, langlinks, onClose }: Props) {
   const description = useProjectDescription(project.slug);
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeBtnRef.current?.focus();
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [onClose]);
 
   return (
@@ -34,6 +41,9 @@ export function ExpandedCaseStudy({ project, langlinks, onClose }: Props) {
       onClick={onClose}
     >
       <motion.article
+        role='dialog'
+        aria-modal='true'
+        aria-labelledby='featured-case-study-title'
         initial={{ opacity: 0, scale: 0.94, y: 16 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.94, y: 16 }}
@@ -46,7 +56,10 @@ export function ExpandedCaseStudy({ project, langlinks, onClose }: Props) {
             <p className='text-xs tracking-[0.3em] text-[color:var(--text-muted)] uppercase'>
               {project.date}
             </p>
-            <h2 className='mt-2 text-3xl font-semibold lg:text-5xl'>
+            <h2
+              id='featured-case-study-title'
+              className='mt-2 text-3xl font-semibold lg:text-5xl'
+            >
               {project.title}
             </h2>
           </div>
@@ -78,9 +91,10 @@ export function ExpandedCaseStudy({ project, langlinks, onClose }: Props) {
               </button>
             )}
             <button
+              ref={closeBtnRef}
               aria-label='Close'
               onClick={onClose}
-              className='ml-2 rounded-lg p-1 text-[color:var(--text-muted)] transition-colors hover:bg-white/10 hover:text-[color:var(--text-primary)]'
+              className='ml-2 rounded-lg p-1 text-[color:var(--text-muted)] transition-colors hover:bg-white/10 hover:text-[color:var(--text-primary)] focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:outline-none'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'

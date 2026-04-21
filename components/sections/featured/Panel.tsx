@@ -51,8 +51,8 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
           data-panel-title
           className='text-balance will-change-[clip-path]'
           style={{
-            fontSize: 'clamp(2.5rem, 9vw, 8rem)',
-            lineHeight: 0.95,
+            fontSize: 'clamp(1.75rem, 5vw, 4rem)',
+            lineHeight: 1,
             fontWeight: 600,
             letterSpacing: '-0.02em',
             clipPath:
