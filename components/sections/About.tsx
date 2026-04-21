@@ -148,7 +148,7 @@ export function About({ age }: { age: number }) {
 
 function Timeline({ items }: { items: Experience[] }) {
   return (
-    <div className='relative lg:pb-60'>
+    <div className='relative lg:pb-40'>
       <div className='mb-8 flex items-baseline gap-3'>
         <span className='text-xs tracking-[0.3em] text-[color:var(--accent)] uppercase'>
           Experience
