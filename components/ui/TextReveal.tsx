@@ -36,7 +36,7 @@ export default function TextReveal({
       : {
           initial: { y: '110%' },
           whileInView: { y: '0%' },
-          viewport: { once, amount: 0.6 },
+          viewport: { once, amount: 0.1, margin: '0px 0px -10% 0px' },
           transition,
         };
 

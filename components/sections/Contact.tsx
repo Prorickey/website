@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import TextReveal from '@/components/ui/TextReveal';
 import Magnetic from '@/components/ui/Magnetic';
 
 const links = [
@@ -29,9 +30,12 @@ export function Contact() {
           05 — Contact
         </span>
 
-        <h2 className='mt-6 block pb-[0.12em] text-5xl leading-[1.2] font-semibold tracking-tight md:text-7xl lg:text-[clamp(4rem,10vw,10rem)]'>
-          Let&apos;s build something.
-        </h2>
+        <TextReveal
+          as='h2'
+          text="Let's build something."
+          className='mt-6 block pb-[0.12em] text-5xl leading-[1.2] font-semibold tracking-tight md:text-7xl lg:text-[clamp(4rem,10vw,10rem)]'
+          stagger={0.04}
+        />
 
         <p className='mt-3 max-w-2xl text-lg text-[color:var(--text-muted)] lg:text-xl'>
           I&#39;m always happy to talk robotics, systems engineering, and
