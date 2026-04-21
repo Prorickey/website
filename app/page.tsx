@@ -1,7 +1,7 @@
-import { Projects } from '@/components/Projects';
 import Navbar from '@/components/Navbar';
-import Introduction from '@/components/Introduction';
-import { About } from '@/components/About';
+import Hero from '@/components/sections/Hero';
+import { About } from '@/components/sections/About';
+import { Projects } from '@/components/Projects';
 
 export default function Home() {
   const today = new Date();
@@ -17,10 +17,10 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <Introduction />
+      <Hero />
       <About age={age} />
       <Projects />
-      <div className='h-60 bg-[#171717]'></div>
+      <div className='h-60 bg-[color:var(--background)]'></div>
     </main>
   );
 }
