@@ -52,9 +52,10 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
           className='text-center whitespace-nowrap will-change-[clip-path]'
           style={{
             fontSize: 'clamp(1.75rem, 5vw, 4rem)',
-            lineHeight: 1,
+            lineHeight: 1.25,
             fontWeight: 600,
             letterSpacing: '-0.02em',
+            padding: '0.05em 0.02em',
             clipPath:
               revealMode === 'static' || index === 0
                 ? 'inset(0 0% 0 0%)'
