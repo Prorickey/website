@@ -4,6 +4,8 @@ import { About } from '@/components/sections/About';
 import { CADShowcase } from '@/components/sections/CADShowcase';
 import { Toolkit } from '@/components/sections/Toolkit';
 import { Projects } from '@/components/Projects';
+import { BlogTeaser } from '@/components/sections/BlogTeaser';
+import { Contact } from '@/components/sections/Contact';
 
 export default function Home() {
   const today = new Date();
@@ -24,7 +26,8 @@ export default function Home() {
       <CADShowcase />
       <Toolkit />
       <Projects />
-      <div className='h-60 bg-[color:var(--background)]'></div>
+      <BlogTeaser />
+      <Contact />
     </main>
   );
 }
