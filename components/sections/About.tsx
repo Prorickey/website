@@ -7,7 +7,7 @@ import {
   useTransform,
 } from 'framer-motion';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { ImageCarousel } from '@/components/ImageCarousel';
 import styles from '@/components/About.module.css';
 import TextReveal from '@/components/ui/TextReveal';
@@ -62,6 +62,9 @@ const experiences: Experience[] = [
   },
 ];
 
+const START_TOP_PX = 112; // 7rem — close to the section title
+const TRANSITION_DISTANCE_PX = 400; // how much scroll the drift to center takes
+
 export function About({ age }: { age: number }) {
   const ref = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -75,10 +78,32 @@ export function About({ age }: { age: number }) {
   );
 
   const labelRef = useRef<HTMLSpanElement | null>(null);
+  const paragraphRef = useRef<HTMLDivElement | null>(null);
 
   useMotionValueEvent(labelOpacity, 'change', (v) => {
     if (labelRef.current) labelRef.current.style.opacity = String(v);
   });
+
+  useEffect(() => {
+    let raf = 0;
+    const tick = () => {
+      const section = ref.current;
+      const paragraph = paragraphRef.current;
+      if (section && paragraph) {
+        const rect = section.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const pHeight = paragraph.offsetHeight;
+        const scrolledPast = Math.max(0, -rect.top);
+        const t = Math.min(1, scrolledPast / TRANSITION_DISTANCE_PX);
+        const centerTop = Math.max(START_TOP_PX, (vh - pHeight) / 2);
+        const top = START_TOP_PX + (centerTop - START_TOP_PX) * t;
+        paragraph.style.top = `${top}px`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   return (
     <section id='about' ref={ref} className='relative py-28'>
@@ -101,7 +126,11 @@ export function About({ age }: { age: number }) {
       </div>
 
       <div className='mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-10 px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:px-10'>
-        <div className='lg:sticky lg:top-28 lg:self-start'>
+        <div
+          ref={paragraphRef}
+          className='lg:sticky lg:self-start'
+          style={{ top: `${START_TOP_PX}px` }}
+        >
           <div className='text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>
             <p>
               Hey there — I&#39;m a {age} year old full-stack developer with a
