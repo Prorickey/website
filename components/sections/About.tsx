@@ -101,40 +101,34 @@ export function About({ age }: { age: number }) {
       </div>
 
       <div className='mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-10 px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:px-10'>
-        <div className='relative'>
-          <div className='lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center'>
-            <div className='text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>
-              <p>
-                Hey there — I&#39;m a {age} year old full-stack developer with a
-                bias for learning by building. I study at the{' '}
-                <AccentLink href='https://ncssm.edu'>
-                  North Carolina School of Science and Mathematics
-                </AccentLink>
-                , and in my free time I ship web and mobile apps with React and
-                lead two robotics teams.
-              </p>
-              <p className='mt-4'>
-                My journey into code started with Java and Node.js, running
-                Minecraft servers. That introduced me to databases and big
-                codebases early. Now I build with organizations like TSA and
-                DECA, and fabricate + program robots with FTC teams{' '}
-                <AccentLink href='https://roboknights.net/'>
-                  8569 RoboKnights
-                </AccentLink>{' '}
-                and{' '}
-                <AccentLink href='https://www.sigmacorns.org/'>
-                  22377 SigmaCorns
-                </AccentLink>
-                .
-              </p>
-              <div className='mt-10'>
-                <Link className={styles.checkOutBlog} href='/blog'>
-                  <span className={styles.checkOutBlogText}>
-                    Check out my Blog
-                  </span>
-                </Link>
-              </div>
-            </div>
+        <div className='text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>
+          <p>
+            Hey there — I&#39;m a {age} year old full-stack developer with a
+            bias for learning by building. I study at the{' '}
+            <AccentLink href='https://ncssm.edu'>
+              North Carolina School of Science and Mathematics
+            </AccentLink>
+            , and in my free time I ship web and mobile apps with React and
+            lead two robotics teams.
+          </p>
+          <p className='mt-4'>
+            My journey into code started with Java and Node.js, running
+            Minecraft servers. That introduced me to databases and big codebases
+            early. Now I build with organizations like TSA and DECA, and
+            fabricate + program robots with FTC teams{' '}
+            <AccentLink href='https://roboknights.net/'>
+              8569 RoboKnights
+            </AccentLink>{' '}
+            and{' '}
+            <AccentLink href='https://www.sigmacorns.org/'>
+              22377 SigmaCorns
+            </AccentLink>
+            .
+          </p>
+          <div className='mt-10'>
+            <Link className={styles.checkOutBlog} href='/blog'>
+              <span className={styles.checkOutBlogText}>Check out my Blog</span>
+            </Link>
           </div>
         </div>
 
