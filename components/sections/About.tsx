@@ -100,7 +100,7 @@ export function About({ age }: { age: number }) {
         />
       </div>
 
-      <div className='mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-10 px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:px-10'>
+      <div className='mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-10 px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:px-10 lg:pb-[50vh]'>
         <div className='lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center lg:self-start'>
           <div className='text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>
             <p>
@@ -139,7 +139,7 @@ export function About({ age }: { age: number }) {
         <Timeline items={experiences} />
       </div>
 
-      <div className='mt-40'>
+      <div className='mt-20'>
         <ImageCarousel />
       </div>
     </section>
