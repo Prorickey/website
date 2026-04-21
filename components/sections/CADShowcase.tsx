@@ -42,7 +42,7 @@ const BEATS: Beat[] = [
 ];
 
 const BEAT_SPAN = 0.7;
-const SECTION_EXTRA_SCROLL = 2;
+const SECTION_EXTRA_SCROLL = 1.5;
 
 const DARK_BG: [number, number, number] = [14, 14, 14];
 const LIGHT_BG: [number, number, number] = [250, 250, 250];
