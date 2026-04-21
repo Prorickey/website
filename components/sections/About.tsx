@@ -84,25 +84,22 @@ export function About({ age }: { age: number }) {
     <section id='about' ref={ref} className='relative py-28'>
       <div className='h-[1px] w-full bg-[color:var(--accent)]/60' />
 
-      <div className='mx-auto flex max-w-6xl flex-col gap-6 px-6 pt-16 lg:px-10'>
-        <span
-          ref={labelRef}
-          style={{ opacity: 0 }}
-          className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'
-        >
-          01 — About
-        </span>
-        <TextReveal
-          as='h2'
-          text='A builder, a leader, a student.'
-          className='block text-4xl font-semibold text-balance lg:text-6xl'
-          stagger={0.05}
-        />
-      </div>
-
-      <div className='mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-10 px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:px-10'>
-        <div className='lg:sticky lg:top-60 lg:self-start'>
-          <div className='text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>
+      <div className='mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-10 px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:px-10'>
+        <div className='flex flex-col gap-6 lg:sticky lg:top-32 lg:self-start'>
+          <span
+            ref={labelRef}
+            style={{ opacity: 0 }}
+            className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'
+          >
+            01 — About
+          </span>
+          <TextReveal
+            as='h2'
+            text='A builder, a leader, a student.'
+            className='block text-4xl font-semibold text-balance lg:text-6xl'
+            stagger={0.05}
+          />
+          <div className='mt-2 text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>
             <p>
               Hey there — I&#39;m a {age} year old full-stack developer with a
               bias for learning by building. I study at the{' '}

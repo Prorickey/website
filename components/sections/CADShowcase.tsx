@@ -7,6 +7,10 @@ const Scene = dynamic(() => import('@/components/three/Scene'), {
   ssr: false,
 });
 
+const Grainient = dynamic(() => import('@/components/react-bits/Grainient'), {
+  ssr: false,
+});
+
 type Beat = {
   id: string;
   eyebrow: string;
@@ -44,8 +48,6 @@ const BEATS: Beat[] = [
 const BEAT_SPAN = 0.7;
 const SECTION_EXTRA_SCROLL = 1.5;
 
-const DARK_BG: [number, number, number] = [14, 14, 14];
-const LIGHT_BG: [number, number, number] = [250, 250, 250];
 const DARK_TEXT: [number, number, number] = [231, 231, 231];
 const LIGHT_TEXT: [number, number, number] = [14, 14, 14];
 const DARK_MUTED: [number, number, number] = [138, 138, 138];
@@ -64,14 +66,15 @@ function lerpRgb(
 
 function mixForProgress(p: number) {
   const clamped = Math.max(0, Math.min(1, p));
-  if (clamped < 0.1) return 0;
-  if (clamped < 0.55) return (clamped - 0.1) / 0.45;
+  if (clamped < 0.3) return 0;
+  if (clamped < 0.5) return (clamped - 0.3) / 0.2;
   return 1;
 }
 
 export function CADShowcase() {
   const ref = useRef<HTMLElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
   const beats = BEATS;
   const totalBeats = beats.length;
 
@@ -99,9 +102,11 @@ export function CADShowcase() {
         );
 
         const mix = mixForProgress(p);
+        const overlay = overlayRef.current;
+        if (overlay) overlay.style.opacity = String(1 - mix);
+
         const stage = stageRef.current;
         if (stage) {
-          stage.style.backgroundColor = lerpRgb(DARK_BG, LIGHT_BG, mix);
           stage.style.setProperty(
             '--cad-text-primary',
             lerpRgb(DARK_TEXT, LIGHT_TEXT, mix)
@@ -129,14 +134,36 @@ export function CADShowcase() {
         ref={stageRef}
         style={
           {
-            backgroundColor: 'rgb(14, 14, 14)',
             ['--cad-text-primary' as string]: 'rgb(231, 231, 231)',
             ['--cad-text-muted' as string]: 'rgb(138, 138, 138)',
             color: 'var(--cad-text-primary)',
           } as CSSProperties
         }
-        className='sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden'
+        className='sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden bg-[rgb(14,14,14)]'
       >
+        <div className='absolute inset-0'>
+          <Grainient
+            color1='#ffffff'
+            color2='#ff6b7a'
+            color3='#6aa1ff'
+            contrast={1.0}
+            saturation={0.85}
+            blendSoftness={0.25}
+            warpStrength={0.8}
+            warpAmplitude={70}
+            grainAmount={0.08}
+            timeSpeed={0.15}
+            rotationAmount={120}
+          />
+        </div>
+
+        <div
+          ref={overlayRef}
+          aria-hidden
+          className='absolute inset-0 bg-[rgb(14,14,14)]'
+          style={{ opacity: 1 }}
+        />
+
         <div className='absolute inset-0'>
           <Scene rotationY={rotY} tilt={tilt} />
         </div>
