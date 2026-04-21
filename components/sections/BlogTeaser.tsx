@@ -30,7 +30,7 @@ export function BlogTeaser() {
           <TextReveal
             as='h2'
             text='Notes from the build log.'
-            className='block text-4xl font-semibold text-balance lg:text-6xl'
+            className='block pb-[0.12em] text-4xl leading-[1.2] font-semibold text-balance lg:text-6xl'
             stagger={0.05}
           />
         </div>
