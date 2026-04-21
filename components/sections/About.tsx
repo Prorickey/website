@@ -102,7 +102,7 @@ export function About({ age }: { age: number }) {
 
       <div className='mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-10 px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:px-10'>
         <div className='relative'>
-          <div className='lg:sticky lg:top-24'>
+          <div className='lg:sticky lg:top-1/2 lg:-translate-y-1/2'>
             <div className='text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>
               <p>
                 Hey there — I&#39;m a {age} year old full-stack developer with a
