@@ -73,21 +73,17 @@ export function CADShowcase() {
           </span>
         </div>
 
-        <div className='relative z-10 mx-auto flex h-full max-w-6xl items-end px-6 pb-20 lg:px-10'>
-          <div className='relative h-40 w-full lg:w-[45%]'>
-            {beats.map((beat, i) => (
-              <BeatText
-                key={beat.id}
-                beat={beat}
-                index={i}
-                total={beats.length}
-                progress={scrollYProgress}
-              />
-            ))}
-          </div>
-        </div>
+        {beats.map((beat, i) => (
+          <BeatText
+            key={beat.id}
+            beat={beat}
+            index={i}
+            total={beats.length}
+            progress={scrollYProgress}
+          />
+        ))}
 
-        <div className='pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-[color:var(--text-muted)] uppercase'>
+        <div className='pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 text-xs tracking-[0.3em] text-[color:var(--text-muted)] uppercase'>
           Scroll
         </div>
       </div>
@@ -106,10 +102,11 @@ function BeatText({
   total: number;
   progress: ReturnType<typeof useScroll>['scrollYProgress'];
 }) {
+  const isLeft = index % 2 === 0;
   const slice = 1 / Math.max(total, 1);
   const start = slice * index;
   const end = slice * (index + 1);
-  const fadeIn = Math.max(slice * 0.2, 0.01);
+  const fadeIn = Math.max(slice * 0.25, 0.01);
 
   const inputs = [
     Math.max(0, start - fadeIn),
@@ -119,29 +116,37 @@ function BeatText({
   ];
 
   const opacity = useTransform(progress, inputs, [0, 1, 1, 0]);
-  const y = useTransform(progress, inputs, [40, 0, 0, -40]);
+  const enterFrom = isLeft ? -120 : 120;
+  const exitTo = isLeft ? 120 : -120;
+  const x = useTransform(progress, inputs, [enterFrom, 0, 0, exitTo]);
+
   const elRef = useRef<HTMLDivElement | null>(null);
 
   useMotionValueEvent(opacity, 'change', (v) => {
     if (elRef.current) elRef.current.style.opacity = String(v);
   });
-  useMotionValueEvent(y, 'change', (v) => {
-    if (elRef.current) elRef.current.style.transform = `translateY(${v}px)`;
+  useMotionValueEvent(x, 'change', (v) => {
+    if (elRef.current) elRef.current.style.transform = `translateX(${v}px)`;
   });
 
   return (
     <div
       ref={elRef}
       style={{ opacity: 0 }}
-      className='absolute inset-0 flex flex-col gap-3'
+      className={
+        'pointer-events-none absolute top-1/2 z-10 flex max-w-md -translate-y-1/2 flex-col gap-3 px-6 ' +
+        (isLeft
+          ? 'left-4 md:left-10 lg:left-16 text-left'
+          : 'right-4 md:right-10 lg:right-16 text-right')
+      }
     >
       <span className='text-xs tracking-[0.4em] text-[color:var(--accent)] uppercase'>
         {beat.eyebrow}
       </span>
-      <h3 className='text-3xl font-semibold lg:text-5xl'>{beat.title}</h3>
-      <p className='max-w-lg text-[color:var(--text-muted)] lg:text-lg'>
-        {beat.body}
-      </p>
+      <h3 className='text-3xl leading-tight font-semibold lg:text-5xl'>
+        {beat.title}
+      </h3>
+      <p className='text-[color:var(--text-muted)] lg:text-lg'>{beat.body}</p>
     </div>
   );
 }
