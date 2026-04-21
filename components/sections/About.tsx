@@ -6,10 +6,10 @@ import {
   useScroll,
   useTransform,
 } from 'framer-motion';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { useRef } from 'react';
 import { ImageCarousel } from '@/components/ImageCarousel';
-import styles from '@/components/About.module.css';
+// import styles from '@/components/About.module.css';
 import TextReveal from '@/components/ui/TextReveal';
 
 type Experience = {
@@ -123,13 +123,13 @@ export function About({ age }: { age: number }) {
               </AccentLink>
               .
             </p>
-            <div className='mt-10'>
+            {/* <div className='mt-10'>
               <Link className={styles.checkOutBlog} href='/blog'>
                 <span className={styles.checkOutBlogText}>
                   Check out my Blog
                 </span>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
 

@@ -27,7 +27,7 @@ export function Contact() {
     <section id='contact' className='relative px-6 py-32 lg:px-10'>
       <div className='mx-auto max-w-6xl'>
         <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
-          06 — Contact
+          05 — Contact
         </span>
 
         <TextReveal

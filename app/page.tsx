@@ -5,7 +5,7 @@ import { CADShowcase } from '@/components/sections/CADShowcase';
 import { Toolkit } from '@/components/sections/Toolkit';
 import { FeaturedProjects } from '@/components/sections/FeaturedProjects';
 import { Projects } from '@/components/Projects';
-import { BlogTeaser } from '@/components/sections/BlogTeaser';
+// import { BlogTeaser } from '@/components/sections/BlogTeaser';
 import { Contact } from '@/components/sections/Contact';
 import LiquidBlack from '@/components/react-bits/LiquidBlack';
 
@@ -35,7 +35,7 @@ export default function Home() {
         </div>
         <div className='relative z-10'>
           <Projects />
-          <BlogTeaser />
+          {/* <BlogTeaser /> */}
           <Contact />
         </div>
       </div>

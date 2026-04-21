@@ -44,9 +44,10 @@ export default function Navbar() {
           <div className='flex w-full flex-row justify-end gap-x-3 text-lg lg:gap-x-10'>
             <NavbarItem text={'About'} link={'/#about'} />
             <NavbarItem text={'Projects'} link={'/#projects'} />
-            <Link href='/blog' className={styles.navItem}>
+            <NavbarItem text={'Contact'} link={'/#contact'} />
+            {/* <Link href='/blog' className={styles.navItem}>
               Blog
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
