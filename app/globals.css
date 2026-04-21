@@ -104,6 +104,15 @@ button {
   background: #979797;
 }
 
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @media (pointer: fine) {
   .smooth-cursor-active,
   .smooth-cursor-active a,

@@ -30,7 +30,7 @@ export function ExpandedCaseStudy({ project, langlinks, onClose }: Props) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
-      className='absolute inset-0 z-20 flex items-center justify-center bg-[color:var(--background)]/85 p-4 backdrop-blur-md'
+      className='fixed inset-0 z-50 flex items-center justify-center bg-[color:var(--background)]/85 p-4 backdrop-blur-md'
       onClick={onClose}
     >
       <motion.article

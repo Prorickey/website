@@ -36,6 +36,7 @@ export function FeaturedProjects() {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const panelRefs = useRef<Array<HTMLElement | null>>([]);
+  const mobilePanelRefs = useRef<Array<HTMLElement | null>>([]);
   const [featured, setFeatured] = useState<ProjectMetadata[]>([]);
   const [langlinks, setLanglinks] = useState<Record<string, string>>({});
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -118,57 +119,94 @@ export function FeaturedProjects() {
   const sectionHeight = n * 100 + EXTRA_SCROLL_VH;
 
   return (
-    <section
-      ref={sectionRef}
-      id='featured'
-      className='relative hidden md:block'
-      style={{ height: `${sectionHeight}vh` }}
-      aria-label='Featured projects'
-    >
-      <div className='sticky top-0 flex h-screen w-full flex-col overflow-hidden bg-[color:var(--background)]'>
-        <div className='relative h-[2px] w-full bg-[color:var(--border-subtle)]'>
-          <div
-            ref={progressBarRef}
-            className='h-full origin-left bg-[color:var(--accent)]'
-            style={{ transform: 'scaleX(0)' }}
-          />
-        </div>
+    <>
+      <section
+        ref={sectionRef}
+        id='featured'
+        className='relative hidden md:block'
+        style={{ height: `${sectionHeight}vh` }}
+        aria-label='Featured projects'
+      >
+        <div className='sticky top-0 flex h-screen w-full flex-col overflow-hidden bg-[color:var(--background)]'>
+          <div className='relative h-[2px] w-full bg-[color:var(--border-subtle)]'>
+            <div
+              ref={progressBarRef}
+              className='h-full origin-left bg-[color:var(--accent)]'
+              style={{ transform: 'scaleX(0)' }}
+            />
+          </div>
 
-        <header className='pointer-events-none absolute top-[3.5vh] left-[8vw] z-10'>
+          <header className='pointer-events-none absolute top-[3.5vh] left-[8vw] z-10'>
+            <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
+              03 — Featured Work
+            </span>
+          </header>
+
+          <div
+            ref={trackRef}
+            className='flex h-full will-change-transform'
+            style={{ width: `${n * 100}vw` }}
+          >
+            {featured.map((project, i) => (
+              <Panel
+                key={project.slug}
+                ref={(el) => {
+                  panelRefs.current[i] = el;
+                }}
+                project={project}
+                index={i}
+                total={n}
+                onExpand={() => setExpandedIndex(i)}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        id='featured-mobile'
+        className='relative md:hidden'
+        aria-label='Featured projects'
+      >
+        <div className='px-6 pt-16 pb-6'>
           <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
             03 — Featured Work
           </span>
-        </header>
-
-        <div
-          ref={trackRef}
-          className='flex h-full will-change-transform'
-          style={{ width: `${n * 100}vw` }}
-        >
-          {featured.map((project, i) => (
-            <Panel
-              key={project.slug}
-              ref={(el) => {
-                panelRefs.current[i] = el;
-              }}
-              project={project}
-              index={i}
-              total={n}
-              onExpand={() => setExpandedIndex(i)}
-            />
-          ))}
+          <p className='mt-4 text-sm tracking-[0.25em] text-[color:var(--text-muted)] uppercase'>
+            Swipe →
+          </p>
         </div>
 
-        <AnimatePresence>
-          {expandedIndex !== null && (
-            <ExpandedCaseStudy
-              project={featured[expandedIndex]}
-              langlinks={langlinks}
-              onClose={() => setExpandedIndex(null)}
-            />
-          )}
-        </AnimatePresence>
-      </div>
-    </section>
+        <div className='hide-scrollbar flex snap-x snap-mandatory overflow-x-auto overflow-y-hidden'>
+          {featured.map((project, i) => (
+            <div
+              key={project.slug}
+              className='h-[92vh] w-screen shrink-0 snap-center'
+            >
+              <Panel
+                ref={(el) => {
+                  mobilePanelRefs.current[i] = el;
+                }}
+                project={project}
+                index={i}
+                total={n}
+                onExpand={() => setExpandedIndex(i)}
+                revealMode='static'
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <AnimatePresence>
+        {expandedIndex !== null && (
+          <ExpandedCaseStudy
+            project={featured[expandedIndex]}
+            langlinks={langlinks}
+            onClose={() => setExpandedIndex(null)}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 }

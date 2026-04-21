@@ -9,10 +9,11 @@ type Props = {
   index: number;
   total: number;
   onExpand: () => void;
+  revealMode?: 'scroll' | 'static';
 };
 
 export const Panel = forwardRef<HTMLElement, Props>(function Panel(
-  { project, index, total, onExpand },
+  { project, index, total, onExpand, revealMode = 'scroll' },
   ref
 ) {
   const numeral = `${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
@@ -55,7 +56,9 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
             fontWeight: 600,
             letterSpacing: '-0.02em',
             clipPath:
-              index === 0 ? 'inset(0 0% 0 0%)' : 'inset(0 100% 0 0%)',
+              revealMode === 'static' || index === 0
+                ? 'inset(0 0% 0 0%)'
+                : 'inset(0 100% 0 0%)',
             transition: 'clip-path 0s',
           }}
         >
