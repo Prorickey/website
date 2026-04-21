@@ -49,7 +49,7 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
       <div className='flex flex-col gap-[4vh] lg:gap-[6vh]'>
         <h3
           data-panel-title
-          className='whitespace-nowrap will-change-[clip-path]'
+          className='text-center whitespace-nowrap will-change-[clip-path]'
           style={{
             fontSize: 'clamp(1.75rem, 5vw, 4rem)',
             lineHeight: 1,
