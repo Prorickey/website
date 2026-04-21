@@ -96,7 +96,7 @@ export function About({ age }: { age: number }) {
           <TextReveal
             as='h2'
             text='A builder, a leader, a student.'
-            className='block text-4xl font-semibold text-balance lg:text-6xl'
+            className='block text-3xl font-semibold text-balance lg:text-5xl'
             stagger={0.05}
           />
           <div className='mt-2 text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>

@@ -34,6 +34,11 @@ export function Toolkit() {
       id='toolkit'
       className='relative z-10 -mt-[100vh] bg-[color:var(--background)] py-28'
     >
+      <div
+        aria-hidden
+        className='pointer-events-none absolute top-0 left-0 h-[2px] w-full bg-[color:var(--accent)]'
+      />
+
       <div className='mx-auto max-w-6xl px-6 lg:px-10'>
         <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
           02 — Toolkit

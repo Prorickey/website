@@ -47,6 +47,7 @@ const BEATS: Beat[] = [
 
 const BEAT_SPAN = 0.7;
 const SECTION_EXTRA_SCROLL = 1.5;
+const HOLD_FRACTION = 0.5;
 
 const DARK_TEXT: [number, number, number] = [231, 231, 231];
 const LIGHT_TEXT: [number, number, number] = [14, 14, 14];
@@ -64,6 +65,38 @@ function lerpRgb(
   return `rgb(${Math.round(lerp(a[0], b[0], t))}, ${Math.round(lerp(a[1], b[1], t))}, ${Math.round(lerp(a[2], b[2], t))})`;
 }
 
+function smoothstep(t: number) {
+  return t * t * (3 - 2 * t);
+}
+
+function displacedProgress(
+  p: number,
+  n: number,
+  holdFraction = HOLD_FRACTION
+): number {
+  if (n <= 1) return 0;
+  const holdPer = holdFraction / n;
+  const transPer = (1 - holdFraction) / (n - 1);
+  const step = 1 / (n - 1);
+
+  let input = 0;
+  for (let i = 0; i < n; i++) {
+    const holdEnd = input + holdPer;
+    if (p < holdEnd) return i * step;
+    input = holdEnd;
+
+    if (i === n - 1) return 1;
+
+    const transEnd = input + transPer;
+    if (p < transEnd) {
+      const t = (p - input) / transPer;
+      return i * step + smoothstep(t) * step;
+    }
+    input = transEnd;
+  }
+  return 1;
+}
+
 function mixForProgress(p: number) {
   const clamped = Math.max(0, Math.min(1, p));
   if (clamped < 0.3) return 0;
@@ -75,12 +108,13 @@ export function CADShowcase() {
   const ref = useRef<HTMLElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
+  const progressBarRef = useRef<HTMLDivElement | null>(null);
   const beats = BEATS;
   const totalBeats = beats.length;
 
   const [rotY, setRotY] = useState(-0.3);
   const [tilt, setTilt] = useState(0.08);
-  const [progress, setProgress] = useState(0);
+  const [indexFloat, setIndexFloat] = useState(0);
 
   useEffect(() => {
     let raf = 0;
@@ -93,17 +127,23 @@ export function CADShowcase() {
         const scrolled = -rect.top;
         const p = total > 0 ? Math.max(0, Math.min(1, scrolled / total)) : 0;
 
-        setProgress(p);
-        setRotY(lerp(-0.3, Math.PI * 0.6, p));
+        const beatP = Math.min(1, p / BEAT_SPAN);
+        const displaced = displacedProgress(beatP, totalBeats);
+
+        setIndexFloat(displaced * Math.max(1, totalBeats - 1));
+        setRotY(lerp(-0.3, Math.PI * 0.6, displaced));
         setTilt(
-          p < 0.5
-            ? lerp(0.08, -0.05, p / 0.5)
-            : lerp(-0.05, 0.1, (p - 0.5) / 0.5)
+          displaced < 0.5
+            ? lerp(0.08, -0.05, displaced / 0.5)
+            : lerp(-0.05, 0.1, (displaced - 0.5) / 0.5)
         );
 
         const mix = mixForProgress(p);
         const overlay = overlayRef.current;
         if (overlay) overlay.style.opacity = String(1 - mix);
+
+        const bar = progressBarRef.current;
+        if (bar) bar.style.transform = `scaleX(${Math.min(1, p / BEAT_SPAN)})`;
 
         const stage = stageRef.current;
         if (stage) {
@@ -121,7 +161,7 @@ export function CADShowcase() {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, []);
+  }, [totalBeats]);
 
   return (
     <section
@@ -183,15 +223,23 @@ export function CADShowcase() {
             beat={beat}
             index={i}
             total={beats.length}
-            progress={progress}
+            indexFloat={indexFloat}
           />
         ))}
 
         <div
-          className='pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 text-xs tracking-[0.3em] uppercase'
+          className='pointer-events-none absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-xs tracking-[0.3em] uppercase'
           style={{ color: 'var(--cad-text-muted)' }}
         >
           Scroll
+        </div>
+
+        <div className='absolute bottom-0 left-0 z-10 h-[2px] w-full'>
+          <div
+            ref={progressBarRef}
+            className='h-full origin-left bg-[color:var(--accent)]'
+            style={{ transform: 'scaleX(0)' }}
+          />
         </div>
       </div>
     </section>
@@ -202,45 +250,33 @@ function BeatText({
   beat,
   index,
   total,
-  progress,
+  indexFloat,
 }: {
   beat: Beat;
   index: number;
   total: number;
-  progress: number;
+  indexFloat: number;
 }) {
   const isLeft = index % 2 === 0;
   const isLast = index === total - 1;
-  const slice = BEAT_SPAN / Math.max(total, 1);
-  const start = slice * index;
-  const end = slice * (index + 1);
-  const fadeIn = Math.max(slice * 0.25, 0.01);
 
-  let opacity = 0;
-  let x = isLeft ? -120 : 120;
+  const d = indexFloat - index;
+  const absD = Math.min(1, Math.abs(d));
+  const entrySign = isLeft ? -1 : 1;
+  const exitSign = isLeft ? 1 : -1;
 
-  const p0 = Math.max(0, start - fadeIn);
-  const p1 = start + fadeIn;
-  const p2 = end - fadeIn;
-  const p3 = Math.min(1, end + fadeIn);
+  let opacity: number;
+  let x: number;
 
-  if (progress <= p0) {
-    opacity = 0;
-    x = isLeft ? -120 : 120;
-  } else if (progress < p1) {
-    const t = (progress - p0) / (p1 - p0);
-    opacity = t;
-    x = (isLeft ? -120 : 120) * (1 - t);
-  } else if (isLast || progress < p2) {
+  if (isLast && d >= 0) {
     opacity = 1;
     x = 0;
-  } else if (progress < p3) {
-    const t = (progress - p2) / (p3 - p2);
-    opacity = 1 - t;
-    x = (isLeft ? 120 : -120) * t;
-  } else {
+  } else if (absD >= 1) {
     opacity = 0;
-    x = isLeft ? 120 : -120;
+    x = d < 0 ? entrySign * 120 : exitSign * 120;
+  } else {
+    opacity = 1 - absD;
+    x = d < 0 ? entrySign * absD * 120 : exitSign * absD * 120;
   }
 
   return (
