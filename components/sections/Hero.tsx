@@ -1,8 +1,10 @@
 'use client';
 
 import {
+  animate,
   AnimatePresence,
   motion,
+  useMotionValue,
   useMotionValueEvent,
   useScroll,
   useTransform,
@@ -193,6 +195,7 @@ export default function Hero() {
             text='Trevor Bedson'
             className='block text-center text-6xl font-semibold lg:pl-0 lg:text-8xl xl:text-nowrap'
             stagger={0.06}
+            immediate
           />
           <h2 className='mt-2 flex flex-wrap items-baseline justify-center gap-x-3 text-center text-3xl lg:text-6xl'>
             <span>i am</span>

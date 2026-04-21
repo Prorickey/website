@@ -7,6 +7,10 @@ import { Panel } from './featured/Panel';
 const N_FEATURED = 3;
 const EXTRA_SCROLL_VH = 40;
 
+function clamp01(v: number) {
+  return v < 0 ? 0 : v > 1 ? 1 : v;
+}
+
 async function loadFeatured(): Promise<ProjectMetadata[]> {
   const indexRes = await fetch('/projects/index.json');
   const slugs: string[] = await indexRes.json();
@@ -28,6 +32,7 @@ export function FeaturedProjects() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const progressBarRef = useRef<HTMLDivElement | null>(null);
+  const panelRefs = useRef<Array<HTMLElement | null>>([]);
   const [featured, setFeatured] = useState<ProjectMetadata[]>([]);
 
   useEffect(() => {
@@ -42,6 +47,7 @@ export function FeaturedProjects() {
 
   useEffect(() => {
     if (featured.length === 0) return;
+    const n = featured.length;
 
     let raf = 0;
     const tick = () => {
@@ -55,11 +61,32 @@ export function FeaturedProjects() {
         const progress =
           total > 0 ? Math.max(0, Math.min(1, scrolled / total)) : 0;
 
-        const translateX =
-          -progress * (featured.length - 1) * window.innerWidth;
+        const translateX = -progress * (n - 1) * window.innerWidth;
         track.style.transform = `translate3d(${translateX}px, 0, 0)`;
 
         if (bar) bar.style.transform = `scaleX(${progress})`;
+
+        for (let i = 0; i < n; i++) {
+          const el = panelRefs.current[i];
+          if (!el) continue;
+          const localP = progress * (n - 1) - i;
+
+          const imgWrap = el.querySelector<HTMLElement>(
+            '[data-panel-image-wrap]'
+          );
+          if (imgWrap) {
+            imgWrap.style.transform = `translateX(${localP * 6}%)`;
+          }
+
+          const title = el.querySelector<HTMLElement>('[data-panel-title]');
+          if (title) {
+            const revealIn = clamp01((localP + 0.55) / 0.5);
+            const revealOut = clamp01((localP - 0.3) / 0.5);
+            const clipRight = (1 - revealIn) * 100;
+            const clipLeft = revealOut * 100;
+            title.style.clipPath = `inset(0 ${clipRight.toFixed(2)}% 0 ${clipLeft.toFixed(2)}%)`;
+          }
+        }
       }
       raf = requestAnimationFrame(tick);
     };
@@ -103,6 +130,9 @@ export function FeaturedProjects() {
           {featured.map((project, i) => (
             <Panel
               key={project.slug}
+              ref={(el) => {
+                panelRefs.current[i] = el;
+              }}
               project={project}
               index={i}
               total={n}

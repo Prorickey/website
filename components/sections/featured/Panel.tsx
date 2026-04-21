@@ -48,12 +48,15 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
       <div className='flex flex-col gap-[4vh] lg:gap-[6vh]'>
         <h3
           data-panel-title
-          className='text-balance'
+          className='text-balance will-change-[clip-path]'
           style={{
             fontSize: 'clamp(2.5rem, 9vw, 8rem)',
             lineHeight: 0.95,
             fontWeight: 600,
             letterSpacing: '-0.02em',
+            clipPath:
+              index === 0 ? 'inset(0 0% 0 0%)' : 'inset(0 100% 0 0%)',
+            transition: 'clip-path 0s',
           }}
         >
           {project.title}
@@ -62,7 +65,7 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
         {project.image && (
           <div
             data-panel-image-wrap
-            className='relative mx-auto aspect-video w-full max-w-[56rem] overflow-hidden rounded-2xl border border-[color:var(--border-subtle)]'
+            className='relative mx-auto aspect-video w-full max-w-[56rem] overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] will-change-transform'
           >
             <Image
               data-panel-image
