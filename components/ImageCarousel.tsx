@@ -9,7 +9,6 @@ const MAX_VELOCITY = 14;
 const IDLE_MS_BEFORE_RESUME = 1000;
 const DECAY_DURING_INPUT = 0.965;
 const EASE_BACK_RATE = 0.03;
-const HORIZONTAL_LOCK_MS = 180;
 const HORIZONTAL_ENTRY_BIAS = 1.4;
 
 const images = [
@@ -38,7 +37,6 @@ export function ImageCarousel() {
   const velocityRef = useRef(EQUILIBRIUM_VELOCITY);
   const forceRef = useRef(0);
   const lastInteractionRef = useRef(0);
-  const horizontalLockUntilRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
 
   const desktopImageWidth = 600 + 32;
@@ -104,20 +102,14 @@ export function ImageCarousel() {
       const now = performance.now();
       const absX = Math.abs(e.deltaX);
       const absY = Math.abs(e.deltaY);
-      const lockActive = now < horizontalLockUntilRef.current;
-      const horizontalIntent = absX * HORIZONTAL_ENTRY_BIAS > absY;
+      const horizontalDominant = absX * HORIZONTAL_ENTRY_BIAS > absY;
 
-      if (!lockActive && !horizontalIntent) return;
+      if (!horizontalDominant) return;
 
       e.preventDefault();
       e.stopPropagation();
-
-      horizontalLockUntilRef.current = now + HORIZONTAL_LOCK_MS;
       lastInteractionRef.current = now;
-
-      if (absX > 0) {
-        forceRef.current -= e.deltaX * WHEEL_FORCE;
-      }
+      forceRef.current -= e.deltaX * WHEEL_FORCE;
     };
 
     const wraps = [
