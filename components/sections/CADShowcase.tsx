@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 
 const Scene = dynamic(() => import('@/components/three/Scene'), {
@@ -16,6 +17,8 @@ type Beat = {
   eyebrow: string;
   title: string;
   body: string;
+  link?: string;
+  source?: string;
 };
 
 const BEATS: Beat[] = [
@@ -42,6 +45,14 @@ const BEATS: Beat[] = [
     eyebrow: 'Chapter 04',
     title: 'Now I lead the build.',
     body: 'Captaining FTC 8569 RoboKnights and mentoring 22377 SigmaCorns means the learning loop goes both ways — and the robots only get better.',
+  },
+  {
+    id: 'roboknights',
+    eyebrow: 'Chapter 05',
+    title: 'Team 8569 RoboKnights.',
+    body: 'Swerve drivetrain software, PID controllers, on-board vision, autonomous game-piece pickup. INTO THE DEEP season, shipping now.',
+    link: 'https://roboknights.net',
+    source: 'https://github.com/ftc8569/2024-IntoTheDeep',
   },
 ];
 
@@ -279,14 +290,18 @@ function BeatText({
     x = d < 0 ? entrySign * absD * 120 : exitSign * absD * 120;
   }
 
+  const hasLinks = !!(beat.link || beat.source);
+  const interactive = hasLinks && opacity > 0.9;
+
   return (
     <div
       style={{
         opacity,
         transform: `translateY(-50%) translateX(${x}px)`,
+        pointerEvents: interactive ? 'auto' : 'none',
       }}
       className={
-        'pointer-events-none absolute top-1/2 z-10 flex max-w-md flex-col gap-3 px-6 ' +
+        'absolute top-1/2 z-10 flex max-w-md flex-col gap-3 px-6 ' +
         (isLeft
           ? 'left-4 text-left md:left-10 lg:left-16'
           : 'right-4 text-right md:right-10 lg:right-16')
@@ -304,6 +319,47 @@ function BeatText({
       <p className='lg:text-lg' style={{ color: 'var(--cad-text-muted)' }}>
         {beat.body}
       </p>
+      {hasLinks && (
+        <div
+          className={
+            'mt-2 flex items-center gap-3 ' +
+            (isLeft ? 'justify-start' : 'justify-end')
+          }
+        >
+          {beat.link && (
+            <a
+              href={beat.link}
+              target='_blank'
+              rel='noreferrer'
+              aria-label='Visit project'
+              className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
+            >
+              <Image
+                src='/icons/rocket.svg'
+                alt=''
+                width={22}
+                height={22}
+              />
+            </a>
+          )}
+          {beat.source && (
+            <a
+              href={beat.source}
+              target='_blank'
+              rel='noreferrer'
+              aria-label='View source'
+              className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
+            >
+              <Image
+                src='/icons/github.svg'
+                alt=''
+                width={22}
+                height={22}
+              />
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }
