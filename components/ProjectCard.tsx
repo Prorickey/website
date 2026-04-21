@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ProjectMetadata } from './Projects';
 import { motion } from 'framer-motion';
 import Magnetic from './ui/Magnetic';
+import { LanguageIcons } from './projects/LanguageIcons';
 
 export interface ProjectCardProps {
   project: ProjectMetadata;
@@ -96,40 +97,13 @@ export function ProjectCard({
               </div>
               <h1 className='text-2xl font-semibold'>{title}</h1>
               <p>{shortDescription}</p>
-              <div className='grid grid-cols-6 content-start justify-start gap-x-1 gap-y-4 py-3'>
-                {langs.map((lang: string) => {
-                  const icon =
-                    lang == 'onshape' ? 'onshape.png' : `${lang}.svg`;
-
-                  if (langlinks == null || langlinks[lang] == null)
-                    return (
-                      <Image
-                        src={`/knows/${icon}`}
-                        alt={`${icon}`}
-                        height={40}
-                        width={40}
-                        key={lang}
-                      />
-                    );
-                  else
-                    return (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(langlinks[lang], '_blank');
-                        }}
-                        key={lang}
-                      >
-                        <Image
-                          src={`/knows/${icon}`}
-                          alt={`${icon}`}
-                          height={40}
-                          width={40}
-                        />
-                      </button>
-                    );
-                })}
-              </div>
+              <LanguageIcons
+                langs={langs}
+                langlinks={langlinks}
+                columns={6}
+                stopPropagation
+                className='py-3'
+              />
             </div>
           </div>
         </div>
