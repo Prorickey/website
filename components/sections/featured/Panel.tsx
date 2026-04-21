@@ -49,7 +49,7 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
       <div className='flex flex-col gap-[4vh] lg:gap-[6vh]'>
         <h3
           data-panel-title
-          className='text-balance will-change-[clip-path]'
+          className='whitespace-nowrap will-change-[clip-path]'
           style={{
             fontSize: 'clamp(1.75rem, 5vw, 4rem)',
             lineHeight: 1,
@@ -68,14 +68,14 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
         {project.image && (
           <div
             data-panel-image-wrap
-            className='relative mx-auto aspect-video w-full max-w-[56rem] overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] will-change-transform'
+            className='relative mx-auto aspect-video w-[75%] max-w-[42rem] overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] will-change-transform'
           >
             <Image
               data-panel-image
               src={project.image}
               alt={project.title}
               fill
-              sizes='(max-width: 1024px) 90vw, 56rem'
+              sizes='(max-width: 1024px) 68vw, 42rem'
               className='object-cover'
               priority={index === 0}
             />
