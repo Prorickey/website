@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { createElement } from 'react';
+import { createElement, useEffect, useState } from 'react';
 
 type Props = {
   text: string;
@@ -22,6 +22,28 @@ export default function TextReveal({
   once = true,
   immediate = false,
 }: Props) {
+  const [node, setNode] = useState<HTMLElement | null>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    if (!node || immediate) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          if (once) observer.disconnect();
+        } else if (!once) {
+          setInView(false);
+        }
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [node, once, immediate]);
+
+  const shouldShow = immediate || inView;
+
   const words = text.split(' ');
 
   const children = words.map((word, wi) => {
@@ -31,20 +53,16 @@ export default function TextReveal({
       delay: delay + wi * stagger,
     };
 
-    const motionProps = immediate
-      ? { initial: { y: '110%' }, animate: { y: '0%' }, transition }
-      : {
-          initial: { y: '110%' },
-          whileInView: { y: '0%' },
-          viewport: { once, amount: 0.1, margin: '0px 0px -10% 0px' },
-          transition,
-        };
-
     const isLast = wi === words.length - 1;
     return (
       <span key={`${word}-${wi}`}>
         <span className='inline-block overflow-hidden align-bottom'>
-          <motion.span className='inline-block' {...motionProps}>
+          <motion.span
+            className='inline-block'
+            initial={{ y: '110%' }}
+            animate={shouldShow ? { y: '0%' } : { y: '110%' }}
+            transition={transition}
+          >
             {word}
           </motion.span>
         </span>
@@ -53,5 +71,9 @@ export default function TextReveal({
     );
   });
 
-  return createElement(as, { className, 'aria-label': text }, ...children);
+  return createElement(
+    as,
+    { ref: setNode, className, 'aria-label': text },
+    ...children
+  );
 }
