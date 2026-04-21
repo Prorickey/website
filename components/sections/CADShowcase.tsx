@@ -110,8 +110,8 @@ function displacedProgress(
 
 function mixForProgress(p: number) {
   const clamped = Math.max(0, Math.min(1, p));
-  if (clamped < 0.3) return 0;
-  if (clamped < 0.5) return (clamped - 0.3) / 0.2;
+  if (clamped < 0.2) return 0;
+  if (clamped < 0.35) return (clamped - 0.2) / 0.15;
   return 1;
 }
 
