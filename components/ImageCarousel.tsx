@@ -1,9 +1,14 @@
 'use client';
 
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
 
 const EQUILIBRIUM_VELOCITY = -0.25;
+const WHEEL_SENSITIVITY = 0.22;
+const MAX_VELOCITY = 30;
+const IDLE_MS_BEFORE_RESUME = 1000;
+const DECAY_DURING_INPUT = 0.92;
+const EASE_BACK_RATE = 0.035;
 
 const images = [
   { src: '/images/nctsa.png', alt: 'NC TSA' },
@@ -18,61 +23,99 @@ const topImages = images.slice(0, Math.ceil(images.length / 2));
 const bottomImages = images.slice(Math.ceil(images.length / 2));
 
 export function ImageCarousel() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const desktopWrapRef = useRef<HTMLDivElement | null>(null);
+  const mobileTopWrapRef = useRef<HTMLDivElement | null>(null);
+  const mobileBottomWrapRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollContainerRefDesktop = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRefMobile = useRef<HTMLDivElement | null>(null);
+  const reverseScrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   const offsetRef = useRef(0);
   const reverseOffsetRef = useRef(0);
+  const velocityRef = useRef(EQUILIBRIUM_VELOCITY);
+  const lastInteractionRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
-  const scrollContainerRefDesktop = useRef<HTMLDivElement>(null);
-  const scrollContainerRefMobile = useRef<HTMLDivElement>(null);
-  const reverseScrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Calculate image widths once
-  const desktopImageWidth = 600 + 32; // image width + gap
-  const mobileImageWidth = 280 + 16; // image width + gap
+  const desktopImageWidth = 600 + 32;
+  const mobileImageWidth = 280 + 16;
   const desktopLoopWidth = images.length * desktopImageWidth;
   const mobileLoopWidth = topImages.length * mobileImageWidth;
 
   useEffect(() => {
     const animate = () => {
+      const now = performance.now();
       const isMobile = window.innerWidth < 768;
       const loopWidth = isMobile ? mobileLoopWidth : desktopLoopWidth;
 
-      // Forward carousel
-      offsetRef.current += EQUILIBRIUM_VELOCITY;
-      if (offsetRef.current <= -loopWidth) {
-        offsetRef.current = 0;
+      const idleFor = now - lastInteractionRef.current;
+      if (idleFor > IDLE_MS_BEFORE_RESUME) {
+        velocityRef.current +=
+          (EQUILIBRIUM_VELOCITY - velocityRef.current) * EASE_BACK_RATE;
+      } else {
+        const target = EQUILIBRIUM_VELOCITY;
+        velocityRef.current =
+          velocityRef.current * DECAY_DURING_INPUT +
+          target * (1 - DECAY_DURING_INPUT);
       }
+
+      if (velocityRef.current > MAX_VELOCITY) velocityRef.current = MAX_VELOCITY;
+      if (velocityRef.current < -MAX_VELOCITY) velocityRef.current = -MAX_VELOCITY;
+
+      offsetRef.current += velocityRef.current;
+      if (offsetRef.current <= -loopWidth) offsetRef.current += loopWidth;
+      if (offsetRef.current > 0) offsetRef.current -= loopWidth;
+
+      reverseOffsetRef.current -= velocityRef.current;
+      if (reverseOffsetRef.current >= 0)
+        reverseOffsetRef.current -= loopWidth;
+      if (reverseOffsetRef.current < -loopWidth)
+        reverseOffsetRef.current += loopWidth;
 
       if (scrollContainerRefDesktop.current) {
-        scrollContainerRefDesktop.current.style.transform = `translateX(${offsetRef.current}px)`;
+        scrollContainerRefDesktop.current.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
       }
-
       if (scrollContainerRefMobile.current) {
-        scrollContainerRefMobile.current.style.transform = `translateX(${offsetRef.current}px)`;
+        scrollContainerRefMobile.current.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
       }
-
-      // Reverse carousel for mobile (moves right, starts at negative offset)
-      reverseOffsetRef.current -= EQUILIBRIUM_VELOCITY;
-      if (reverseOffsetRef.current >= 0) {
-        reverseOffsetRef.current = -loopWidth;
-      }
-
       if (reverseScrollContainerRef.current) {
-        reverseScrollContainerRef.current.style.transform = `translateX(${reverseOffsetRef.current}px)`;
+        reverseScrollContainerRef.current.style.transform = `translate3d(${reverseOffsetRef.current}px, 0, 0)`;
       }
 
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
     animationFrameRef.current = requestAnimationFrame(animate);
-
     return () => {
-      if (animationFrameRef.current) {
+      if (animationFrameRef.current)
         cancelAnimationFrame(animationFrameRef.current);
-      }
     };
   }, [desktopLoopWidth, mobileLoopWidth]);
+
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      const absX = Math.abs(e.deltaX);
+      const absY = Math.abs(e.deltaY);
+      if (absX <= absY) return;
+
+      e.preventDefault();
+      lastInteractionRef.current = performance.now();
+      velocityRef.current -= e.deltaX * WHEEL_SENSITIVITY;
+      if (velocityRef.current > MAX_VELOCITY) velocityRef.current = MAX_VELOCITY;
+      if (velocityRef.current < -MAX_VELOCITY) velocityRef.current = -MAX_VELOCITY;
+    };
+
+    const wraps = [
+      desktopWrapRef.current,
+      mobileTopWrapRef.current,
+      mobileBottomWrapRef.current,
+    ].filter((w): w is HTMLDivElement => w !== null);
+
+    wraps.forEach((w) => w.addEventListener('wheel', handleWheel, { passive: false }));
+    return () => {
+      wraps.forEach((w) => w.removeEventListener('wheel', handleWheel));
+    };
+  }, []);
 
   const duplicatedImages = useMemo(
     () => [...images, ...images, ...images, ...images],
@@ -88,13 +131,19 @@ export function ImageCarousel() {
   );
 
   return (
-    <div ref={containerRef} className='relative w-full overflow-hidden py-10'>
+    <div className='relative w-full overflow-hidden py-10'>
       {/* Desktop carousel - single row */}
-      <div className='relative hidden h-[350px] w-full md:block'>
-        <div className='pointer-events-none absolute top-0 left-0 z-10 h-full w-48 bg-linear-to-r from-white to-transparent dark:from-black' />
-        <div className='pointer-events-none absolute top-0 right-0 z-10 h-full w-48 bg-linear-to-l from-white to-transparent dark:from-black' />
+      <div
+        ref={desktopWrapRef}
+        className='relative hidden h-[350px] w-full overflow-hidden md:block'
+      >
+        <div className='pointer-events-none absolute top-0 left-0 z-10 h-full w-48 bg-linear-to-r from-[color:var(--background)] to-transparent' />
+        <div className='pointer-events-none absolute top-0 right-0 z-10 h-full w-48 bg-linear-to-l from-[color:var(--background)] to-transparent' />
         <div className='flex h-full gap-8'>
-          <div ref={scrollContainerRefDesktop} className='flex h-full gap-8'>
+          <div
+            ref={scrollContainerRefDesktop}
+            className='flex h-full gap-8 will-change-transform'
+          >
             {duplicatedImages.map((image, index) => (
               <div
                 key={`${image.src}-${index}`}
@@ -107,6 +156,7 @@ export function ImageCarousel() {
                   className='object-cover'
                   priority={index < 3}
                   sizes='600px'
+                  draggable={false}
                 />
               </div>
             ))}
@@ -116,12 +166,17 @@ export function ImageCarousel() {
 
       {/* Mobile carousels - two rows going opposite directions */}
       <div className='space-y-4 md:hidden'>
-        {/* First carousel - top half of images, left to right */}
-        <div className='relative h-[150px] w-full'>
-          <div className='pointer-events-none absolute top-0 left-0 z-10 h-full w-16 bg-linear-to-r from-white to-transparent dark:from-[#000000AA]' />
-          <div className='pointer-events-none absolute top-0 right-0 z-10 h-full w-16 bg-linear-to-l from-white to-transparent dark:from-[#000000AA]' />
-          <div className='flex h-full gap-4 overflow-hidden'>
-            <div ref={scrollContainerRefMobile} className='flex h-full gap-4'>
+        <div
+          ref={mobileTopWrapRef}
+          className='relative h-[150px] w-full overflow-hidden'
+        >
+          <div className='pointer-events-none absolute top-0 left-0 z-10 h-full w-16 bg-linear-to-r from-[color:var(--background)] to-transparent' />
+          <div className='pointer-events-none absolute top-0 right-0 z-10 h-full w-16 bg-linear-to-l from-[color:var(--background)] to-transparent' />
+          <div className='flex h-full gap-4'>
+            <div
+              ref={scrollContainerRefMobile}
+              className='flex h-full gap-4 will-change-transform'
+            >
               {duplicatedTopImages.map((image, index) => (
                 <div
                   key={`${image.src}-${index}`}
@@ -134,6 +189,7 @@ export function ImageCarousel() {
                     className='object-cover'
                     priority={index < 3}
                     sizes='280px'
+                    draggable={false}
                   />
                 </div>
               ))}
@@ -141,12 +197,17 @@ export function ImageCarousel() {
           </div>
         </div>
 
-        {/* Second carousel - bottom half of images, right to left */}
-        <div className='relative h-[150px] w-full'>
-          <div className='pointer-events-none absolute top-0 left-0 z-10 h-full w-16 bg-linear-to-r from-white to-transparent dark:from-[#000000AA]' />
-          <div className='pointer-events-none absolute top-0 right-0 z-10 h-full w-16 bg-linear-to-l from-white to-transparent dark:from-[#000000AA]' />
-          <div className='flex h-full gap-4 overflow-hidden'>
-            <div ref={reverseScrollContainerRef} className='flex h-full gap-4'>
+        <div
+          ref={mobileBottomWrapRef}
+          className='relative h-[150px] w-full overflow-hidden'
+        >
+          <div className='pointer-events-none absolute top-0 left-0 z-10 h-full w-16 bg-linear-to-r from-[color:var(--background)] to-transparent' />
+          <div className='pointer-events-none absolute top-0 right-0 z-10 h-full w-16 bg-linear-to-l from-[color:var(--background)] to-transparent' />
+          <div className='flex h-full gap-4'>
+            <div
+              ref={reverseScrollContainerRef}
+              className='flex h-full gap-4 will-change-transform'
+            >
               {duplicatedBottomImages.map((image, index) => (
                 <div
                   key={`${image.src}-reverse-${index}`}
@@ -159,6 +220,7 @@ export function ImageCarousel() {
                     className='object-cover'
                     priority={index < 3}
                     sizes='280px'
+                    draggable={false}
                   />
                 </div>
               ))}
