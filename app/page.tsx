@@ -3,6 +3,7 @@ import Hero from '@/components/sections/Hero';
 import { About } from '@/components/sections/About';
 import { CADShowcase } from '@/components/sections/CADShowcase';
 import { Toolkit } from '@/components/sections/Toolkit';
+import { FeaturedProjects } from '@/components/sections/FeaturedProjects';
 import { Projects } from '@/components/Projects';
 import { BlogTeaser } from '@/components/sections/BlogTeaser';
 import { Contact } from '@/components/sections/Contact';
@@ -25,6 +26,7 @@ export default function Home() {
       <About age={age} />
       <CADShowcase />
       <Toolkit />
+      <FeaturedProjects />
       <Projects />
       <BlogTeaser />
       <Contact />

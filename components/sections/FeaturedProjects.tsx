@@ -1,158 +1,118 @@
 'use client';
 
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from 'framer-motion';
-import Image from 'next/image';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ProjectMetadata } from '@/components/Projects';
+import { Panel } from './featured/Panel';
 
-type Props = {
-  projects: ProjectMetadata[];
-};
+const N_FEATURED = 3;
+const EXTRA_SCROLL_VH = 40;
 
-export function FeaturedProjects({ projects }: Props) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end end'],
-  });
+async function loadFeatured(): Promise<ProjectMetadata[]> {
+  const indexRes = await fetch('/projects/index.json');
+  const slugs: string[] = await indexRes.json();
+  const featuredSlugs = slugs.slice(0, N_FEATURED);
 
-  if (projects.length === 0) return null;
+  return Promise.all(
+    featuredSlugs.map(async (slug) => {
+      const res = await fetch(`/projects/${slug}/metadata.json`);
+      const metadata = await res.json();
+      const image = metadata.image
+        ? `/projects/${slug}/${metadata.image}`
+        : null;
+      return { ...metadata, slug, image } as ProjectMetadata;
+    })
+  );
+}
+
+export function FeaturedProjects() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const progressBarRef = useRef<HTMLDivElement | null>(null);
+  const [featured, setFeatured] = useState<ProjectMetadata[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadFeatured().then((projects) => {
+      if (!cancelled) setFeatured(projects);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (featured.length === 0) return;
+
+    let raf = 0;
+    const tick = () => {
+      const section = sectionRef.current;
+      const track = trackRef.current;
+      const bar = progressBarRef.current;
+      if (section && track) {
+        const rect = section.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        const scrolled = -rect.top;
+        const progress =
+          total > 0 ? Math.max(0, Math.min(1, scrolled / total)) : 0;
+
+        const translateX =
+          -progress * (featured.length - 1) * window.innerWidth;
+        track.style.transform = `translate3d(${translateX}px, 0, 0)`;
+
+        if (bar) bar.style.transform = `scaleX(${progress})`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [featured.length]);
+
+  if (featured.length === 0) return null;
+
+  const n = featured.length;
+  const sectionHeight = n * 100 + EXTRA_SCROLL_VH;
 
   return (
-    <div
-      ref={ref}
-      className='relative mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 lg:grid-cols-[1fr_1.2fr] lg:gap-20 lg:px-10'
-      style={{ minHeight: `${projects.length * 80}vh` }}
+    <section
+      ref={sectionRef}
+      id='featured'
+      className='relative hidden md:block'
+      style={{ height: `${sectionHeight}vh` }}
+      aria-label='Featured projects'
     >
-      <div className='relative lg:h-full'>
-        <div className='sticky top-1/4 flex flex-col gap-6'>
+      <div className='sticky top-0 flex h-screen w-full flex-col overflow-hidden bg-[color:var(--background)]'>
+        <div className='relative h-[2px] w-full bg-[color:var(--border-subtle)]'>
+          <div
+            ref={progressBarRef}
+            className='h-full origin-left bg-[color:var(--accent)]'
+            style={{ transform: 'scaleX(0)' }}
+          />
+        </div>
+
+        <header className='pointer-events-none absolute top-[3.5vh] left-[8vw] z-10'>
           <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
-            Featured Work
+            03 — Featured Work
           </span>
-          {projects.map((p, i) => (
-            <Title
-              key={p.slug}
+        </header>
+
+        <div
+          ref={trackRef}
+          className='flex h-full will-change-transform'
+          style={{ width: `${n * 100}vw` }}
+        >
+          {featured.map((project, i) => (
+            <Panel
+              key={project.slug}
+              project={project}
               index={i}
-              total={projects.length}
-              project={p}
-              progress={scrollYProgress}
+              total={n}
+              onExpand={() => {
+                /* wired in phase 5 */
+              }}
             />
           ))}
         </div>
       </div>
-
-      <div className='flex flex-col gap-10 lg:gap-20'>
-        {projects.map((p) => (
-          <FeaturedCard key={p.slug} project={p} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Title({
-  index,
-  total,
-  project,
-  progress,
-}: {
-  index: number;
-  total: number;
-  project: ProjectMetadata;
-  progress: ReturnType<typeof useScroll>['scrollYProgress'];
-}) {
-  const slice = 1 / Math.max(total, 1);
-  const start = slice * index;
-  const end = slice * (index + 1);
-  const opacity = useTransform(
-    progress,
-    [
-      Math.max(0, start - slice * 0.3),
-      start,
-      end,
-      Math.min(1, end + slice * 0.3),
-    ],
-    [0.25, 1, 1, 0.25]
-  );
-  const x = useTransform(progress, [start, end], [-20, 0]);
-  const elRef = useRef<HTMLDivElement | null>(null);
-
-  useMotionValueEvent(opacity, 'change', (v) => {
-    if (elRef.current) elRef.current.style.opacity = String(v);
-  });
-  useMotionValueEvent(x, 'change', (v) => {
-    if (elRef.current) elRef.current.style.transform = `translateX(${v}px)`;
-  });
-
-  return (
-    <div ref={elRef} className='flex flex-col gap-1'>
-      <span className='text-xs tracking-[0.3em] text-[color:var(--accent)] uppercase'>
-        {String(index + 1).padStart(2, '0')}
-      </span>
-      <h3 className='text-3xl font-semibold lg:text-5xl'>{project.title}</h3>
-      <p className='max-w-md text-[color:var(--text-muted)]'>
-        {project.shortDescription}
-      </p>
-    </div>
-  );
-}
-
-function FeaturedCard({ project }: { project: ProjectMetadata }) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      className='group relative overflow-hidden rounded-3xl border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)]'
-    >
-      {project.image && (
-        <div className='relative aspect-video w-full overflow-hidden'>
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            sizes='(max-width: 1024px) 100vw, 50vw'
-            className='object-cover transition-transform duration-700 group-hover:scale-105'
-          />
-          <div className='pointer-events-none absolute inset-0 bg-linear-to-t from-[color:var(--surface-2)] via-transparent to-transparent' />
-        </div>
-      )}
-      <div className='flex items-center justify-between p-6'>
-        <div>
-          <p className='text-sm text-[color:var(--text-muted)]'>
-            {project.date}
-          </p>
-          <h4 className='mt-1 text-xl font-semibold'>{project.title}</h4>
-        </div>
-        <div className='flex gap-3'>
-          {project.link && (
-            <a
-              href={project.link}
-              target='_blank'
-              rel='noreferrer'
-              aria-label='Visit project'
-            >
-              <Image src='/icons/rocket.svg' alt='' width={28} height={28} />
-            </a>
-          )}
-          {project.source && (
-            <a
-              href={project.source}
-              target='_blank'
-              rel='noreferrer'
-              aria-label='View source'
-            >
-              <Image src='/icons/github.svg' alt='' width={28} height={28} />
-            </a>
-          )}
-        </div>
-      </div>
-    </motion.article>
+    </section>
   );
 }

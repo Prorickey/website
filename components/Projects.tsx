@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ProjectCard } from './ProjectCard';
 import { ProjectModal } from './ProjectModal';
-import { FeaturedProjects } from './sections/FeaturedProjects';
 import TextReveal from './ui/TextReveal';
 
 export interface ProjectMetadata {
@@ -63,49 +62,40 @@ export function Projects() {
 
   if (!isClient || projects.length === 0 || !langlinks) return null;
 
-  const featured = projects.slice(0, FEATURED_COUNT);
   const rest = projects.slice(FEATURED_COUNT);
+  if (rest.length === 0) return null;
 
   return (
     <section id='projects' className='relative py-28'>
       <div className='mx-auto max-w-6xl px-6 lg:px-10'>
         <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
-          03 — Projects
+          04 — More Work
         </span>
         <TextReveal
           as='h2'
-          text='Things I have built.'
+          text='Everything else I have shipped.'
           className='mt-4 block text-4xl font-semibold text-balance lg:text-6xl'
           stagger={0.05}
         />
       </div>
 
-      <div className='mt-20'>
-        <FeaturedProjects projects={featured} />
+      <div className='mx-auto mt-16 max-w-6xl px-6 lg:px-10'>
+        <ResponsiveMasonry
+          columnsCountBreakPoints={{ 350: 1, 800: 2, 1300: 3 }}
+          gutterBreakPoints={{ 350: 24, 800: 24, 1300: 24 }}
+        >
+          <Masonry>
+            {rest.map((project) => (
+              <ProjectCard
+                key={project.slug}
+                project={project}
+                langlinks={langlinks}
+                onSelect={() => setSelectedProject(project)}
+              />
+            ))}
+          </Masonry>
+        </ResponsiveMasonry>
       </div>
-
-      {rest.length > 0 && (
-        <div className='mx-auto mt-20 max-w-6xl px-6 lg:px-10'>
-          <h3 className='mb-8 text-sm tracking-[0.3em] text-[color:var(--text-muted)] uppercase'>
-            More Work
-          </h3>
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 800: 2, 1300: 3 }}
-            gutterBreakPoints={{ 350: 24, 800: 24, 1300: 24 }}
-          >
-            <Masonry>
-              {rest.map((project) => (
-                <ProjectCard
-                  key={project.slug}
-                  project={project}
-                  langlinks={langlinks}
-                  onSelect={() => setSelectedProject(project)}
-                />
-              ))}
-            </Masonry>
-          </ResponsiveMasonry>
-        </div>
-      )}
 
       {selectedProject && (
         <ProjectModal
