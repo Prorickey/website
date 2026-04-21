@@ -33,7 +33,7 @@ export function Contact() {
         <TextReveal
           as='h2'
           text="Let's build something."
-          className='mt-6 block text-5xl leading-[1.05] font-semibold tracking-tight md:text-7xl lg:text-[clamp(4rem,10vw,10rem)]'
+          className='mt-6 block pb-[0.12em] text-5xl leading-[1.2] font-semibold tracking-tight md:text-7xl lg:text-[clamp(4rem,10vw,10rem)]'
           stagger={0.04}
         />
 
