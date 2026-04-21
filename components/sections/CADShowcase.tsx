@@ -216,13 +216,13 @@ function BeatText({
     <div
       style={{
         opacity,
-        transform: `translate(-50%, -50%) translateX(${x}px)`,
-        top: '50%',
-        left: '50%',
+        transform: `translateY(-50%) translateX(${x}px)`,
       }}
       className={
-        'pointer-events-none absolute z-10 flex w-[min(90%,32rem)] flex-col gap-3 px-6 ' +
-        (isLeft ? 'text-left' : 'text-right')
+        'pointer-events-none absolute top-1/2 z-10 flex max-w-md flex-col gap-3 px-6 ' +
+        (isLeft
+          ? 'left-4 text-left md:left-10 lg:left-16'
+          : 'right-4 text-right md:right-10 lg:right-16')
       }
     >
       <span className='text-xs tracking-[0.4em] text-[color:var(--accent)] uppercase'>
