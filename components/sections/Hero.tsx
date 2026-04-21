@@ -34,7 +34,12 @@ export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
 
   const { scrollY } = useScroll();
-  const hintOpacity = useTransform(scrollY, [0, 120], [1, 0]);
+  const scrollHintOpacity = useTransform(scrollY, [0, 120], [1, 0]);
+  const mountHintOpacity = useMotionValue(0);
+  const hintOpacity = useTransform(
+    [scrollHintOpacity, mountHintOpacity],
+    ([s, m]: number[]) => s * m
+  );
   const canvasY = useTransform(scrollY, [0, 600], [0, 120]);
   const hintRef = useRef<HTMLDivElement | null>(null);
 
@@ -53,6 +58,15 @@ export default function Hero() {
     );
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    const controls = animate(mountHintOpacity, 1, {
+      delay: 2,
+      duration: 1.2,
+      ease: [0.22, 1, 0.36, 1],
+    });
+    return () => controls.stop();
+  }, [mountHintOpacity]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -220,6 +234,7 @@ export default function Hero() {
       <div
         ref={hintRef}
         aria-hidden
+        style={{ opacity: 0 }}
         className='relative z-20 mt-auto flex flex-col items-center justify-center gap-2 pb-4 text-xs tracking-[0.3em] text-[color:var(--text-muted)] uppercase'
       >
         <span>Scroll</span>

@@ -1,8 +1,11 @@
 'use client';
 
+import { AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import type { ProjectMetadata } from '@/components/Projects';
+import { useLenis } from '@/components/providers/LenisProvider';
 import { Panel } from './featured/Panel';
+import { ExpandedCaseStudy } from './featured/ExpandedCaseStudy';
 
 const N_FEATURED = 3;
 const EXTRA_SCROLL_VH = 40;
@@ -34,16 +37,31 @@ export function FeaturedProjects() {
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const panelRefs = useRef<Array<HTMLElement | null>>([]);
   const [featured, setFeatured] = useState<ProjectMetadata[]>([]);
+  const [langlinks, setLanglinks] = useState<Record<string, string>>({});
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const lenisRef = useLenis();
 
   useEffect(() => {
     let cancelled = false;
     loadFeatured().then((projects) => {
       if (!cancelled) setFeatured(projects);
     });
+    fetch('/langlinks.json')
+      .then((res) => res.json())
+      .then((data) => {
+        if (!cancelled) setLanglinks(data);
+      });
     return () => {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    const lenis = lenisRef?.current;
+    if (!lenis) return;
+    if (expandedIndex !== null) lenis.stop();
+    else lenis.start();
+  }, [expandedIndex, lenisRef]);
 
   useEffect(() => {
     if (featured.length === 0) return;
@@ -136,12 +154,20 @@ export function FeaturedProjects() {
               project={project}
               index={i}
               total={n}
-              onExpand={() => {
-                /* wired in phase 5 */
-              }}
+              onExpand={() => setExpandedIndex(i)}
             />
           ))}
         </div>
+
+        <AnimatePresence>
+          {expandedIndex !== null && (
+            <ExpandedCaseStudy
+              project={featured[expandedIndex]}
+              langlinks={langlinks}
+              onClose={() => setExpandedIndex(null)}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
