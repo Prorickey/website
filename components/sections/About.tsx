@@ -139,7 +139,7 @@ export function About({ age }: { age: number }) {
         <Timeline items={experiences} />
       </div>
 
-      <div className='mt-20'>
+      <div className='mt-40'>
         <ImageCarousel />
       </div>
     </section>
