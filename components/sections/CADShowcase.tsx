@@ -180,6 +180,7 @@ function BeatText({
   progress: number;
 }) {
   const isLeft = index % 2 === 0;
+  const isLast = index === total - 1;
   const slice = 1 / Math.max(total, 1);
   const start = slice * index;
   const end = slice * (index + 1);
@@ -200,7 +201,7 @@ function BeatText({
     const t = (progress - p0) / (p1 - p0);
     opacity = t;
     x = (isLeft ? -120 : 120) * (1 - t);
-  } else if (progress < p2) {
+  } else if (isLast || progress < p2) {
     opacity = 1;
     x = 0;
   } else if (progress < p3) {

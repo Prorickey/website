@@ -30,7 +30,10 @@ export function Toolkit() {
   }, []);
 
   return (
-    <section id='toolkit' className='relative py-28'>
+    <section
+      id='toolkit'
+      className='relative z-10 -mt-[100vh] bg-[color:var(--background)] py-28'
+    >
       <div className='mx-auto max-w-6xl px-6 lg:px-10'>
         <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
           02 — Toolkit
