@@ -27,7 +27,7 @@ export function RobotModel({ rotationY, tilt }: Props) {
   });
 
   return (
-    <group ref={groupRef} position={[0, -0.6, 0]}>
+    <group ref={groupRef} position={[0, -0.6, 0]} scale={0.9}>
       <mesh position={[0, 0.1, 0]} castShadow receiveShadow>
         <boxGeometry args={[1.8, 1.2, 1.4]} />
         <meshStandardMaterial color='#2b2b2b' metalness={0.7} roughness={0.3} />

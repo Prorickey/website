@@ -56,9 +56,9 @@ export function CADShowcase() {
   const rotationY = useTransform(
     scrollYProgress,
     [0, 1],
-    [-0.6, Math.PI * 1.4]
+    [-0.4, Math.PI * 0.9]
   );
-  const tilt = useTransform(scrollYProgress, [0, 0.5, 1], [0.1, -0.15, 0.25]);
+  const tilt = useTransform(scrollYProgress, [0, 0.5, 1], [0.1, -0.1, 0.15]);
   const [rotY, setRotY] = useState(-0.6);
   const [t, setT] = useState(0.1);
 
@@ -73,8 +73,8 @@ export function CADShowcase() {
 
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
     let mix = 0;
-    if (p < 0.3) mix = 0;
-    else if (p < 0.5) mix = (p - 0.3) / 0.2;
+    if (p < 0.2) mix = 0;
+    else if (p < 0.6) mix = (p - 0.2) / 0.4;
     else mix = 1;
 
     const stage = stageRef.current;
@@ -108,6 +108,8 @@ export function CADShowcase() {
             ['--cad-text-primary' as string]: 'rgb(231, 231, 231)',
             ['--cad-text-muted' as string]: 'rgb(138, 138, 138)',
             color: 'var(--cad-text-primary)',
+            transition:
+              'background-color 180ms linear, color 180ms linear',
           } as React.CSSProperties
         }
         className='sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden'
