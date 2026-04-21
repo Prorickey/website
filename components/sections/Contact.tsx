@@ -37,7 +37,7 @@ export function Contact() {
           stagger={0.04}
         />
 
-        <p className='mt-8 max-w-2xl text-lg text-[color:var(--text-muted)] lg:text-xl'>
+        <p className='mt-3 max-w-2xl text-lg text-[color:var(--text-muted)] lg:text-xl'>
           I&#39;m always happy to talk robotics, systems engineering, and
           building things on the web. Fastest reply is email.
         </p>
