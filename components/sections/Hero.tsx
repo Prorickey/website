@@ -2,7 +2,6 @@
 
 import {
   animate,
-  AnimatePresence,
   motion,
   useMotionValue,
   useMotionValueEvent,
@@ -25,13 +24,17 @@ const roles = [
   'a leader.',
 ];
 
-const ROLE_HOLD_MS = 2200;
+const TYPE_TICK_MS = 140;
+const HOLD_TICKS = 7;
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<number | null>(null);
   const [roleIndex, setRoleIndex] = useState(0);
+  const [typedRole, setTypedRole] = useState('');
+  const [holdTicks, setHoldTicks] = useState(0);
+  const [deleting, setDeleting] = useState(false);
 
   const { scrollY } = useScroll();
   const scrollHintOpacity = useTransform(scrollY, [0, 120], [1, 0]);
@@ -52,12 +55,30 @@ export default function Hero() {
   });
 
   useEffect(() => {
-    const id = setInterval(
-      () => setRoleIndex((i) => (i + 1) % roles.length),
-      ROLE_HOLD_MS
-    );
-    return () => clearInterval(id);
-  }, []);
+    const target = roles[roleIndex];
+    const id = setTimeout(() => {
+      if (!deleting) {
+        if (typedRole.length === target.length) {
+          if (holdTicks === HOLD_TICKS) {
+            setHoldTicks(0);
+            setDeleting(true);
+          } else {
+            setHoldTicks((h) => h + 1);
+          }
+        } else {
+          setTypedRole(target.substring(0, typedRole.length + 1));
+        }
+      } else {
+        if (typedRole.length === 0) {
+          setRoleIndex((i) => (i + 1) % roles.length);
+          setDeleting(false);
+        } else {
+          setTypedRole(target.substring(0, typedRole.length - 1));
+        }
+      }
+    }, TYPE_TICK_MS);
+    return () => clearTimeout(id);
+  }, [typedRole, roleIndex, holdTicks, deleting]);
 
   useEffect(() => {
     const controls = animate(mountHintOpacity, 1, {
@@ -213,19 +234,8 @@ export default function Hero() {
           />
           <h2 className='mt-2 flex flex-wrap items-baseline justify-center gap-x-3 text-center text-3xl lg:text-6xl'>
             <span>i am</span>
-            <span className='relative inline-block min-w-[10ch] text-left'>
-              <AnimatePresence mode='wait'>
-                <motion.span
-                  key={roles[roleIndex]}
-                  initial={{ y: '60%', opacity: 0 }}
-                  animate={{ y: '0%', opacity: 1 }}
-                  exit={{ y: '-60%', opacity: 0 }}
-                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                  className='inline-block text-[color:var(--accent)]'
-                >
-                  {roles[roleIndex]}
-                </motion.span>
-              </AnimatePresence>
+            <span className='relative inline-block min-w-[10ch] text-left text-[color:var(--accent)]'>
+              {typedRole}
             </span>
           </h2>
         </div>
