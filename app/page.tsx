@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/sections/Hero';
 import { About } from '@/components/sections/About';
+import { Toolkit } from '@/components/sections/Toolkit';
 import { Projects } from '@/components/Projects';
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About age={age} />
+      <Toolkit />
       <Projects />
       <div className='h-60 bg-[color:var(--background)]'></div>
     </main>

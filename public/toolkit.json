@@ -1,0 +1,50 @@
+{
+  "categories": [
+    {
+      "label": "Languages",
+      "items": [
+        { "id": "typescript", "name": "TypeScript", "icon": "/knows/typescript.svg", "docs": "https://www.typescriptlang.org/" },
+        { "id": "javascript", "name": "JavaScript", "icon": "/knows/javascript.svg", "docs": "https://developer.mozilla.org/docs/Web/JavaScript" },
+        { "id": "golang", "name": "Go", "icon": "/knows/golang.svg", "docs": "https://go.dev/" },
+        { "id": "python", "name": "Python", "icon": "/knows/python.svg", "docs": "https://www.python.org/" },
+        { "id": "java", "name": "Java", "icon": "/knows/java.svg", "docs": "https://www.java.com/" },
+        { "id": "kotlin", "name": "Kotlin", "icon": "/knows/kotlin.svg", "docs": "https://kotlinlang.org/" },
+        { "id": "rust", "name": "Rust", "icon": "/knows/rust.svg", "docs": "https://rust-lang.org/" },
+        { "id": "cpp", "name": "C++", "icon": "/knows/cpp.svg", "docs": "https://isocpp.org/" }
+      ]
+    },
+    {
+      "label": "Frameworks",
+      "items": [
+        { "id": "react", "name": "React", "icon": "/knows/react.svg", "docs": "https://react.dev/" },
+        { "id": "nextjs", "name": "Next.js", "icon": "/knows/nextjs.svg", "docs": "https://nextjs.org/" },
+        { "id": "tailwindcss", "name": "Tailwind", "icon": "/knows/tailwindcss.svg", "docs": "https://tailwindcss.com/" },
+        { "id": "nodejs", "name": "Node.js", "icon": "/knows/nodejs.svg", "docs": "https://nodejs.org/" },
+        { "id": "expo", "name": "Expo", "icon": "/knows/expo.svg", "docs": "https://expo.dev/" },
+        { "id": "swiftui", "name": "SwiftUI", "icon": "/knows/swiftui.svg", "docs": "https://developer.apple.com/xcode/swiftui/" },
+        { "id": "bun", "name": "Bun", "icon": "/knows/bun.svg", "docs": "https://bun.sh/" }
+      ]
+    },
+    {
+      "label": "Infra",
+      "items": [
+        { "id": "docker", "name": "Docker", "icon": "/knows/docker.svg", "docs": "https://www.docker.com/" },
+        { "id": "kubernetes", "name": "Kubernetes", "icon": "/knows/kubernetes.svg", "docs": "https://kubernetes.io/" },
+        { "id": "linux", "name": "Linux", "icon": "/knows/linux.svg", "docs": "https://www.kernel.org/" },
+        { "id": "postgresql", "name": "PostgreSQL", "icon": "/knows/postgresql.svg", "docs": "https://www.postgresql.org/" },
+        { "id": "mysql", "name": "MySQL", "icon": "/knows/mysql.svg", "docs": "https://www.mysql.com/" },
+        { "id": "mongodb", "name": "MongoDB", "icon": "/knows/mongodb.svg", "docs": "https://www.mongodb.com/" },
+        { "id": "redis", "name": "Redis", "icon": "/knows/redis.svg", "docs": "https://redis.io/" }
+      ]
+    },
+    {
+      "label": "Tools",
+      "items": [
+        { "id": "git", "name": "Git", "icon": "/knows/git.svg", "docs": "https://git-scm.com/" },
+        { "id": "onshape", "name": "OnShape", "icon": "/knows/onshape.png", "docs": "https://www.onshape.com/" },
+        { "id": "html", "name": "HTML", "icon": "/knows/html.svg", "docs": "https://developer.mozilla.org/docs/Web/HTML" },
+        { "id": "css", "name": "CSS", "icon": "/knows/css.svg", "docs": "https://developer.mozilla.org/docs/Web/CSS" }
+      ]
+    }
+  ]
+}
