@@ -41,6 +41,9 @@ const BEATS: Beat[] = [
   },
 ];
 
+const BEAT_SPAN = 0.7;
+const SECTION_EXTRA_SCROLL = 2;
+
 const DARK_BG: [number, number, number] = [14, 14, 14];
 const LIGHT_BG: [number, number, number] = [250, 250, 250];
 const DARK_TEXT: [number, number, number] = [231, 231, 231];
@@ -120,7 +123,7 @@ export function CADShowcase() {
       id='cad'
       ref={ref}
       className='relative'
-      style={{ height: `${(totalBeats + 1) * 100}vh` }}
+      style={{ height: `${(totalBeats + SECTION_EXTRA_SCROLL) * 100}vh` }}
     >
       <div
         ref={stageRef}
@@ -181,7 +184,7 @@ function BeatText({
 }) {
   const isLeft = index % 2 === 0;
   const isLast = index === total - 1;
-  const slice = 1 / Math.max(total, 1);
+  const slice = BEAT_SPAN / Math.max(total, 1);
   const start = slice * index;
   const end = slice * (index + 1);
   const fadeIn = Math.max(slice * 0.25, 0.01);
