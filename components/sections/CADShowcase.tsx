@@ -1,0 +1,142 @@
+'use client';
+
+import { motion, useScroll, useTransform } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import { useEffect, useRef, useState } from 'react';
+import TextReveal from '@/components/ui/TextReveal';
+
+const Scene = dynamic(() => import('@/components/three/Scene'), {
+  ssr: false,
+  loading: () => null,
+});
+
+type Beat = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+};
+
+type Story = { beats: Beat[] };
+
+export function CADShowcase() {
+  const [story, setStory] = useState<Story | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    fetch('/cad-story.json')
+      .then((r) => r.json())
+      .then(setStory)
+      .catch(() => setStory({ beats: [] }));
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end end'],
+  });
+
+  const rotationY = useTransform(scrollYProgress, [0, 1], [-0.6, Math.PI * 1.4]);
+  const tilt = useTransform(scrollYProgress, [0, 0.5, 1], [0.1, -0.15, 0.25]);
+  const [rotY, setRotY] = useState(-0.6);
+  const [t, setT] = useState(0.1);
+
+  useEffect(() => {
+    const unsub1 = rotationY.on('change', setRotY);
+    const unsub2 = tilt.on('change', setT);
+    return () => {
+      unsub1();
+      unsub2();
+    };
+  }, [rotationY, tilt]);
+
+  const beats = story?.beats ?? [];
+  const totalBeats = Math.max(beats.length, 1);
+
+  return (
+    <section
+      id='cad'
+      ref={ref}
+      className='relative bg-[color:var(--surface-2)]'
+      style={{ height: `${(totalBeats + 1) * 100}vh` }}
+    >
+      <div className='sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden'>
+        <div className='absolute inset-0'>
+          <Scene rotationY={rotY} tilt={t} />
+        </div>
+
+        <div className='pointer-events-none absolute top-8 left-1/2 z-10 -translate-x-1/2 text-center'>
+          <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
+            A Robotics Story
+          </span>
+        </div>
+
+        <div className='relative z-10 mx-auto flex h-full max-w-6xl items-end px-6 pb-20 lg:px-10'>
+          <div className='relative h-40 w-full lg:w-[45%]'>
+            {beats.map((beat, i) => (
+              <BeatText
+                key={beat.id}
+                beat={beat}
+                index={i}
+                total={beats.length}
+                progress={scrollYProgress}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className='pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] text-[color:var(--text-muted)] uppercase'>
+          Scroll
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BeatText({
+  beat,
+  index,
+  total,
+  progress,
+}: {
+  beat: Beat;
+  index: number;
+  total: number;
+  progress: ReturnType<typeof useScroll>['scrollYProgress'];
+}) {
+  const slice = 1 / total;
+  const start = slice * index;
+  const end = slice * (index + 1);
+  const fadeIn = slice * 0.2;
+
+  const opacity = useTransform(
+    progress,
+    [start - fadeIn, start + fadeIn, end - fadeIn, end + fadeIn],
+    [0, 1, 1, 0]
+  );
+  const y = useTransform(
+    progress,
+    [start - fadeIn, start + fadeIn, end - fadeIn, end + fadeIn],
+    [40, 0, 0, -40]
+  );
+
+  return (
+    <motion.div
+      style={{ opacity, y }}
+      className='absolute inset-0 flex flex-col gap-3'
+    >
+      <span className='text-xs tracking-[0.4em] text-[color:var(--accent)] uppercase'>
+        {beat.eyebrow}
+      </span>
+      <TextReveal
+        as='h3'
+        text={beat.title}
+        className='block text-3xl font-semibold lg:text-5xl'
+        once={false}
+        stagger={0.04}
+      />
+      <p className='max-w-lg text-[color:var(--text-muted)] lg:text-lg'>
+        {beat.body}
+      </p>
+    </motion.div>
+  );
+}

@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/sections/Hero';
 import { About } from '@/components/sections/About';
+import { CADShowcase } from '@/components/sections/CADShowcase';
 import { Toolkit } from '@/components/sections/Toolkit';
 import { Projects } from '@/components/Projects';
 
@@ -20,6 +21,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About age={age} />
+      <CADShowcase />
       <Toolkit />
       <Projects />
       <div className='h-60 bg-[color:var(--background)]'></div>
