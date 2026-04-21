@@ -1,12 +1,16 @@
 'use client';
 
-import { useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
+import {
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 
 const Scene = dynamic(() => import('@/components/three/Scene'), {
   ssr: false,
-  loading: () => null,
 });
 
 type Beat = {
@@ -70,12 +74,18 @@ export function CADShowcase() {
     offset: ['start start', 'end end'],
   });
 
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.5,
+  });
+
   const rotationY = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 1],
     [-0.3, Math.PI * 0.6]
   );
-  const tilt = useTransform(scrollYProgress, [0, 0.5, 1], [0.08, -0.05, 0.1]);
+  const tilt = useTransform(smoothProgress, [0, 0.5, 1], [0.08, -0.05, 0.1]);
   const [rotY, setRotY] = useState(-0.6);
   const [t, setT] = useState(0.1);
 
@@ -88,7 +98,7 @@ export function CADShowcase() {
     };
   }, [rotationY, tilt]);
 
-  useMotionValueEvent(scrollYProgress, 'change', (p) => {
+  useMotionValueEvent(smoothProgress, 'change', (p) => {
     const clamped = Math.max(0, Math.min(1, p));
     let mix = 0;
     if (clamped < 0.1) mix = 0;
