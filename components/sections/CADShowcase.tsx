@@ -75,9 +75,7 @@ export function CADShowcase() {
     let mix = 0;
     if (p < 0.3) mix = 0;
     else if (p < 0.5) mix = (p - 0.3) / 0.2;
-    else if (p < 0.7) mix = 1;
-    else if (p < 0.9) mix = 1 - (p - 0.7) / 0.2;
-    else mix = 0;
+    else mix = 1;
 
     const stage = stageRef.current;
     if (!stage) return;
