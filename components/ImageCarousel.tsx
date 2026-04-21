@@ -4,11 +4,13 @@ import { useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
 
 const EQUILIBRIUM_VELOCITY = -0.25;
-const WHEEL_SENSITIVITY = 0.22;
-const MAX_VELOCITY = 30;
+const WHEEL_FORCE = 0.0045;
+const MAX_VELOCITY = 14;
 const IDLE_MS_BEFORE_RESUME = 1000;
-const DECAY_DURING_INPUT = 0.92;
-const EASE_BACK_RATE = 0.035;
+const DECAY_DURING_INPUT = 0.965;
+const EASE_BACK_RATE = 0.03;
+const HORIZONTAL_LOCK_MS = 180;
+const HORIZONTAL_ENTRY_BIAS = 1.4;
 
 const images = [
   { src: '/images/nctsa.png', alt: 'NC TSA' },
@@ -34,7 +36,9 @@ export function ImageCarousel() {
   const offsetRef = useRef(0);
   const reverseOffsetRef = useRef(0);
   const velocityRef = useRef(EQUILIBRIUM_VELOCITY);
+  const forceRef = useRef(0);
   const lastInteractionRef = useRef(0);
+  const horizontalLockUntilRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
 
   const desktopImageWidth = 600 + 32;
@@ -48,15 +52,18 @@ export function ImageCarousel() {
       const isMobile = window.innerWidth < 768;
       const loopWidth = isMobile ? mobileLoopWidth : desktopLoopWidth;
 
+      velocityRef.current += forceRef.current;
+      forceRef.current *= 0.6;
+      if (Math.abs(forceRef.current) < 0.0005) forceRef.current = 0;
+
       const idleFor = now - lastInteractionRef.current;
       if (idleFor > IDLE_MS_BEFORE_RESUME) {
         velocityRef.current +=
           (EQUILIBRIUM_VELOCITY - velocityRef.current) * EASE_BACK_RATE;
       } else {
-        const target = EQUILIBRIUM_VELOCITY;
         velocityRef.current =
           velocityRef.current * DECAY_DURING_INPUT +
-          target * (1 - DECAY_DURING_INPUT);
+          EQUILIBRIUM_VELOCITY * (1 - DECAY_DURING_INPUT);
       }
 
       if (velocityRef.current > MAX_VELOCITY) velocityRef.current = MAX_VELOCITY;
@@ -94,15 +101,23 @@ export function ImageCarousel() {
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
+      const now = performance.now();
       const absX = Math.abs(e.deltaX);
       const absY = Math.abs(e.deltaY);
-      if (absX <= absY) return;
+      const lockActive = now < horizontalLockUntilRef.current;
+      const horizontalIntent = absX * HORIZONTAL_ENTRY_BIAS > absY;
+
+      if (!lockActive && !horizontalIntent) return;
 
       e.preventDefault();
-      lastInteractionRef.current = performance.now();
-      velocityRef.current -= e.deltaX * WHEEL_SENSITIVITY;
-      if (velocityRef.current > MAX_VELOCITY) velocityRef.current = MAX_VELOCITY;
-      if (velocityRef.current < -MAX_VELOCITY) velocityRef.current = -MAX_VELOCITY;
+      e.stopPropagation();
+
+      horizontalLockUntilRef.current = now + HORIZONTAL_LOCK_MS;
+      lastInteractionRef.current = now;
+
+      if (absX > 0) {
+        forceRef.current -= e.deltaX * WHEEL_FORCE;
+      }
     };
 
     const wraps = [
