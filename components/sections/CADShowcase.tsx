@@ -1,11 +1,5 @@
 'use client';
 
-import {
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 
@@ -65,61 +59,61 @@ function lerpRgb(
   return `rgb(${Math.round(lerp(a[0], b[0], t))}, ${Math.round(lerp(a[1], b[1], t))}, ${Math.round(lerp(a[2], b[2], t))})`;
 }
 
+function mixForProgress(p: number) {
+  const clamped = Math.max(0, Math.min(1, p));
+  if (clamped < 0.1) return 0;
+  if (clamped < 0.55) return (clamped - 0.1) / 0.45;
+  return 1;
+}
+
 export function CADShowcase() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end end'],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 30,
-    mass: 0.5,
-  });
-
-  const rotationY = useTransform(
-    smoothProgress,
-    [0, 1],
-    [-0.3, Math.PI * 0.6]
-  );
-  const tilt = useTransform(smoothProgress, [0, 0.5, 1], [0.08, -0.05, 0.1]);
-  const [rotY, setRotY] = useState(-0.6);
-  const [t, setT] = useState(0.1);
-
-  useEffect(() => {
-    const unsub1 = rotationY.on('change', setRotY);
-    const unsub2 = tilt.on('change', setT);
-    return () => {
-      unsub1();
-      unsub2();
-    };
-  }, [rotationY, tilt]);
-
-  useMotionValueEvent(smoothProgress, 'change', (p) => {
-    const clamped = Math.max(0, Math.min(1, p));
-    let mix = 0;
-    if (clamped < 0.1) mix = 0;
-    else if (clamped < 0.55) mix = (clamped - 0.1) / 0.45;
-    else mix = 1;
-
-    const stage = stageRef.current;
-    if (!stage) return;
-    stage.style.backgroundColor = lerpRgb(DARK_BG, LIGHT_BG, mix);
-    stage.style.setProperty(
-      '--cad-text-primary',
-      lerpRgb(DARK_TEXT, LIGHT_TEXT, mix)
-    );
-    stage.style.setProperty(
-      '--cad-text-muted',
-      lerpRgb(DARK_MUTED, LIGHT_MUTED, mix)
-    );
-  });
-
   const beats = BEATS;
   const totalBeats = beats.length;
+
+  const [rotY, setRotY] = useState(-0.3);
+  const [tilt, setTilt] = useState(0.08);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let raf = 0;
+
+    const tick = () => {
+      const el = ref.current;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        const scrolled = -rect.top;
+        const p = total > 0 ? Math.max(0, Math.min(1, scrolled / total)) : 0;
+
+        setProgress(p);
+        setRotY(lerp(-0.3, Math.PI * 0.6, p));
+        setTilt(
+          p < 0.5
+            ? lerp(0.08, -0.05, p / 0.5)
+            : lerp(-0.05, 0.1, (p - 0.5) / 0.5)
+        );
+
+        const mix = mixForProgress(p);
+        const stage = stageRef.current;
+        if (stage) {
+          stage.style.backgroundColor = lerpRgb(DARK_BG, LIGHT_BG, mix);
+          stage.style.setProperty(
+            '--cad-text-primary',
+            lerpRgb(DARK_TEXT, LIGHT_TEXT, mix)
+          );
+          stage.style.setProperty(
+            '--cad-text-muted',
+            lerpRgb(DARK_MUTED, LIGHT_MUTED, mix)
+          );
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   return (
     <section
@@ -141,7 +135,7 @@ export function CADShowcase() {
         className='sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden'
       >
         <div className='absolute inset-0'>
-          <Scene rotationY={rotY} tilt={t} />
+          <Scene rotationY={rotY} tilt={tilt} />
         </div>
 
         <div className='pointer-events-none absolute top-8 left-1/2 z-10 -translate-x-1/2 text-center'>
@@ -159,7 +153,7 @@ export function CADShowcase() {
             beat={beat}
             index={i}
             total={beats.length}
-            progress={scrollYProgress}
+            progress={progress}
           />
         ))}
 
@@ -183,7 +177,7 @@ function BeatText({
   beat: Beat;
   index: number;
   total: number;
-  progress: ReturnType<typeof useScroll>['scrollYProgress'];
+  progress: number;
 }) {
   const isLeft = index % 2 === 0;
   const slice = 1 / Math.max(total, 1);
@@ -191,36 +185,44 @@ function BeatText({
   const end = slice * (index + 1);
   const fadeIn = Math.max(slice * 0.25, 0.01);
 
-  const inputs = [
-    Math.max(0, start - fadeIn),
-    start + fadeIn,
-    end - fadeIn,
-    Math.min(1, end + fadeIn),
-  ];
+  let opacity = 0;
+  let x = isLeft ? -120 : 120;
 
-  const opacity = useTransform(progress, inputs, [0, 1, 1, 0]);
-  const enterFrom = isLeft ? -120 : 120;
-  const exitTo = isLeft ? 120 : -120;
-  const x = useTransform(progress, inputs, [enterFrom, 0, 0, exitTo]);
+  const p0 = Math.max(0, start - fadeIn);
+  const p1 = start + fadeIn;
+  const p2 = end - fadeIn;
+  const p3 = Math.min(1, end + fadeIn);
 
-  const elRef = useRef<HTMLDivElement | null>(null);
-
-  useMotionValueEvent(opacity, 'change', (v) => {
-    if (elRef.current) elRef.current.style.opacity = String(v);
-  });
-  useMotionValueEvent(x, 'change', (v) => {
-    if (elRef.current) elRef.current.style.transform = `translateX(${v}px)`;
-  });
+  if (progress <= p0) {
+    opacity = 0;
+    x = isLeft ? -120 : 120;
+  } else if (progress < p1) {
+    const t = (progress - p0) / (p1 - p0);
+    opacity = t;
+    x = (isLeft ? -120 : 120) * (1 - t);
+  } else if (progress < p2) {
+    opacity = 1;
+    x = 0;
+  } else if (progress < p3) {
+    const t = (progress - p2) / (p3 - p2);
+    opacity = 1 - t;
+    x = (isLeft ? 120 : -120) * t;
+  } else {
+    opacity = 0;
+    x = isLeft ? 120 : -120;
+  }
 
   return (
     <div
-      ref={elRef}
-      style={{ opacity: 0 }}
+      style={{
+        opacity,
+        transform: `translate(-50%, -50%) translateX(${x}px)`,
+        top: '50%',
+        left: '50%',
+      }}
       className={
-        'pointer-events-none absolute top-1/2 z-10 flex max-w-md -translate-y-1/2 flex-col gap-3 px-6 ' +
-        (isLeft
-          ? 'left-4 md:left-10 lg:left-16 text-left'
-          : 'right-4 md:right-10 lg:right-16 text-right')
+        'pointer-events-none absolute z-10 flex w-[min(90%,32rem)] flex-col gap-3 px-6 ' +
+        (isLeft ? 'text-left' : 'text-right')
       }
     >
       <span className='text-xs tracking-[0.4em] text-[color:var(--accent)] uppercase'>
