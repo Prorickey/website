@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { ProjectMetadata } from './Projects';
 import { motion } from 'framer-motion';
+import Magnetic from './ui/Magnetic';
 
 export interface ProjectCardProps {
   project: ProjectMetadata;
@@ -70,6 +71,7 @@ export function ProjectCard({
       className='cursor-pointer'
       onClick={onSelect}
     >
+      <Magnetic strength={0.15}>
       <div className='card-border-wrap'>
         <div className='card-border-inner overflow-hidden'>
         {image && (
@@ -130,6 +132,7 @@ export function ProjectCard({
         </div>
         </div>
       </div>
+      </Magnetic>
     </motion.div>
   );
 }
