@@ -1,5 +1,5 @@
 {
-  "title": "IntoTheDeep - Team 8569 RoboKnights Robotics",
+  "title": "Robotics - Team 8569 Roboknights",
   "shortDescription": "FTC robotics season project featuring PID controllers, vision systems, and autonomous game piece pickup using on-board computing.",
   "langs": ["onshape", "java", "kotlin", "rust", "git"],
   "link": "https://roboknights.net",
