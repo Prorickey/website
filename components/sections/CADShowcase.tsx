@@ -2,7 +2,7 @@
 
 import { useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 
 const Scene = dynamic(() => import('@/components/three/Scene'), {
   ssr: false,
@@ -16,7 +16,32 @@ type Beat = {
   body: string;
 };
 
-type Story = { beats: Beat[] };
+const BEATS: Beat[] = [
+  {
+    id: 'intro',
+    eyebrow: 'Chapter 01',
+    title: 'It started with FRC.',
+    body: 'Grade-school me watched 120-pound robots launch foam rings across a field and decided I had to build one. That first season taught me more than any class.',
+  },
+  {
+    id: 'cad',
+    eyebrow: 'Chapter 02',
+    title: 'Then came CAD.',
+    body: 'OnShape became a second IDE. Part studios, mate connectors, feature scripts — modeling a mechanism before it ever touched aluminum saved weeks.',
+  },
+  {
+    id: 'iterate',
+    eyebrow: 'Chapter 03',
+    title: 'Iterate. Break. Iterate.',
+    body: 'Every subsystem got three revisions minimum. Intake arms, climbing linkages, swerve modules — the rule: fail fast on paper, ship what survives.',
+  },
+  {
+    id: 'lead',
+    eyebrow: 'Chapter 04',
+    title: 'Now I lead the build.',
+    body: 'Captaining FTC 8569 RoboKnights and mentoring 22377 SigmaCorns means the learning loop goes both ways — and the robots only get better.',
+  },
+];
 
 const DARK_BG: [number, number, number] = [14, 14, 14];
 const LIGHT_BG: [number, number, number] = [250, 250, 250];
@@ -37,16 +62,8 @@ function lerpRgb(
 }
 
 export function CADShowcase() {
-  const [story, setStory] = useState<Story | null>(null);
   const ref = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    fetch('/cad-story.json')
-      .then((r) => r.json())
-      .then(setStory)
-      .catch(() => setStory({ beats: [] }));
-  }, []);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -91,8 +108,8 @@ export function CADShowcase() {
     );
   });
 
-  const beats = story?.beats ?? [];
-  const totalBeats = Math.max(beats.length, 1);
+  const beats = BEATS;
+  const totalBeats = beats.length;
 
   return (
     <section
@@ -109,7 +126,7 @@ export function CADShowcase() {
             ['--cad-text-primary' as string]: 'rgb(231, 231, 231)',
             ['--cad-text-muted' as string]: 'rgb(138, 138, 138)',
             color: 'var(--cad-text-primary)',
-          } as React.CSSProperties
+          } as CSSProperties
         }
         className='sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden'
       >
