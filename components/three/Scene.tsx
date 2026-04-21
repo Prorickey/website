@@ -18,7 +18,11 @@ export default function Scene({ rotationY, tilt }: Props) {
     >
       <ambientLight intensity={0.8} />
       <directionalLight position={[4, 6, 4]} intensity={1.2} />
-      <directionalLight position={[-4, 2, -3]} intensity={0.6} color='#db4c4c' />
+      <directionalLight
+        position={[-4, 2, -3]}
+        intensity={0.6}
+        color='#db4c4c'
+      />
       <hemisphereLight args={['#ffffff', '#222222', 0.4]} />
 
       <RobotModel rotationY={rotationY} tilt={tilt} />

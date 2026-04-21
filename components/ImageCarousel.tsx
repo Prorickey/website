@@ -64,16 +64,17 @@ export function ImageCarousel() {
           EQUILIBRIUM_VELOCITY * (1 - DECAY_DURING_INPUT);
       }
 
-      if (velocityRef.current > MAX_VELOCITY) velocityRef.current = MAX_VELOCITY;
-      if (velocityRef.current < -MAX_VELOCITY) velocityRef.current = -MAX_VELOCITY;
+      if (velocityRef.current > MAX_VELOCITY)
+        velocityRef.current = MAX_VELOCITY;
+      if (velocityRef.current < -MAX_VELOCITY)
+        velocityRef.current = -MAX_VELOCITY;
 
       offsetRef.current += velocityRef.current;
       if (offsetRef.current <= -loopWidth) offsetRef.current += loopWidth;
       if (offsetRef.current > 0) offsetRef.current -= loopWidth;
 
       reverseOffsetRef.current -= velocityRef.current;
-      if (reverseOffsetRef.current >= 0)
-        reverseOffsetRef.current -= loopWidth;
+      if (reverseOffsetRef.current >= 0) reverseOffsetRef.current -= loopWidth;
       if (reverseOffsetRef.current < -loopWidth)
         reverseOffsetRef.current += loopWidth;
 
@@ -118,7 +119,9 @@ export function ImageCarousel() {
       mobileBottomWrapRef.current,
     ].filter((w): w is HTMLDivElement => w !== null);
 
-    wraps.forEach((w) => w.addEventListener('wheel', handleWheel, { passive: false }));
+    wraps.forEach((w) =>
+      w.addEventListener('wheel', handleWheel, { passive: false })
+    );
     return () => {
       wraps.forEach((w) => w.removeEventListener('wheel', handleWheel));
     };

@@ -69,12 +69,7 @@ export function ExpandedCaseStudy({ project, langlinks, onClose }: Props) {
                 aria-label='Visit project'
                 onClick={() => window.open(project.link!, '_blank')}
               >
-                <Image
-                  src='/icons/rocket.svg'
-                  alt=''
-                  width={28}
-                  height={28}
-                />
+                <Image src='/icons/rocket.svg' alt='' width={28} height={28} />
               </button>
             )}
             {project.source && (
@@ -82,12 +77,7 @@ export function ExpandedCaseStudy({ project, langlinks, onClose }: Props) {
                 aria-label='View source'
                 onClick={() => window.open(project.source!, '_blank')}
               >
-                <Image
-                  src='/icons/github.svg'
-                  alt=''
-                  width={28}
-                  height={28}
-                />
+                <Image src='/icons/github.svg' alt='' width={28} height={28} />
               </button>
             )}
             <button
