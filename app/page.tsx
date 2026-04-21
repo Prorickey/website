@@ -30,7 +30,7 @@ export default function Home() {
       <FeaturedProjects />
 
       <div className='relative'>
-        <div className='pointer-events-none absolute inset-0 z-0'>
+        <div className='pointer-events-none sticky top-0 z-0 -mb-[100vh] h-screen'>
           <LiquidBlack />
         </div>
         <div className='relative z-10'>
