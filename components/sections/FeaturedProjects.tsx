@@ -9,9 +9,42 @@ import { ExpandedCaseStudy } from './featured/ExpandedCaseStudy';
 
 const N_FEATURED = 3;
 const EXTRA_SCROLL_VH = 40;
+const HOLD_FRACTION = 0.45;
 
 function clamp01(v: number) {
   return v < 0 ? 0 : v > 1 ? 1 : v;
+}
+
+function smoothstep(t: number) {
+  return t * t * (3 - 2 * t);
+}
+
+function displacedProgress(
+  p: number,
+  n: number,
+  holdFraction = HOLD_FRACTION
+): number {
+  if (n <= 1) return 0;
+  const holdPer = holdFraction / n;
+  const transPer = (1 - holdFraction) / (n - 1);
+  const step = 1 / (n - 1);
+
+  let input = 0;
+  for (let i = 0; i < n; i++) {
+    const holdEnd = input + holdPer;
+    if (p < holdEnd) return i * step;
+    input = holdEnd;
+
+    if (i === n - 1) return 1;
+
+    const transEnd = input + transPer;
+    if (p < transEnd) {
+      const t = (p - input) / transPer;
+      return i * step + smoothstep(t) * step;
+    }
+    input = transEnd;
+  }
+  return 1;
 }
 
 function useReducedMotion() {
@@ -92,8 +125,9 @@ export function FeaturedProjects() {
         const scrolled = -rect.top;
         const progress =
           total > 0 ? Math.max(0, Math.min(1, scrolled / total)) : 0;
+        const displaced = displacedProgress(progress, n);
 
-        const translateX = -progress * (n - 1) * window.innerWidth;
+        const translateX = -displaced * (n - 1) * window.innerWidth;
         track.style.transform = `translate3d(${translateX}px, 0, 0)`;
 
         if (bar) bar.style.transform = `scaleX(${progress})`;
@@ -101,7 +135,7 @@ export function FeaturedProjects() {
         for (let i = 0; i < n; i++) {
           const el = panelRefs.current[i];
           if (!el) continue;
-          const localP = progress * (n - 1) - i;
+          const localP = displaced * (n - 1) - i;
 
           const imgWrap = el.querySelector<HTMLElement>(
             '[data-panel-image-wrap]'
