@@ -18,9 +18,28 @@ type Beat = {
 
 type Story = { beats: Beat[] };
 
+const DARK_BG: [number, number, number] = [14, 14, 14];
+const LIGHT_BG: [number, number, number] = [250, 250, 250];
+const DARK_TEXT: [number, number, number] = [231, 231, 231];
+const LIGHT_TEXT: [number, number, number] = [14, 14, 14];
+const DARK_MUTED: [number, number, number] = [138, 138, 138];
+const LIGHT_MUTED: [number, number, number] = [90, 90, 90];
+
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
+function lerpRgb(
+  a: [number, number, number],
+  b: [number, number, number],
+  t: number
+) {
+  return `rgb(${Math.round(lerp(a[0], b[0], t))}, ${Math.round(lerp(a[1], b[1], t))}, ${Math.round(lerp(a[2], b[2], t))})`;
+}
+
 export function CADShowcase() {
   const [story, setStory] = useState<Story | null>(null);
   const ref = useRef<HTMLDivElement | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     fetch('/cad-story.json')
@@ -52,6 +71,27 @@ export function CADShowcase() {
     };
   }, [rotationY, tilt]);
 
+  useMotionValueEvent(scrollYProgress, 'change', (p) => {
+    let mix = 0;
+    if (p < 0.3) mix = 0;
+    else if (p < 0.5) mix = (p - 0.3) / 0.2;
+    else if (p < 0.7) mix = 1;
+    else if (p < 0.9) mix = 1 - (p - 0.7) / 0.2;
+    else mix = 0;
+
+    const stage = stageRef.current;
+    if (!stage) return;
+    stage.style.backgroundColor = lerpRgb(DARK_BG, LIGHT_BG, mix);
+    stage.style.setProperty(
+      '--cad-text-primary',
+      lerpRgb(DARK_TEXT, LIGHT_TEXT, mix)
+    );
+    stage.style.setProperty(
+      '--cad-text-muted',
+      lerpRgb(DARK_MUTED, LIGHT_MUTED, mix)
+    );
+  });
+
   const beats = story?.beats ?? [];
   const totalBeats = Math.max(beats.length, 1);
 
@@ -59,16 +99,30 @@ export function CADShowcase() {
     <section
       id='cad'
       ref={ref}
-      className='relative bg-[color:var(--surface-2)]'
+      className='relative'
       style={{ height: `${(totalBeats + 1) * 100}vh` }}
     >
-      <div className='sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden'>
+      <div
+        ref={stageRef}
+        style={
+          {
+            backgroundColor: 'rgb(14, 14, 14)',
+            ['--cad-text-primary' as string]: 'rgb(231, 231, 231)',
+            ['--cad-text-muted' as string]: 'rgb(138, 138, 138)',
+            color: 'var(--cad-text-primary)',
+          } as React.CSSProperties
+        }
+        className='sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden'
+      >
         <div className='absolute inset-0'>
           <Scene rotationY={rotY} tilt={t} />
         </div>
 
         <div className='pointer-events-none absolute top-8 left-1/2 z-10 -translate-x-1/2 text-center'>
-          <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
+          <span
+            className='text-xs tracking-[0.4em] uppercase'
+            style={{ color: 'var(--cad-text-muted)' }}
+          >
             A Robotics Story
           </span>
         </div>
@@ -83,7 +137,10 @@ export function CADShowcase() {
           />
         ))}
 
-        <div className='pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 text-xs tracking-[0.3em] text-[color:var(--text-muted)] uppercase'>
+        <div
+          className='pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 text-xs tracking-[0.3em] uppercase'
+          style={{ color: 'var(--cad-text-muted)' }}
+        >
           Scroll
         </div>
       </div>
@@ -143,10 +200,15 @@ function BeatText({
       <span className='text-xs tracking-[0.4em] text-[color:var(--accent)] uppercase'>
         {beat.eyebrow}
       </span>
-      <h3 className='text-3xl leading-tight font-semibold lg:text-5xl'>
+      <h3
+        className='text-3xl leading-tight font-semibold lg:text-5xl'
+        style={{ color: 'var(--cad-text-primary)' }}
+      >
         {beat.title}
       </h3>
-      <p className='text-[color:var(--text-muted)] lg:text-lg'>{beat.body}</p>
+      <p className='lg:text-lg' style={{ color: 'var(--cad-text-muted)' }}>
+        {beat.body}
+      </p>
     </div>
   );
 }
