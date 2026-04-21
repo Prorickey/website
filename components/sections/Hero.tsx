@@ -24,7 +24,7 @@ const roles = [
   'a leader.',
 ];
 
-const TYPE_TICK_MS = 140;
+const TYPE_TICK_MS = 120;
 const HOLD_TICKS = 7;
 
 export default function Hero() {
