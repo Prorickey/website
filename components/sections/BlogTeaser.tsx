@@ -25,7 +25,7 @@ export function BlogTeaser() {
       <div className='mx-auto max-w-6xl px-6 lg:px-10'>
         <div className='flex flex-col gap-3'>
           <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
-            04 — Writing
+            05 — Writing
           </span>
           <TextReveal
             as='h2'
