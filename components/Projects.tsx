@@ -74,7 +74,7 @@ export function Projects() {
         <TextReveal
           as='h2'
           text='Everything else I have shipped.'
-          className='mt-4 block text-4xl font-semibold text-balance lg:text-6xl'
+          className='mt-4 block pb-[0.12em] text-4xl leading-[1.2] font-semibold text-balance lg:text-6xl'
           stagger={0.05}
         />
       </div>
