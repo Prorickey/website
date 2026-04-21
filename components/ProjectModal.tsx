@@ -114,7 +114,7 @@ export function ProjectModal({
             {/* Image + Description */}
             <div className='mt-4'>
               {project.image && (
-                <div className='relative mb-3 mr-5 aspect-video w-full overflow-hidden rounded-xl sm:float-left sm:mb-2 sm:w-3/5'>
+                <div className='relative mr-5 mb-3 aspect-video w-full overflow-hidden rounded-xl sm:float-left sm:mb-2 sm:w-3/5'>
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -133,10 +133,9 @@ export function ProjectModal({
             </div>
 
             {/* Languages */}
-            <div className='mt-5 grid grid-cols-8 content-start justify-start gap-x-1 gap-y-4 clear-left'>
+            <div className='clear-left mt-5 grid grid-cols-8 content-start justify-start gap-x-1 gap-y-4'>
               {project.langs.map((lang: string) => {
-                const icon =
-                  lang == 'onshape' ? 'onshape.png' : `${lang}.svg`;
+                const icon = lang == 'onshape' ? 'onshape.png' : `${lang}.svg`;
 
                 if (langlinks == null || langlinks[lang] == null)
                   return (

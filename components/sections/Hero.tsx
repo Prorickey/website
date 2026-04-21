@@ -1,6 +1,12 @@
 'use client';
 
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import type { Dot } from '@/components/animation.worker';
@@ -28,6 +34,15 @@ export default function Hero() {
   const { scrollY } = useScroll();
   const hintOpacity = useTransform(scrollY, [0, 120], [1, 0]);
   const canvasY = useTransform(scrollY, [0, 600], [0, 120]);
+  const hintRef = useRef<HTMLDivElement | null>(null);
+
+  useMotionValueEvent(hintOpacity, 'change', (v) => {
+    if (hintRef.current) hintRef.current.style.opacity = String(v);
+  });
+  useMotionValueEvent(canvasY, 'change', (v) => {
+    if (canvasRef.current)
+      canvasRef.current.style.transform = `translateY(${v}px)`;
+  });
 
   useEffect(() => {
     const id = setInterval(
@@ -100,11 +115,10 @@ export default function Hero() {
       ref={sectionRef}
       className='relative flex min-h-screen w-full flex-1 flex-col overflow-hidden bg-linear-to-b from-[color:var(--accent-soft)] to-[color:var(--background)] to-45% px-[10%] pt-24 pb-20 lg:pt-48'
     >
-      <motion.canvas
+      <canvas
         ref={canvasRef}
         aria-hidden
         className='absolute top-0 left-0 z-0 h-full w-full'
-        style={{ y: canvasY }}
       />
 
       <div className='relative z-20 flex flex-1 flex-col items-center justify-center gap-x-4 gap-y-10 lg:flex-row'>
@@ -200,14 +214,14 @@ export default function Hero() {
         </div>
       </div>
 
-      <motion.div
+      <div
+        ref={hintRef}
         aria-hidden
-        style={{ opacity: hintOpacity }}
         className='relative z-20 mt-auto flex flex-col items-center justify-center gap-2 pb-4 text-xs tracking-[0.3em] text-[color:var(--text-muted)] uppercase'
       >
         <span>Scroll</span>
         <span className='block h-10 w-px bg-[color:var(--text-muted)]/60' />
-      </motion.div>
+      </div>
     </section>
   );
 }

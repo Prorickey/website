@@ -1,6 +1,11 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import Image from 'next/image';
 import { useRef } from 'react';
 import type { ProjectMetadata } from '@/components/Projects';
@@ -61,18 +66,31 @@ function Title({
   project: ProjectMetadata;
   progress: ReturnType<typeof useScroll>['scrollYProgress'];
 }) {
-  const slice = 1 / total;
+  const slice = 1 / Math.max(total, 1);
   const start = slice * index;
   const end = slice * (index + 1);
   const opacity = useTransform(
     progress,
-    [start - slice * 0.3, start, end, end + slice * 0.3],
+    [
+      Math.max(0, start - slice * 0.3),
+      start,
+      end,
+      Math.min(1, end + slice * 0.3),
+    ],
     [0.25, 1, 1, 0.25]
   );
   const x = useTransform(progress, [start, end], [-20, 0]);
+  const elRef = useRef<HTMLDivElement | null>(null);
+
+  useMotionValueEvent(opacity, 'change', (v) => {
+    if (elRef.current) elRef.current.style.opacity = String(v);
+  });
+  useMotionValueEvent(x, 'change', (v) => {
+    if (elRef.current) elRef.current.style.transform = `translateX(${v}px)`;
+  });
 
   return (
-    <motion.div style={{ opacity, x }} className='flex flex-col gap-1'>
+    <div ref={elRef} className='flex flex-col gap-1'>
       <span className='text-xs tracking-[0.3em] text-[color:var(--accent)] uppercase'>
         {String(index + 1).padStart(2, '0')}
       </span>
@@ -80,7 +98,7 @@ function Title({
       <p className='max-w-md text-[color:var(--text-muted)]'>
         {project.shortDescription}
       </p>
-    </motion.div>
+    </div>
   );
 }
 
@@ -107,7 +125,9 @@ function FeaturedCard({ project }: { project: ProjectMetadata }) {
       )}
       <div className='flex items-center justify-between p-6'>
         <div>
-          <p className='text-sm text-[color:var(--text-muted)]'>{project.date}</p>
+          <p className='text-sm text-[color:var(--text-muted)]'>
+            {project.date}
+          </p>
           <h4 className='mt-1 text-xl font-semibold'>{project.title}</h4>
         </div>
         <div className='flex gap-3'>
@@ -118,12 +138,7 @@ function FeaturedCard({ project }: { project: ProjectMetadata }) {
               rel='noreferrer'
               aria-label='Visit project'
             >
-              <Image
-                src='/icons/rocket.svg'
-                alt=''
-                width={28}
-                height={28}
-              />
+              <Image src='/icons/rocket.svg' alt='' width={28} height={28} />
             </a>
           )}
           {project.source && (
@@ -133,12 +148,7 @@ function FeaturedCard({ project }: { project: ProjectMetadata }) {
               rel='noreferrer'
               aria-label='View source'
             >
-              <Image
-                src='/icons/github.svg'
-                alt=''
-                width={28}
-                height={28}
-              />
+              <Image src='/icons/github.svg' alt='' width={28} height={28} />
             </a>
           )}
         </div>

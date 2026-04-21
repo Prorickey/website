@@ -1,6 +1,11 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { ImageCarousel } from '@/components/ImageCarousel';
@@ -14,35 +19,50 @@ export function About({ age }: { age: number }) {
     offset: ['start end', 'end start'],
   });
   const copyY = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const labelOpacity = useTransform(scrollYProgress, [0, 0.3, 0.8, 1], [0, 1, 1, 0]);
+  const labelOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.8, 1],
+    [0, 1, 1, 0]
+  );
+
+  const labelRef = useRef<HTMLSpanElement | null>(null);
+  const copyRef = useRef<HTMLDivElement | null>(null);
+
+  useMotionValueEvent(labelOpacity, 'change', (v) => {
+    if (labelRef.current) labelRef.current.style.opacity = String(v);
+  });
+  useMotionValueEvent(copyY, 'change', (v) => {
+    if (copyRef.current) copyRef.current.style.transform = `translateY(${v}px)`;
+  });
 
   return (
     <section id='about' ref={ref} className='relative py-28'>
       <div className='h-[1px] w-full bg-[color:var(--accent)]/60' />
 
       <div className='mx-auto flex max-w-6xl flex-col gap-6 px-6 pt-16 lg:px-10'>
-        <motion.span
-          style={{ opacity: labelOpacity }}
+        <span
+          ref={labelRef}
+          style={{ opacity: 0 }}
           className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'
         >
           01 — About
-        </motion.span>
+        </span>
         <TextReveal
           as='h2'
           text='A builder, a leader, a student.'
-          className='block text-balance text-4xl font-semibold lg:text-6xl'
+          className='block text-4xl font-semibold text-balance lg:text-6xl'
           stagger={0.05}
         />
       </div>
 
-      <motion.div
-        style={{ y: copyY }}
+      <div
+        ref={copyRef}
         className='mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-10 px-6 lg:grid-cols-[1.3fr_1fr] lg:px-10'
       >
         <div className='text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>
           <p>
-            Hey there — I&#39;m a {age} year old full-stack developer with a bias
-            for learning by building. I study at the{' '}
+            Hey there — I&#39;m a {age} year old full-stack developer with a
+            bias for learning by building. I study at the{' '}
             <AccentLink href='https://ncssm.edu'>
               North Carolina School of Science and Mathematics
             </AccentLink>
@@ -50,13 +70,17 @@ export function About({ age }: { age: number }) {
             two robotics teams.
           </p>
           <p className='mt-4'>
-            My journey into code started with Java and Node.js, running Minecraft
-            servers. That introduced me to databases and big codebases early. Now
-            I build with organizations like TSA and DECA, and fabricate + program
-            robots with FTC teams{' '}
-            <AccentLink href='https://roboknights.net/'>8569 RoboKnights</AccentLink>
-            {' '}and{' '}
-            <AccentLink href='https://www.sigmacorns.org/'>22377 SigmaCorns</AccentLink>
+            My journey into code started with Java and Node.js, running
+            Minecraft servers. That introduced me to databases and big codebases
+            early. Now I build with organizations like TSA and DECA, and
+            fabricate + program robots with FTC teams{' '}
+            <AccentLink href='https://roboknights.net/'>
+              8569 RoboKnights
+            </AccentLink>{' '}
+            and{' '}
+            <AccentLink href='https://www.sigmacorns.org/'>
+              22377 SigmaCorns
+            </AccentLink>
             .
           </p>
           <div className='mt-10'>
@@ -66,12 +90,15 @@ export function About({ age }: { age: number }) {
           </div>
         </div>
 
-        <Aside label='Currently' rows={[
-          { k: 'Studying at', v: 'NCSSM' },
-          { k: 'Building with', v: 'Next.js · Go · Tailwind' },
-          { k: 'Leading', v: 'FTC 8569 · FTC 22377' },
-        ]} />
-      </motion.div>
+        <Aside
+          label='Currently'
+          rows={[
+            { k: 'Studying at', v: 'NCSSM' },
+            { k: 'Building with', v: 'Next.js · Go · Tailwind' },
+            { k: 'Leading', v: 'FTC 8569 · FTC 22377' },
+          ]}
+        />
+      </div>
 
       <div className='mt-20'>
         <ImageCarousel />
@@ -80,7 +107,13 @@ export function About({ age }: { age: number }) {
   );
 }
 
-function AccentLink({ href, children }: { href: string; children: React.ReactNode }) {
+function AccentLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
   return (
     <a
       href={href}
@@ -93,7 +126,13 @@ function AccentLink({ href, children }: { href: string; children: React.ReactNod
   );
 }
 
-function Aside({ label, rows }: { label: string; rows: { k: string; v: string }[] }) {
+function Aside({
+  label,
+  rows,
+}: {
+  label: string;
+  rows: { k: string; v: string }[];
+}) {
   return (
     <motion.aside
       initial={{ opacity: 0, y: 40 }}
@@ -109,7 +148,9 @@ function Aside({ label, rows }: { label: string; rows: { k: string; v: string }[
         {rows.map((r) => (
           <div key={r.k} className='flex flex-col'>
             <dt className='text-xs text-[color:var(--text-muted)]'>{r.k}</dt>
-            <dd className='text-base text-[color:var(--text-primary)]'>{r.v}</dd>
+            <dd className='text-base text-[color:var(--text-primary)]'>
+              {r.v}
+            </dd>
           </div>
         ))}
       </dl>

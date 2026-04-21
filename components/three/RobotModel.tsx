@@ -21,7 +21,8 @@ export function RobotModel({ rotationY, tilt }: Props) {
     g.rotation.x += (tilt - g.rotation.x) * Math.min(1, dt * 4);
 
     const t = performance.now() / 1000;
-    if (armRef.current) armRef.current.rotation.x = Math.sin(t * 1.4) * 0.25 - 0.35;
+    if (armRef.current)
+      armRef.current.rotation.x = Math.sin(t * 1.4) * 0.25 - 0.35;
     if (headRef.current) headRef.current.rotation.y = Math.sin(t * 0.8) * 0.35;
   });
 
@@ -47,18 +48,30 @@ export function RobotModel({ rotationY, tilt }: Props) {
       <group ref={armRef} position={[0, 0.5, 0.4]}>
         <mesh position={[0, 0.4, 0]} castShadow>
           <boxGeometry args={[0.3, 1.0, 0.3]} />
-          <meshStandardMaterial color='#888888' metalness={0.8} roughness={0.25} />
+          <meshStandardMaterial
+            color='#888888'
+            metalness={0.8}
+            roughness={0.25}
+          />
         </mesh>
         <mesh position={[0, 0.9, 0]} castShadow>
           <boxGeometry args={[0.5, 0.2, 0.5]} />
-          <meshStandardMaterial color='#db4c4c' metalness={0.4} roughness={0.4} />
+          <meshStandardMaterial
+            color='#db4c4c'
+            metalness={0.4}
+            roughness={0.4}
+          />
         </mesh>
       </group>
 
       <group ref={headRef} position={[0, 0.95, 0]}>
         <mesh castShadow>
           <boxGeometry args={[0.9, 0.5, 0.9]} />
-          <meshStandardMaterial color='#1a1a1a' metalness={0.6} roughness={0.3} />
+          <meshStandardMaterial
+            color='#1a1a1a'
+            metalness={0.6}
+            roughness={0.3}
+          />
         </mesh>
         <mesh position={[0, 0, 0.46]}>
           <planeGeometry args={[0.6, 0.2]} />

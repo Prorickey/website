@@ -72,66 +72,67 @@ export function ProjectCard({
       onClick={onSelect}
     >
       <Magnetic strength={0.15}>
-      <div className='card-border-wrap'>
-        <div className='card-border-inner overflow-hidden'>
-        {image && (
-          <div className='relative aspect-video w-full overflow-hidden rounded-t-2xl'>
-            <Image
-              src={image}
-              alt={title}
-              fill
-              loading='lazy'
-              className='object-cover'
-              sizes='(max-width: 800px) 100vw, (max-width: 1300px) 50vw, 33vw'
-            />
-          </div>
-        )}
-        <div className='px-6 py-4'>
-          <div className='flex flex-row-reverse justify-between gap-x-4 pb-2'>
-            <div className='flex flex-row gap-x-3'>
-              {pageLink()}
-              {sourceLink()}
-            </div>
-            <p className='top-0 text-stone-400'>{date}</p>
-          </div>
-          <h1 className='text-2xl font-semibold'>{title}</h1>
-          <p>{shortDescription}</p>
-          <div className='grid grid-cols-6 content-start justify-start gap-x-1 gap-y-4 py-3'>
-            {langs.map((lang: string) => {
-              const icon = lang == 'onshape' ? 'onshape.png' : `${lang}.svg`;
+        <div className='card-border-wrap'>
+          <div className='card-border-inner overflow-hidden'>
+            {image && (
+              <div className='relative aspect-video w-full overflow-hidden rounded-t-2xl'>
+                <Image
+                  src={image}
+                  alt={title}
+                  fill
+                  loading='lazy'
+                  className='object-cover'
+                  sizes='(max-width: 800px) 100vw, (max-width: 1300px) 50vw, 33vw'
+                />
+              </div>
+            )}
+            <div className='px-6 py-4'>
+              <div className='flex flex-row-reverse justify-between gap-x-4 pb-2'>
+                <div className='flex flex-row gap-x-3'>
+                  {pageLink()}
+                  {sourceLink()}
+                </div>
+                <p className='top-0 text-stone-400'>{date}</p>
+              </div>
+              <h1 className='text-2xl font-semibold'>{title}</h1>
+              <p>{shortDescription}</p>
+              <div className='grid grid-cols-6 content-start justify-start gap-x-1 gap-y-4 py-3'>
+                {langs.map((lang: string) => {
+                  const icon =
+                    lang == 'onshape' ? 'onshape.png' : `${lang}.svg`;
 
-              if (langlinks == null || langlinks[lang] == null)
-                return (
-                  <Image
-                    src={`/knows/${icon}`}
-                    alt={`${icon}`}
-                    height={40}
-                    width={40}
-                    key={lang}
-                  />
-                );
-              else
-                return (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(langlinks[lang], '_blank');
-                    }}
-                    key={lang}
-                  >
-                    <Image
-                      src={`/knows/${icon}`}
-                      alt={`${icon}`}
-                      height={40}
-                      width={40}
-                    />
-                  </button>
-                );
-            })}
+                  if (langlinks == null || langlinks[lang] == null)
+                    return (
+                      <Image
+                        src={`/knows/${icon}`}
+                        alt={`${icon}`}
+                        height={40}
+                        width={40}
+                        key={lang}
+                      />
+                    );
+                  else
+                    return (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(langlinks[lang], '_blank');
+                        }}
+                        key={lang}
+                      >
+                        <Image
+                          src={`/knows/${icon}`}
+                          alt={`${icon}`}
+                          height={40}
+                          width={40}
+                        />
+                      </button>
+                    );
+                })}
+              </div>
+            </div>
           </div>
         </div>
-        </div>
-      </div>
       </Magnetic>
     </motion.div>
   );

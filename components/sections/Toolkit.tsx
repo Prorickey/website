@@ -38,7 +38,7 @@ export function Toolkit() {
         <TextReveal
           as='h2'
           text='Tools I reach for.'
-          className='mt-4 block text-balance text-4xl font-semibold lg:text-6xl'
+          className='mt-4 block text-4xl font-semibold text-balance lg:text-6xl'
           stagger={0.05}
         />
         <p className='mt-4 max-w-2xl text-[color:var(--text-muted)] lg:text-lg'>

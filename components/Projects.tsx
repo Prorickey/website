@@ -75,7 +75,7 @@ export function Projects() {
         <TextReveal
           as='h2'
           text='Things I have built.'
-          className='mt-4 block text-balance text-4xl font-semibold lg:text-6xl'
+          className='mt-4 block text-4xl font-semibold text-balance lg:text-6xl'
           stagger={0.05}
         />
       </div>
@@ -91,7 +91,7 @@ export function Projects() {
           </h3>
           <ResponsiveMasonry
             columnsCountBreakPoints={{ 350: 1, 800: 2, 1300: 3 }}
-            gutterBreakPoints={{ 350: '1.5rem', 800: '1.5rem', 1300: '1.5rem' }}
+            gutterBreakPoints={{ 350: 24, 800: 24, 1300: 24 }}
           >
             <Masonry>
               {rest.map((project) => (

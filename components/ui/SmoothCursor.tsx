@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const RADIUS = 16;
 const HOVER_RADIUS = 36;
@@ -8,14 +8,18 @@ const HOVER_RADIUS = 36;
 export default function SmoothCursor() {
   const dotRef = useRef<HTMLDivElement | null>(null);
   const ringRef = useRef<HTMLDivElement | null>(null);
-  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canHover = window.matchMedia(
+      '(hover: hover) and (pointer: fine)'
+    ).matches;
+    const prefersReduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
     if (!canHover || prefersReduced) return;
 
-    setEnabled(true);
+    if (dotRef.current) dotRef.current.style.opacity = '1';
+    if (ringRef.current) ringRef.current.style.opacity = '1';
     document.documentElement.classList.add('smooth-cursor-active');
 
     let mouseX = window.innerWidth / 2;
@@ -35,10 +39,14 @@ export default function SmoothCursor() {
     const onOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target || !ringRef.current) return;
-      const interactive = target.closest('a, button, [role="button"], input, textarea, select, [data-cursor="hover"]');
+      const interactive = target.closest(
+        'a, button, [role="button"], input, textarea, select, [data-cursor="hover"]'
+      );
       ringRef.current.style.width = `${interactive ? HOVER_RADIUS : RADIUS * 1.5}px`;
       ringRef.current.style.height = `${interactive ? HOVER_RADIUS : RADIUS * 1.5}px`;
-      ringRef.current.style.borderColor = interactive ? 'var(--accent)' : 'rgba(231,231,231,0.5)';
+      ringRef.current.style.borderColor = interactive
+        ? 'var(--accent)'
+        : 'rgba(231,231,231,0.5)';
     };
 
     const tick = () => {
@@ -63,8 +71,6 @@ export default function SmoothCursor() {
     };
   }, []);
 
-  if (!enabled) return null;
-
   return (
     <>
       <div
@@ -78,6 +84,7 @@ export default function SmoothCursor() {
           background: 'var(--foreground)',
           mixBlendMode: 'difference',
           willChange: 'transform',
+          opacity: 0,
         }}
       />
       <div
@@ -89,8 +96,10 @@ export default function SmoothCursor() {
           height: RADIUS * 1.5,
           borderRadius: '50%',
           border: '1px solid rgba(231,231,231,0.5)',
-          transition: 'width 180ms ease, height 180ms ease, border-color 180ms ease',
+          transition:
+            'width 180ms ease, height 180ms ease, border-color 180ms ease',
           willChange: 'transform, width, height',
+          opacity: 0,
         }}
       />
     </>

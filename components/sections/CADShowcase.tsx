@@ -1,9 +1,8 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
-import TextReveal from '@/components/ui/TextReveal';
 
 const Scene = dynamic(() => import('@/components/three/Scene'), {
   ssr: false,
@@ -35,7 +34,11 @@ export function CADShowcase() {
     offset: ['start start', 'end end'],
   });
 
-  const rotationY = useTransform(scrollYProgress, [0, 1], [-0.6, Math.PI * 1.4]);
+  const rotationY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [-0.6, Math.PI * 1.4]
+  );
   const tilt = useTransform(scrollYProgress, [0, 0.5, 1], [0.1, -0.15, 0.25]);
   const [rotY, setRotY] = useState(-0.6);
   const [t, setT] = useState(0.1);
@@ -103,40 +106,42 @@ function BeatText({
   total: number;
   progress: ReturnType<typeof useScroll>['scrollYProgress'];
 }) {
-  const slice = 1 / total;
+  const slice = 1 / Math.max(total, 1);
   const start = slice * index;
   const end = slice * (index + 1);
-  const fadeIn = slice * 0.2;
+  const fadeIn = Math.max(slice * 0.2, 0.01);
 
-  const opacity = useTransform(
-    progress,
-    [start - fadeIn, start + fadeIn, end - fadeIn, end + fadeIn],
-    [0, 1, 1, 0]
-  );
-  const y = useTransform(
-    progress,
-    [start - fadeIn, start + fadeIn, end - fadeIn, end + fadeIn],
-    [40, 0, 0, -40]
-  );
+  const inputs = [
+    Math.max(0, start - fadeIn),
+    start + fadeIn,
+    end - fadeIn,
+    Math.min(1, end + fadeIn),
+  ];
+
+  const opacity = useTransform(progress, inputs, [0, 1, 1, 0]);
+  const y = useTransform(progress, inputs, [40, 0, 0, -40]);
+  const elRef = useRef<HTMLDivElement | null>(null);
+
+  useMotionValueEvent(opacity, 'change', (v) => {
+    if (elRef.current) elRef.current.style.opacity = String(v);
+  });
+  useMotionValueEvent(y, 'change', (v) => {
+    if (elRef.current) elRef.current.style.transform = `translateY(${v}px)`;
+  });
 
   return (
-    <motion.div
-      style={{ opacity, y }}
+    <div
+      ref={elRef}
+      style={{ opacity: 0 }}
       className='absolute inset-0 flex flex-col gap-3'
     >
       <span className='text-xs tracking-[0.4em] text-[color:var(--accent)] uppercase'>
         {beat.eyebrow}
       </span>
-      <TextReveal
-        as='h3'
-        text={beat.title}
-        className='block text-3xl font-semibold lg:text-5xl'
-        once={false}
-        stagger={0.04}
-      />
+      <h3 className='text-3xl font-semibold lg:text-5xl'>{beat.title}</h3>
       <p className='max-w-lg text-[color:var(--text-muted)] lg:text-lg'>
         {beat.body}
       </p>
-    </motion.div>
+    </div>
   );
 }
