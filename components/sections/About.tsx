@@ -23,42 +23,35 @@ type Experience = {
 
 const experiences: Experience[] = [
   {
-    date: '2025 — Present',
+    date: 'Feburary 2026 — Present',
+    role: 'Team Member & Programmer',
+    org: 'FTC 22377 SigmaCorns',
+    location: 'Raleigh, NC',
+    body: 'Collaborating and working to push the limits in high school robotics. From pathing to flywheel control, I\'ve been working to fully optimize as much as possible on my team\'s robot.',
+    tags: ['Kotlin', 'Python', 'C++', 'Rust', 'Typescript', 'OpenCV'],
+  },
+  {
+    date: '2024 — Present',
     role: 'Captain & Lead Programmer',
     org: 'FTC 8569 RoboKnights',
     location: 'Raleigh, NC',
-    body: 'Leading a 12-person team through the INTO THE DEEP season. Architecting our swerve drivetrain software, mentoring underclassmen on Java + OpenCV, and owning CAD/code integration reviews.',
-    tags: ['Java', 'OpenCV', 'OnShape'],
+    body: 'Leading a 12-person team through two seasons. Mentoring new members on command-based systems, PID controllers, robot simulation, and good code practices with AI and code reviews.',
+    tags: ['Java', 'Kotlin', 'Rust', 'OpenCV', 'OnShape'],
   },
   {
     date: '2024 — 2025',
     role: 'Mobile Developer',
     org: 'North Carolina TSA',
     location: 'Remote',
-    body: 'Designed and shipped the official NC TSA conference app used by thousands of students — schedules, results, push notifications. Production Expo/React Native build with a Go backend.',
+    body: 'Designed and shipped the official NC TSA conference app used by thousands of students with features like schedules, results, chatbots, messaging, and push notifications. Production Expo/React Native build with a Go backend.',
     tags: ['Expo', 'React Native', 'Go'],
-  },
-  {
-    date: '2024',
-    role: 'Attaché Cohort Fellow',
-    org: 'Attaché',
-    body: 'Selected for a competitive summer fellowship focused on founder skills, product thinking, and systems design. Pitched a two-week build to a panel of investors and operators.',
-    tags: ['Product', 'Startups'],
-  },
-  {
-    date: '2023 — 2024',
-    role: 'Full-Stack Intern',
-    org: 'Lenovo Student Partner Program',
-    location: 'Morrisville, NC',
-    body: 'Contributed to an internal employee-tooling platform — Next.js frontend, PostgreSQL + Redis backend. Wrote the deployment pipeline that reduced release time from hours to minutes.',
-    tags: ['Next.js', 'Postgres', 'Docker'],
   },
   {
     date: '2021 — 2023',
     role: 'Software Engineer',
     org: 'Independent Projects',
-    body: 'Shipped Minecraft plugins and multiplayer game servers with tens of thousands of monthly players. Cut my teeth on databases, Redis pub/sub, and the realities of running something in production.',
-    tags: ['Java', 'Node.js', 'Redis'],
+    body: 'Shipped Minecraft plugins and multiplayer game servers with tens of thousands of monthly players. Gained experience on databases, Redis pub/sub, and the realities of running something in production.',
+    tags: ['Java', 'Node.js', 'Redis', 'MySQL'],
   },
 ];
 
