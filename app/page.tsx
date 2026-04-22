@@ -1,7 +1,12 @@
-import { Projects } from '@/components/Projects';
 import Navbar from '@/components/Navbar';
-import Introduction from '@/components/Introduction';
-import { About } from '@/components/About';
+import Hero from '@/components/sections/Hero';
+import { About } from '@/components/sections/About';
+import { CADShowcase } from '@/components/sections/CADShowcase';
+import { Toolkit } from '@/components/sections/Toolkit';
+import { FeaturedProjects } from '@/components/sections/FeaturedProjects';
+import { Projects } from '@/components/Projects';
+// import { BlogTeaser } from '@/components/sections/BlogTeaser';
+import { Contact } from '@/components/sections/Contact';
 
 export default function Home() {
   const today = new Date();
@@ -17,10 +22,15 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <Introduction />
+      <Hero />
       <About age={age} />
+      <CADShowcase />
+      <Toolkit />
+      <FeaturedProjects />
+
       <Projects />
-      <div className='h-60 bg-[#171717]'></div>
+      {/* <BlogTeaser /> */}
+      <Contact />
     </main>
   );
 }

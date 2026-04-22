@@ -1,10 +1,40 @@
 @import 'tailwindcss';
 
-
 :root {
-  --content-background: #0e0e0e;
   --background: #171717;
   --foreground: #e7e7e7;
+  --content-background: #0e0e0e;
+
+  --surface-1: #171717;
+  --surface-2: #0e0e0e;
+  --surface-3: #1f1f1f;
+  --text-primary: #e7e7e7;
+  --text-muted: #8a8a8a;
+  --border-subtle: #2a2a2a;
+  --accent: #db4c4c;
+  --accent-soft: rgba(219, 76, 76, 0.15);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
@@ -33,13 +63,19 @@ button {
   border-radius: var(--card-radius);
   overflow: hidden;
   background: var(--content-background);
-  box-shadow: 6px 6px 12px #050505, -6px -6px 12px #222222;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow:
+    6px 6px 12px #050505,
+    -6px -6px 12px #222222;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .card-border-wrap:hover {
   transform: scale(1.02);
-  box-shadow: 8px 8px 16px #030303, -8px -8px 16px #282828;
+  box-shadow:
+    8px 8px 16px #030303,
+    -8px -8px 16px #282828;
 }
 
 .card-border-inner {
@@ -48,7 +84,6 @@ button {
   border-radius: inherit;
   background: var(--content-background);
 }
-
 
 ::-webkit-scrollbar {
   width: 0.5rem;
@@ -67,4 +102,28 @@ button {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #979797;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (pointer: fine) {
+  .smooth-cursor-active,
+  .smooth-cursor-active a,
+  .smooth-cursor-active button {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.lenis,
+  html.lenis body {
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProjectMetadata } from './Projects';
+import { useProjectDescription } from '@/hooks/useProjectDescription';
+import { LanguageIcons } from './projects/LanguageIcons';
 
 interface ProjectModalProps {
   project: ProjectMetadata;
@@ -16,13 +18,7 @@ export function ProjectModal({
   langlinks,
   onClose,
 }: ProjectModalProps) {
-  const [description, setDescription] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch(`/projects/${project.slug}/description.txt`)
-      .then((res) => res.text())
-      .then(setDescription);
-  }, [project.slug]);
+  const description = useProjectDescription(project.slug);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -114,7 +110,7 @@ export function ProjectModal({
             {/* Image + Description */}
             <div className='mt-4'>
               {project.image && (
-                <div className='relative mb-3 mr-5 aspect-video w-full overflow-hidden rounded-xl sm:float-left sm:mb-2 sm:w-3/5'>
+                <div className='relative mr-5 mb-3 aspect-video w-full overflow-hidden rounded-xl sm:float-left sm:mb-2 sm:w-3/5'>
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -133,37 +129,12 @@ export function ProjectModal({
             </div>
 
             {/* Languages */}
-            <div className='mt-5 grid grid-cols-8 content-start justify-start gap-x-1 gap-y-4 clear-left'>
-              {project.langs.map((lang: string) => {
-                const icon =
-                  lang == 'onshape' ? 'onshape.png' : `${lang}.svg`;
-
-                if (langlinks == null || langlinks[lang] == null)
-                  return (
-                    <Image
-                      src={`/knows/${icon}`}
-                      alt={lang}
-                      height={40}
-                      width={40}
-                      key={lang}
-                    />
-                  );
-                else
-                  return (
-                    <button
-                      onClick={() => window.open(langlinks[lang], '_blank')}
-                      key={lang}
-                    >
-                      <Image
-                        src={`/knows/${icon}`}
-                        alt={lang}
-                        height={40}
-                        width={40}
-                      />
-                    </button>
-                  );
-              })}
-            </div>
+            <LanguageIcons
+              langs={project.langs}
+              langlinks={langlinks}
+              columns={8}
+              className='clear-left mt-5'
+            />
           </div>
         </motion.div>
       </motion.div>
