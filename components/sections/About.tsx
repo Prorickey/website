@@ -101,19 +101,20 @@ export function About({ age }: { age: number }) {
           />
           <div className='mt-2 text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>
             <p>
-              Hey there — I&#39;m a {age} year old full-stack developer with a
-              bias for learning by building. I study at the{' '}
+              Hey there! I&#39;m a {age} year old full-stack developer who loves
+              to learn by building. I study at the{' '}
               <AccentLink href='https://ncssm.edu'>
                 North Carolina School of Science and Mathematics
               </AccentLink>
-              , and in my free time I ship web and mobile apps with React and
-              lead two robotics teams.
+              , and in my free time I ship web and mobile apps with React, lead 
+              a robotics team, and much more!
             </p>
             <p className='mt-4'>
               My journey into code started with Java and Node.js, running
-              Minecraft servers. That introduced me to databases and big
-              codebases early. Now I build with organizations like TSA and
-              DECA, and fabricate + program robots with FTC teams{' '}
+              Minecraft servers and building discord bots. That introduced 
+              me to databases and big codebases early. Now I build with 
+              organizations like TSA and DECA, and design, fabricate, and program 
+              robots with FTC teams{' '}
               <AccentLink href='https://roboknights.net/'>
                 8569 RoboKnights
               </AccentLink>{' '}

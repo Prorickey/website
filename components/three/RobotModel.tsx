@@ -2,8 +2,8 @@
 
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
-import type { Group } from 'three';
+import { useMemo, useRef } from 'react';
+import { Color, MeshStandardMaterial, type Group, type Mesh } from 'three';
 
 type Props = {
   rotationY: number;
@@ -21,12 +21,48 @@ const TURRET_SWEEP = 0.9;
 const TURRET_SPEED = 0.6;
 const ROTATION_LERP = 4;
 
+const SATURATION_BOOST = 1.9;
+const LIGHTNESS_BOOST = 1.0;
+const PURPLE_HUE_MIN = 0.68;
+const PURPLE_HUE_MAX = 0.86;
+const PURPLE_SATURATION_BOOST = 2.0;
+const PURPLE_LIGHTNESS_FACTOR = 0.9;
+
+function saturateScene(root: Group) {
+  const hsl = { h: 0, s: 0, l: 0 };
+  const tmp = new Color();
+  root.traverse((obj) => {
+    const mesh = obj as Mesh;
+    if (!mesh.isMesh) return;
+    const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+    for (const m of mats) {
+      const std = m as MeshStandardMaterial;
+      if (!std || !std.color) continue;
+      std.color.getHSL(hsl);
+      const isPurple =
+        hsl.h >= PURPLE_HUE_MIN && hsl.h <= PURPLE_HUE_MAX && hsl.s > 0.05;
+      const satMul = isPurple ? PURPLE_SATURATION_BOOST : SATURATION_BOOST;
+      const lightMul = isPurple ? PURPLE_LIGHTNESS_FACTOR : LIGHTNESS_BOOST;
+      tmp.setHSL(
+        hsl.h,
+        Math.min(1, hsl.s * satMul),
+        Math.max(0, Math.min(1, hsl.l * lightMul))
+      );
+      std.color.copy(tmp);
+      std.needsUpdate = true;
+    }
+  });
+}
+
 export function RobotModel({ rotationY, tilt }: Props) {
   const groupRef = useRef<Group | null>(null);
   const turretRef = useRef<Group | null>(null);
 
   const body = useGLTF(BODY_URL);
   const turret = useGLTF(TURRET_URL);
+
+  useMemo(() => saturateScene(body.scene), [body.scene]);
+  useMemo(() => saturateScene(turret.scene), [turret.scene]);
 
   useFrame((_, dt) => {
     const g = groupRef.current;

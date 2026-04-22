@@ -12,6 +12,17 @@ const Grainient = dynamic(() => import('@/components/react-bits/Grainient'), {
   ssr: false,
 });
 
+type Team = {
+  id: string;
+  name: string;
+  logo: string;
+  color: string;
+  link?: string;
+  source?: string;
+  instagram?: string;
+  linkedin?: string;
+};
+
 type Beat = {
   id: string;
   eyebrow: string;
@@ -21,47 +32,66 @@ type Beat = {
   source?: string;
   instagram?: string;
   linkedin?: string;
+  teams?: Team[];
 };
 
 const BEATS: Beat[] = [
   {
     id: 'intro',
     eyebrow: 'Chapter 01',
-    title: 'It started with FRC.',
-    body: 'Grade-school me watched 120-pound robots launch foam rings across a field and decided I had to build one. That first season taught me more than any class.',
+    title: 'Joining FTC.',
+    body: "High school junior me thought I'd give robotics a try for the first time. I joined team 8569 RoboKnights, and learned basic control theory.",
   },
   {
-    id: 'cad',
+    id: 'expand',
     eyebrow: 'Chapter 02',
-    title: 'Then came CAD.',
-    body: 'OnShape became a second IDE. Part studios, mate connectors, feature scripts — modeling a mechanism before it ever touched aluminum saved weeks.',
-  },
-  {
-    id: 'iterate',
-    eyebrow: 'Chapter 03',
-    title: 'Iterate. Break. Iterate.',
-    body: 'Every subsystem got three revisions minimum. Intake arms, climbing linkages, swerve modules — the rule: fail fast on paper, ship what survives.',
+    title: 'Expanding my horizons.',
+    body: 'Looking to learn more, I dove deeper in programming and learning CAD. I developed novel control systems, helping me with awards at international competitions. I also worked to model parts online and contributing to the mechanical bot.',
   },
   {
     id: 'lead',
-    eyebrow: 'Chapter 04',
-    title: 'Now I lead the build.',
-    body: 'Captaining FTC 8569 RoboKnights and mentoring 22377 SigmaCorns means the learning loop goes both ways — and the robots only get better.',
+    eyebrow: 'Chapter 03',
+    title: 'From member to leader.',
+    body: 'At the beginning of my senior year, I was named captain of my team. I excelled at developing strategies to train and integrate new members, and motivated my team to build more competative robots than we had ever built before.',
   },
   {
-    id: 'roboknights',
+    id: 'opportunity',
+    eyebrow: 'Chapter 04',
+    title: 'A new opportunity.',
+    body: 'I started working more with team 22377 SigmaCorns to dive deeper into robotics programming. The focus shifted from not just building a competative robot, but to fully optimizing every bit of it we could.',
+  },
+  {
+    id: 'robotics',
     eyebrow: 'Chapter 05',
-    title: 'Team 8569 RoboKnights.',
-    body: 'Swerve drivetrain software, PID controllers, on-board vision, autonomous game-piece pickup. INTO THE DEEP season, shipping now.',
-    link: 'https://roboknights.net',
-    source: 'https://github.com/ftc8569/',
-    instagram: 'https://www.instagram.com/roboknights8569/',
-    linkedin: 'https://www.linkedin.com/company/ftc8569/',
+    title: 'RoboKnights & SigmaCorns',
+    body: 'Computer vision, PID controllers, LQR controllers, full-robot physics simulations, model predictive control, command-based systems, optimized loop times, and much more',
+    teams: [
+      {
+        id: 'roboknights',
+        name: 'RoboKnights 8569',
+        logo: '/icons/roboknights.png',
+        color: 'rgb(221, 28, 138)',
+        link: 'https://roboknights.net',
+        source: 'https://github.com/ftc8569/',
+        instagram: 'https://www.instagram.com/roboknights8569/',
+        linkedin: 'https://www.linkedin.com/company/ftc8569/',
+      },
+      {
+        id: 'sigmacorns',
+        name: 'SigmaCorns 22377',
+        logo: '/icons/sigmacorns.png',
+        color: 'rgb(204, 164, 222)',
+        link: 'https://sigmacorns.org',
+        source: 'https://github.com/FTC-SigmaCorns-22377',
+        instagram: 'https://www.instagram.com/ftc22377/',
+        linkedin: 'https://www.linkedin.com/company/sigmacorns/',
+      },
+    ],
   },
 ];
 
-const BEAT_SPAN = 0.7;
-const SECTION_EXTRA_SCROLL = 1.5;
+const BEAT_SPAN = 1;
+const SECTION_EXTRA_SCROLL = 0;
 const HOLD_FRACTION = 0.5;
 
 const DEG = Math.PI / 180;
@@ -310,12 +340,10 @@ function BeatText({
     x = d < 0 ? entrySign * absD * 120 : exitSign * absD * 120;
   }
 
-  const hasLinks = !!(
-    beat.link ||
-    beat.source ||
-    beat.instagram ||
-    beat.linkedin
-  );
+  const hasTeams = !!(beat.teams && beat.teams.length);
+  const hasLinks =
+    hasTeams ||
+    !!(beat.link || beat.source || beat.instagram || beat.linkedin);
   const interactive = hasLinks && opacity > 0.9;
 
   return (
@@ -344,7 +372,19 @@ function BeatText({
       <p className='lg:text-lg' style={{ color: 'var(--cad-text-muted)' }}>
         {beat.body}
       </p>
-      {hasLinks && (
+      {hasTeams && (
+        <div
+          className={
+            'mt-2 flex flex-col gap-2 ' +
+            (isLeft ? 'items-start' : 'items-end')
+          }
+        >
+          {beat.teams!.map((team) => (
+            <TeamPill key={team.id} team={team} />
+          ))}
+        </div>
+      )}
+      {!hasTeams && hasLinks && (
         <div
           className={
             'mt-2 flex items-center gap-3 ' +
@@ -416,6 +456,50 @@ function BeatText({
             </a>
           )}
         </div>
+      )}
+    </div>
+  );
+}
+
+function TeamPill({ team }: { team: Team }) {
+  const links: { href?: string; src: string; label: string }[] = [
+    { href: team.link, src: '/icons/rocket.svg', label: 'Visit site' },
+    { href: team.source, src: '/icons/github.svg', label: 'View source' },
+    { href: team.instagram, src: '/icons/instagram.svg', label: 'Instagram' },
+    { href: team.linkedin, src: '/icons/linkedin.svg', label: 'LinkedIn' },
+  ];
+  return (
+    <div
+      className='inline-flex items-center gap-2 rounded-full border bg-[color:var(--surface-2)] py-1.5 pr-2 pl-2'
+      style={{ borderColor: team.color }}
+    >
+      <span
+        className='inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-white/10'
+        aria-label={team.name}
+        title={team.name}
+      >
+        <Image
+          src={team.logo}
+          alt={team.name}
+          width={28}
+          height={28}
+          className='h-7 w-7 object-contain'
+        />
+      </span>
+      {links.map(
+        (l) =>
+          l.href && (
+            <a
+              key={l.label}
+              href={l.href}
+              target='_blank'
+              rel='noreferrer'
+              aria-label={`${team.name} ${l.label}`}
+              className='inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-white/10'
+            >
+              <Image src={l.src} alt='' width={18} height={18} />
+            </a>
+          )
       )}
     </div>
   );
