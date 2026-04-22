@@ -37,7 +37,7 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
           onExpand();
         }
       }}
-      className='relative flex h-full w-screen shrink-0 cursor-pointer flex-col justify-between px-[8vw] py-[10vh]'
+      className='relative flex h-full w-screen shrink-0 cursor-pointer flex-col justify-between px-[8vw] py-[3vh] md:py-[10vh]'
     >
       <header className='flex items-center justify-between'>
         <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
@@ -51,7 +51,7 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
       <div className='flex flex-col gap-[4vh] lg:gap-[5vh]'>
         <h3
           data-panel-title
-          className='text-center whitespace-nowrap will-change-[clip-path]'
+          className='text-center text-balance whitespace-normal will-change-[clip-path] md:whitespace-nowrap'
           style={{
             fontSize: 'clamp(1.75rem, 5vw, 4rem)',
             lineHeight: 1.25,

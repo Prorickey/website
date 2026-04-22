@@ -219,7 +219,7 @@ export function FeaturedProjects() {
         className={`relative ${mobileVisibility}`}
         aria-label='Featured projects'
       >
-        <div className='px-6 pt-16 pb-6'>
+        <div className='px-6 pt-16 pb-2'>
           <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
             03 — Featured Work
           </span>

@@ -14,8 +14,9 @@ const BODY_URL = '/models/MainBody.glb';
 const TURRET_URL = '/models/Turret.glb';
 
 const ROBOT_SCALE = 3;
-const ROBOT_SCALE_MOBILE = 6;
+const ROBOT_SCALE_MOBILE = 18;
 const ROBOT_POSITION: [number, number, number] = [0, -0.6, 0];
+const ROBOT_POSITION_MOBILE: [number, number, number] = [0, -1.5, 0];
 const ROBOT_REST_ROTATION: [number, number, number] = [-Math.PI / 2, 0, 0];
 const TURRET_OFFSET: [number, number, number] = [-0.05, 0, 0.2];
 const TURRET_SWEEP = 0.9;
@@ -27,7 +28,7 @@ const LIGHTNESS_BOOST = 1.0;
 const PURPLE_HUE_MIN = 0.68;
 const PURPLE_HUE_MAX = 0.86;
 const PURPLE_SATURATION_BOOST = 2.0;
-const PURPLE_LIGHTNESS_FACTOR = 0.9;
+const PURPLE_LIGHTNESS_FACTOR = 0.95;
 
 function saturateScene(root: Group) {
   const hsl = { h: 0, s: 0, l: 0 };
@@ -62,11 +63,14 @@ export function RobotModel({ rotationY, tilt }: Props) {
   const body = useGLTF(BODY_URL);
   const turret = useGLTF(TURRET_URL);
 
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(max-width: 767px)').matches
+  );
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 767px)');
     const update = () => setIsMobile(mq.matches);
-    update();
     mq.addEventListener('change', update);
     return () => mq.removeEventListener('change', update);
   }, []);
@@ -91,7 +95,7 @@ export function RobotModel({ rotationY, tilt }: Props) {
   return (
     <group
       ref={groupRef}
-      position={ROBOT_POSITION}
+      position={isMobile ? ROBOT_POSITION_MOBILE : ROBOT_POSITION}
       scale={isMobile ? ROBOT_SCALE_MOBILE : ROBOT_SCALE}
     >
       <group rotation={ROBOT_REST_ROTATION}>
