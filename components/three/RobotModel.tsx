@@ -2,7 +2,7 @@
 
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Color, MeshStandardMaterial, type Group, type Mesh } from 'three';
 
 type Props = {
@@ -14,6 +14,7 @@ const BODY_URL = '/models/MainBody.glb';
 const TURRET_URL = '/models/Turret.glb';
 
 const ROBOT_SCALE = 3;
+const ROBOT_SCALE_MOBILE = 6;
 const ROBOT_POSITION: [number, number, number] = [0, -0.6, 0];
 const ROBOT_REST_ROTATION: [number, number, number] = [-Math.PI / 2, 0, 0];
 const TURRET_OFFSET: [number, number, number] = [-0.05, 0, 0.2];
@@ -61,6 +62,15 @@ export function RobotModel({ rotationY, tilt }: Props) {
   const body = useGLTF(BODY_URL);
   const turret = useGLTF(TURRET_URL);
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
   useMemo(() => saturateScene(body.scene), [body.scene]);
   useMemo(() => saturateScene(turret.scene), [turret.scene]);
 
@@ -82,7 +92,7 @@ export function RobotModel({ rotationY, tilt }: Props) {
     <group
       ref={groupRef}
       position={ROBOT_POSITION}
-      scale={ROBOT_SCALE}
+      scale={isMobile ? ROBOT_SCALE_MOBILE : ROBOT_SCALE}
     >
       <group rotation={ROBOT_REST_ROTATION}>
         <primitive object={body.scene} />

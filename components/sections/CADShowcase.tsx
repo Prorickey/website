@@ -90,8 +90,8 @@ const BEATS: Beat[] = [
   },
 ];
 
-const BEAT_SPAN = 1;
-const SECTION_EXTRA_SCROLL = 0;
+const BEAT_SPAN = 0.8;
+const SECTION_EXTRA_SCROLL = 1;
 const HOLD_FRACTION = 0.5;
 
 const DEG = Math.PI / 180;
@@ -265,7 +265,7 @@ export function CADShowcase() {
           style={{ opacity: 1 }}
         />
 
-        <div className='absolute inset-0'>
+        <div className='absolute inset-x-0 top-1/2 bottom-0 md:inset-0'>
           <Scene rotationY={rotY} tilt={tilt} />
         </div>
 
@@ -321,6 +321,15 @@ function BeatText({
   const isLeft = index % 2 === 0;
   const isLast = index === total - 1;
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
   const d = indexFloat - index;
   const absD = Math.min(1, Math.abs(d));
   const entrySign = isLeft ? -1 : 1;
@@ -346,18 +355,24 @@ function BeatText({
     !!(beat.link || beat.source || beat.instagram || beat.linkedin);
   const interactive = hasLinks && opacity > 0.9;
 
+  const mobileX = x * 0.25;
+  const transform = isMobile
+    ? `translateX(${mobileX}px)`
+    : `translateY(-50%) translateX(${x}px)`;
+
   return (
     <div
       style={{
         opacity,
-        transform: `translateY(-50%) translateX(${x}px)`,
+        transform,
         pointerEvents: interactive ? 'auto' : 'none',
       }}
       className={
-        'absolute top-1/2 z-10 flex max-w-md flex-col gap-3 px-6 ' +
+        'absolute top-20 right-4 left-4 z-10 mx-auto flex max-w-md flex-col gap-3 px-6 text-center ' +
+        'md:top-1/2 md:mx-0 md:max-w-md ' +
         (isLeft
-          ? 'left-4 text-left md:left-10 lg:left-16'
-          : 'right-4 text-right md:right-10 lg:right-16')
+          ? 'md:right-auto md:left-4 md:text-left md:[text-align:left] lg:md:left-16'
+          : 'md:right-4 md:left-auto md:text-right md:[text-align:right] lg:md:right-16')
       }
     >
       <span className='text-xs tracking-[0.4em] text-[color:var(--accent)] uppercase'>
@@ -375,8 +390,8 @@ function BeatText({
       {hasTeams && (
         <div
           className={
-            'mt-2 flex flex-col gap-2 ' +
-            (isLeft ? 'items-start' : 'items-end')
+            'mt-2 flex flex-col gap-2 items-center ' +
+            (isLeft ? 'md:items-start' : 'md:items-end')
           }
         >
           {beat.teams!.map((team) => (
@@ -387,8 +402,8 @@ function BeatText({
       {!hasTeams && hasLinks && (
         <div
           className={
-            'mt-2 flex items-center gap-3 ' +
-            (isLeft ? 'justify-start' : 'justify-end')
+            'mt-2 flex items-center gap-3 justify-center ' +
+            (isLeft ? 'md:justify-start' : 'md:justify-end')
           }
         >
           {beat.link && (

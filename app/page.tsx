@@ -7,7 +7,6 @@ import { FeaturedProjects } from '@/components/sections/FeaturedProjects';
 import { Projects } from '@/components/Projects';
 // import { BlogTeaser } from '@/components/sections/BlogTeaser';
 import { Contact } from '@/components/sections/Contact';
-import LiquidBlack from '@/components/react-bits/LiquidBlack';
 
 export default function Home() {
   const today = new Date();
@@ -29,16 +28,9 @@ export default function Home() {
       <Toolkit />
       <FeaturedProjects />
 
-      <div className='relative'>
-        <div className='pointer-events-none sticky top-0 z-0 -mb-[100vh] h-screen'>
-          <LiquidBlack />
-        </div>
-        <div className='relative z-10'>
-          <Projects />
-          {/* <BlogTeaser /> */}
-          <Contact />
-        </div>
-      </div>
+      <Projects />
+      {/* <BlogTeaser /> */}
+      <Contact />
     </main>
   );
 }
