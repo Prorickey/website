@@ -64,6 +64,10 @@ const BEAT_SPAN = 0.7;
 const SECTION_EXTRA_SCROLL = 1.5;
 const HOLD_FRACTION = 0.5;
 
+const DEG = Math.PI / 180;
+const ROTATION_START_DEG = -45;
+const ROTATION_STEPS_DEG = [0, 45, 135, 180, 270];
+
 const DARK_TEXT: [number, number, number] = [231, 231, 231];
 const LIGHT_TEXT: [number, number, number] = [14, 14, 14];
 const DARK_MUTED: [number, number, number] = [138, 138, 138];
@@ -82,6 +86,17 @@ function lerpRgb(
 
 function smoothstep(t: number) {
   return t * t * (3 - 2 * t);
+}
+
+function rotationForIndex(idx: number): number {
+  const steps = ROTATION_STEPS_DEG;
+  const last = steps.length - 1;
+  const clamped = Math.max(0, Math.min(last, idx));
+  const i = Math.floor(clamped);
+  const next = Math.min(last, i + 1);
+  const t = clamped - i;
+  const deg = lerp(steps[i], steps[next], smoothstep(t));
+  return (ROTATION_START_DEG + deg) * DEG;
 }
 
 function displacedProgress(
@@ -127,7 +142,7 @@ export function CADShowcase() {
   const beats = BEATS;
   const totalBeats = beats.length;
 
-  const [rotY, setRotY] = useState(-0.3);
+  const [rotY, setRotY] = useState(rotationForIndex(0));
   const [tilt, setTilt] = useState(0.08);
   const [indexFloat, setIndexFloat] = useState(0);
 
@@ -145,8 +160,9 @@ export function CADShowcase() {
         const beatP = Math.min(1, p / BEAT_SPAN);
         const displaced = displacedProgress(beatP, totalBeats);
 
-        setIndexFloat(displaced * Math.max(1, totalBeats - 1));
-        setRotY(lerp(-0.3, Math.PI * 0.6, displaced));
+        const idxFloat = displaced * Math.max(1, totalBeats - 1);
+        setIndexFloat(idxFloat);
+        setRotY(rotationForIndex(idxFloat));
         setTilt(
           displaced < 0.5
             ? lerp(0.08, -0.05, displaced / 0.5)

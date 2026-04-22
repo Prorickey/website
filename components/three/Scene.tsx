@@ -16,14 +16,18 @@ export default function Scene({ rotationY, tilt }: Props) {
       camera={{ position: [0, 0.6, 6], fov: 32 }}
       gl={{ antialias: true, alpha: true }}
     >
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[4, 6, 4]} intensity={1.2} />
+      <ambientLight intensity={0.7} color='#fff2e4' />
+      <directionalLight
+        position={[4, 6, 4]}
+        intensity={1.25}
+        color='#fff0dc'
+      />
       <directionalLight
         position={[-4, 2, -3]}
-        intensity={0.6}
-        color='#db4c4c'
+        intensity={0.55}
+        color='#ffb59a'
       />
-      <hemisphereLight args={['#ffffff', '#222222', 0.4]} />
+      <hemisphereLight args={['#fff0e0', '#1a1a1a', 0.4]} />
 
       <RobotModel rotationY={rotationY} tilt={tilt} />
     </Canvas>
