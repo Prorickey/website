@@ -56,7 +56,7 @@ export default function TextReveal({
     const isLast = wi === words.length - 1;
     return (
       <span key={`${word}-${wi}`}>
-        <span className='inline-block overflow-hidden align-bottom'>
+        <span className='inline-block overflow-hidden pb-[0.15em] align-bottom'>
           <motion.span
             className='inline-block'
             initial={{ y: '110%' }}

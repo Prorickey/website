@@ -199,6 +199,7 @@ export function FeaturedProjects() {
                 index={i}
                 total={n}
                 onExpand={() => setExpandedIndex(i)}
+                langlinks={langlinks}
               />
             ))}
           </div>
@@ -242,6 +243,7 @@ export function FeaturedProjects() {
                 total={n}
                 onExpand={() => setExpandedIndex(i)}
                 revealMode='static'
+                langlinks={langlinks}
               />
             </div>
           ))}

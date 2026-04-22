@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { forwardRef } from 'react';
 import type { ProjectMetadata } from '@/components/Projects';
+import { LanguageIcons } from '@/components/projects/LanguageIcons';
 
 type Props = {
   project: ProjectMetadata;
@@ -10,16 +11,17 @@ type Props = {
   total: number;
   onExpand: () => void;
   revealMode?: 'scroll' | 'static';
+  langlinks?: Record<string, string>;
 };
 
 export const Panel = forwardRef<HTMLElement, Props>(function Panel(
-  { project, index, total, onExpand, revealMode = 'scroll' },
+  { project, index, total, onExpand, revealMode = 'scroll', langlinks = {} },
   ref
 ) {
   const numeral = `${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
-  const metadata = [project.date, ...project.langs.slice(0, 4)]
-    .filter(Boolean)
-    .join(' · ');
+
+  const stopPropagation = (e: React.MouseEvent | React.KeyboardEvent) =>
+    e.stopPropagation();
 
   return (
     <article
@@ -46,7 +48,7 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
         </span>
       </header>
 
-      <div className='flex flex-col gap-[4vh] lg:gap-[6vh]'>
+      <div className='flex flex-col gap-[4vh] lg:gap-[5vh]'>
         <h3
           data-panel-title
           className='text-center whitespace-nowrap will-change-[clip-path]'
@@ -66,32 +68,75 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
           {project.title}
         </h3>
 
-        {project.image && (
-          <div
-            data-panel-image-wrap
-            className='relative mx-auto aspect-video w-[75%] max-w-[42rem] overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] will-change-transform'
-          >
-            <Image
-              data-panel-image
-              src={project.image}
-              alt={project.title}
-              fill
-              sizes='(max-width: 1024px) 68vw, 42rem'
-              className='object-cover'
-              priority={index === 0}
-            />
+        <div className='grid grid-cols-1 items-center gap-8 md:grid-cols-[1.1fr_1fr] md:gap-10 lg:gap-14'>
+          {project.image && (
+            <div
+              data-panel-image-wrap
+              className='relative aspect-video w-full overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] will-change-transform'
+            >
+              <Image
+                data-panel-image
+                src={project.image}
+                alt={project.title}
+                fill
+                sizes='(max-width: 768px) 84vw, (max-width: 1280px) 45vw, 40rem'
+                className='object-cover'
+                priority={index === 0}
+              />
+            </div>
+          )}
+
+          <div className='flex flex-col gap-4 rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)]/60 p-6 backdrop-blur-sm lg:p-7'>
+            <p className='text-[color:var(--text-primary)] lg:text-lg'>
+              {project.shortDescription}
+            </p>
+
+            {project.langs.length > 0 && (
+              <LanguageIcons
+                langs={project.langs}
+                langlinks={langlinks}
+                columns={6}
+                iconSize={32}
+                stopPropagation
+              />
+            )}
+
+            <div className='flex items-center justify-between gap-4 border-t border-[color:var(--border-subtle)] pt-4'>
+              <span className='text-xs tracking-[0.25em] text-[color:var(--text-muted)] uppercase'>
+                {project.date}
+              </span>
+              <div className='flex items-center gap-2'>
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target='_blank'
+                    rel='noreferrer'
+                    onClick={stopPropagation}
+                    onKeyDown={stopPropagation}
+                    className='rounded-full border border-[color:var(--border-subtle)] px-3 py-1 text-xs tracking-[0.2em] text-[color:var(--text-primary)] uppercase transition-colors hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]'
+                  >
+                    Visit
+                  </a>
+                )}
+                {project.source && (
+                  <a
+                    href={project.source}
+                    target='_blank'
+                    rel='noreferrer'
+                    onClick={stopPropagation}
+                    onKeyDown={stopPropagation}
+                    className='rounded-full border border-[color:var(--border-subtle)] px-3 py-1 text-xs tracking-[0.2em] text-[color:var(--text-primary)] uppercase transition-colors hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]'
+                  >
+                    Source
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
-        )}
+        </div>
       </div>
 
-      <footer className='flex items-end justify-between gap-4'>
-        <p className='max-w-xl text-[color:var(--text-primary)] lg:text-lg'>
-          {project.shortDescription}
-        </p>
-        <span className='hidden shrink-0 text-xs tracking-[0.25em] text-[color:var(--text-muted)] uppercase md:block'>
-          {metadata}
-        </span>
-      </footer>
+      <div aria-hidden className='h-2' />
     </article>
   );
 });
