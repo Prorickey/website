@@ -173,6 +173,12 @@
           "name": "CSS",
           "icon": "/knows/css.svg",
           "docs": "https://developer.mozilla.org/docs/Web/CSS"
+        },
+        {
+          "id": "claude",
+          "name": "Claude",
+          "icon": "/knows/claude.svg",
+          "docs": "https://claude.ai/"
         }
       ]
     }

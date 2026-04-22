@@ -45,7 +45,7 @@ export function Toolkit() {
         </span>
         <TextReveal
           as='h2'
-          text='Tools I reach for.'
+          text='My toolshed.'
           className='mt-4 block text-4xl font-semibold text-balance lg:text-6xl'
           stagger={0.05}
         />

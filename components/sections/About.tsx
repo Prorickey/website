@@ -81,10 +81,10 @@ export function About({ age }: { age: number }) {
   });
 
   return (
-    <section id='about' ref={ref} className='relative py-28'>
+    <section id='about' ref={ref} className='relative pb-28'>
       <div className='h-[1px] w-full bg-[color:var(--accent)]/60' />
 
-      <div className='mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-10 px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:px-10'>
+      <div className='mx-auto mt-28 grid max-w-6xl grid-cols-1 gap-10 px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:px-10'>
         <div className='flex flex-col gap-6 lg:sticky lg:top-32 lg:self-start'>
           <span
             ref={labelRef}

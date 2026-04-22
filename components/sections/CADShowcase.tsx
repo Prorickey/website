@@ -19,6 +19,8 @@ type Beat = {
   body: string;
   link?: string;
   source?: string;
+  instagram?: string;
+  linkedin?: string;
 };
 
 const BEATS: Beat[] = [
@@ -52,7 +54,9 @@ const BEATS: Beat[] = [
     title: 'Team 8569 RoboKnights.',
     body: 'Swerve drivetrain software, PID controllers, on-board vision, autonomous game-piece pickup. INTO THE DEEP season, shipping now.',
     link: 'https://roboknights.net',
-    source: 'https://github.com/ftc8569/2024-IntoTheDeep',
+    source: 'https://github.com/ftc8569/',
+    instagram: 'https://www.instagram.com/roboknights8569/',
+    linkedin: 'https://www.linkedin.com/company/ftc8569/',
   },
 ];
 
@@ -290,7 +294,12 @@ function BeatText({
     x = d < 0 ? entrySign * absD * 120 : exitSign * absD * 120;
   }
 
-  const hasLinks = !!(beat.link || beat.source);
+  const hasLinks = !!(
+    beat.link ||
+    beat.source ||
+    beat.instagram ||
+    beat.linkedin
+  );
   const interactive = hasLinks && opacity > 0.9;
 
   return (
@@ -352,6 +361,38 @@ function BeatText({
             >
               <Image
                 src='/icons/github.svg'
+                alt=''
+                width={22}
+                height={22}
+              />
+            </a>
+          )}
+          {beat.instagram && (
+            <a
+              href={beat.instagram}
+              target='_blank'
+              rel='noreferrer'
+              aria-label='Instagram'
+              className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
+            >
+              <Image
+                src='/icons/instagram.svg'
+                alt=''
+                width={22}
+                height={22}
+              />
+            </a>
+          )}
+          {beat.linkedin && (
+            <a
+              href={beat.linkedin}
+              target='_blank'
+              rel='noreferrer'
+              aria-label='LinkedIn'
+              className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
+            >
+              <Image
+                src='/icons/linkedin.svg'
                 alt=''
                 width={22}
                 height={22}

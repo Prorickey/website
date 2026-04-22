@@ -150,7 +150,7 @@ export default function Hero() {
     <section
       id='introduction'
       ref={sectionRef}
-      className='relative flex min-h-screen w-full flex-1 flex-col overflow-hidden bg-linear-to-b from-[color:var(--accent-soft)] to-[color:var(--background)] to-45% px-[10%] pt-24 pb-20 lg:pt-48'
+      className='relative flex min-h-screen w-full flex-1 flex-col overflow-hidden bg-linear-to-b from-[color:var(--accent-soft)] to-[color:var(--background)] to-45% px-[10%] pt-24 pb-4 lg:pt-48'
     >
       <canvas
         ref={canvasRef}
@@ -158,7 +158,7 @@ export default function Hero() {
         className='absolute top-0 left-0 z-0 h-full w-full'
       />
 
-      <div className='relative z-20 flex flex-1 flex-col items-center justify-center gap-x-4 gap-y-10 lg:flex-row'>
+      <div className='relative z-20 mb-16 flex flex-1 flex-col items-center justify-center gap-x-4 gap-y-10 lg:flex-row'>
         <motion.div
           className='mx-auto w-3/4 lg:w-1/4'
           initial={{ opacity: 0, scale: 0.9 }}
