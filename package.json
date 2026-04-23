@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "version": "3.2.0",
+  "version": "4.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,8 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
-    "docker:build": "docker build -t docker.bedson.tech/tbedson/website:3.2.0 .",
-    "docker:run": "docker run -p 3000:3000 -d docker.bedson.tech/tbedson/website:3.2.0"
+    "docker:build": "docker build -t docker.bedson.tech/tbedson/website:4.0.0 .",
+    "docker:run": "docker run -p 3000:3000 -d docker.bedson.tech/tbedson/website:4.0.0"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
