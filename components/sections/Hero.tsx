@@ -170,6 +170,7 @@ export default function Hero() {
             priority
             height={250}
             width={250}
+            sizes='(max-width: 768px) 250px, 250px'
             alt='Portrait'
             className='aspect-square w-full rounded-full border-2 border-[color:var(--accent)]'
           />

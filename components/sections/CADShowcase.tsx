@@ -6,6 +6,11 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 
 const Scene = dynamic(() => import('@/components/three/Scene'), {
   ssr: false,
+  loading: () => (
+    <div className='flex h-full items-center justify-center text-sm text-neutral-500'>
+      Loading 3D view…
+    </div>
+  ),
 });
 
 const Grainient = dynamic(() => import('@/components/react-bits/Grainient'), {

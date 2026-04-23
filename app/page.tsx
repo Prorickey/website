@@ -7,6 +7,7 @@ import { FeaturedProjects } from '@/components/sections/FeaturedProjects';
 import { Projects } from '@/components/Projects';
 // import { BlogTeaser } from '@/components/sections/BlogTeaser';
 import { Contact } from '@/components/sections/Contact';
+import LazySection from '@/components/LazySection';
 
 export default function Home() {
   const today = new Date();
@@ -24,7 +25,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About age={age} />
-      <CADShowcase />
+      <LazySection>
+        <CADShowcase />
+      </LazySection>
       <Toolkit />
       <FeaturedProjects />
 
