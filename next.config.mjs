@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  experimental: {
+    optimizeCss: true,
+  },
   allowedDevOrigins: ['172.20.10.2'],
   async redirects() {
     return [

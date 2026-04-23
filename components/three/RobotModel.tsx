@@ -108,5 +108,3 @@ export function RobotModel({ rotationY, tilt }: Props) {
   );
 }
 
-useGLTF.preload(BODY_URL);
-useGLTF.preload(TURRET_URL);

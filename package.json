@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --check --ignore-path .gitignore .",
-    "format:fix": "prettier --write --ignore-path .gitignore ."
+    "format:fix": "prettier --write --ignore-path .gitignore .",
+    "docker:build": "docker build -t docker.bedson.tech/tbedson/website:3.2.0 .",
+    "docker:run": "docker run -p 3000:3000 -d docker.bedson.tech/tbedson/website:3.2.0"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -34,6 +36,7 @@
     "@types/react-dom": "19.2.3",
     "@types/react-responsive-masonry": "^2.7.0",
     "@types/three": "^0.184.0",
+    "critters": "^0.0.23",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.4",
     "eslint-config-prettier": "^10.1.8",
