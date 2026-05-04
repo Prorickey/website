@@ -1,7 +1,4 @@
-'use client';
-
 import { useEffect, useCallback } from 'react';
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProjectMetadata } from './Projects';
 import { useProjectDescription } from '@/hooks/useProjectDescription';
@@ -67,22 +64,12 @@ export function ProjectModal({
               <div className='flex shrink-0 items-center gap-3'>
                 {project.link && (
                   <button onClick={() => window.open(project.link!)}>
-                    <Image
-                      src={'/icons/rocket.svg'}
-                      alt={'Visit project'}
-                      width={32}
-                      height={32}
-                    />
+                    <img src={'/icons/rocket.svg'} alt={'Visit project'} width={32} height={32} />
                   </button>
                 )}
                 {project.source && (
                   <button onClick={() => window.open(project.source!)}>
-                    <Image
-                      src={'/icons/github.svg'}
-                      alt={'View source'}
-                      width={32}
-                      height={32}
-                    />
+                    <img src={'/icons/github.svg'} alt={'View source'} width={32} height={32} />
                   </button>
                 )}
                 <button
@@ -111,13 +98,11 @@ export function ProjectModal({
             <div className='mt-4'>
               {project.image && (
                 <div className='relative mr-5 mb-3 aspect-video w-full overflow-hidden rounded-xl sm:float-left sm:mb-2 sm:w-3/5'>
-                  <Image
+                  <img
                     src={project.image}
                     alt={project.title}
-                    fill
                     loading='lazy'
-                    className='object-cover'
-                    sizes='(max-width: 640px) 100vw, 540px'
+                    className='absolute inset-0 h-full w-full object-cover'
                   />
                 </div>
               )}

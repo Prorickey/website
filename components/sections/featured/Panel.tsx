@@ -1,6 +1,3 @@
-'use client';
-
-import Image from 'next/image';
 import { forwardRef } from 'react';
 import type { ProjectMetadata } from '@/components/Projects';
 import { LanguageIcons } from '@/components/projects/LanguageIcons';
@@ -74,14 +71,12 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
               data-panel-image-wrap
               className='relative aspect-video w-full overflow-hidden rounded-2xl border border-[color:var(--border-subtle)] will-change-transform'
             >
-              <Image
+              <img
                 data-panel-image
                 src={project.image}
                 alt={project.title}
-                fill
-                sizes='(max-width: 768px) 84vw, (max-width: 1280px) 45vw, 40rem'
-                className='object-cover'
-                priority={index === 0}
+                className='absolute inset-0 h-full w-full object-cover'
+                loading={index === 0 ? undefined : 'lazy'}
               />
             </div>
           )}

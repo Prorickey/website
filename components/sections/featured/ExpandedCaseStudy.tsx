@@ -1,6 +1,3 @@
-'use client';
-
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import type { ProjectMetadata } from '@/components/Projects';
@@ -69,7 +66,7 @@ export function ExpandedCaseStudy({ project, langlinks, onClose }: Props) {
                 aria-label='Visit project'
                 onClick={() => window.open(project.link!, '_blank')}
               >
-                <Image src='/icons/rocket.svg' alt='' width={28} height={28} />
+                <img src='/icons/rocket.svg' alt='' width={28} height={28} />
               </button>
             )}
             {project.source && (
@@ -77,7 +74,7 @@ export function ExpandedCaseStudy({ project, langlinks, onClose }: Props) {
                 aria-label='View source'
                 onClick={() => window.open(project.source!, '_blank')}
               >
-                <Image src='/icons/github.svg' alt='' width={28} height={28} />
+                <img src='/icons/github.svg' alt='' width={28} height={28} />
               </button>
             )}
             <button
@@ -107,12 +104,11 @@ export function ExpandedCaseStudy({ project, langlinks, onClose }: Props) {
         <div className='mt-6 grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:gap-10'>
           {project.image && (
             <div className='relative aspect-video w-full overflow-hidden rounded-2xl'>
-              <Image
+              <img
                 src={project.image}
                 alt={project.title}
-                fill
-                sizes='(max-width: 1024px) 100vw, 600px'
-                className='object-cover'
+                className='absolute inset-0 h-full w-full object-cover'
+                loading='lazy'
               />
             </div>
           )}

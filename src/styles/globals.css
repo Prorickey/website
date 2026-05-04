@@ -40,7 +40,7 @@ html.lenis body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Montserrat, serif;
+  font-family: Inter, sans-serif;
 }
 
 button {

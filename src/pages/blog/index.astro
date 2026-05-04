@@ -1,0 +1,48 @@
+---
+import Layout from '@/src/layouts/Layout.astro';
+import Navbar from '@/components/Navbar';
+import { blogMetadata } from '@/blogs/metadata';
+
+const featuredBlog = blogMetadata.NCTSAApp;
+const formatOptions: Intl.DateTimeFormatOptions = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
+---
+
+<Layout title="Blog — Trevor Bedson">
+  <div class="mt-20 w-full"></div>
+  <Navbar client:load />
+  <p class="mx-10 mb-4 text-3xl font-semibold">Featured Blog</p>
+  <div class="mx-10 flex flex-row">
+    <a
+      href={`/blog/${featuredBlog.name}`}
+      class="content-background block w-full max-w-xs cursor-pointer rounded-2xl pb-4"
+    >
+      <img
+        src={featuredBlog.image}
+        alt={featuredBlog.title}
+        class="w-full rounded-t-2xl object-cover"
+        width={600}
+        height={400}
+        loading="lazy"
+      />
+      <div class="h-0.5 bg-[#db4c4c]"></div>
+      <p class="mx-4 mt-2 text-3xl font-semibold">{featuredBlog.title}</p>
+      <p class="mx-4 mt-2 text-stone-300">{featuredBlog.description}</p>
+      <p class="mx-4 mt-4 text-sm text-stone-400">
+        Published: {
+          new Intl.DateTimeFormat('en-US', formatOptions).format(
+            featuredBlog.publishedAt
+          )
+        }
+        {
+          featuredBlog.updatedAt != null &&
+            `• Updated: ${new Intl.DateTimeFormat('en-US', formatOptions).format(featuredBlog.updatedAt)}`
+        }
+      </p>
+    </a>
+  </div>
+</Layout>

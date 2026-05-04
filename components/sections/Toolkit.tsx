@@ -1,7 +1,4 @@
-'use client';
-
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import TextReveal from '@/components/ui/TextReveal';
 
@@ -97,7 +94,7 @@ function ToolTile({ item, delay }: { item: Item; delay: number }) {
       whileHover={{ y: -4 }}
       className='group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] p-4 transition-colors hover:border-[color:var(--accent)]'
     >
-      <Image
+      <img
         src={item.icon}
         alt={item.name}
         width={40}

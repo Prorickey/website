@@ -1,21 +1,7 @@
-'use client';
+import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from 'react';
 
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
-
-const Scene = dynamic(() => import('@/components/three/Scene'), {
-  ssr: false,
-  loading: () => (
-    <div className='flex h-full items-center justify-center text-sm text-neutral-500'>
-      Loading 3D view…
-    </div>
-  ),
-});
-
-const Grainient = dynamic(() => import('@/components/react-bits/Grainient'), {
-  ssr: false,
-});
+const Scene = lazy(() => import('@/components/three/Scene'));
+const Grainient = lazy(() => import('@/components/react-bits/Grainient'));
 
 type Team = {
   id: string;
@@ -248,19 +234,21 @@ export function CADShowcase() {
         className='sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden bg-[rgb(14,14,14)]'
       >
         <div className='absolute inset-0'>
-          <Grainient
-            color1='#ffffff'
-            color2='#ff6b7a'
-            color3='#6aa1ff'
-            contrast={1.0}
-            saturation={0.85}
-            blendSoftness={0.25}
-            warpStrength={0.8}
-            warpAmplitude={70}
-            grainAmount={0.08}
-            timeSpeed={0.15}
-            rotationAmount={120}
-          />
+          <Suspense>
+            <Grainient
+              color1='#ffffff'
+              color2='#ff6b7a'
+              color3='#6aa1ff'
+              contrast={1.0}
+              saturation={0.85}
+              blendSoftness={0.25}
+              warpStrength={0.8}
+              warpAmplitude={70}
+              grainAmount={0.08}
+              timeSpeed={0.15}
+              rotationAmount={120}
+            />
+          </Suspense>
         </div>
 
         <div
@@ -271,7 +259,15 @@ export function CADShowcase() {
         />
 
         <div className='absolute inset-x-0 top-1/2 bottom-0 md:inset-0'>
-          <Scene rotationY={rotY} tilt={tilt} />
+          <Suspense
+            fallback={
+              <div className='flex h-full items-center justify-center text-sm text-neutral-500'>
+                Loading 3D view…
+              </div>
+            }
+          >
+            <Scene rotationY={rotY} tilt={tilt} />
+          </Suspense>
         </div>
 
         <div className='pointer-events-none absolute top-8 left-1/2 z-10 -translate-x-1/2 text-center'>
@@ -419,12 +415,7 @@ function BeatText({
               aria-label='Visit project'
               className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
             >
-              <Image
-                src='/icons/rocket.svg'
-                alt=''
-                width={22}
-                height={22}
-              />
+              <img src='/icons/rocket.svg' alt='' width={22} height={22} />
             </a>
           )}
           {beat.source && (
@@ -435,12 +426,7 @@ function BeatText({
               aria-label='View source'
               className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
             >
-              <Image
-                src='/icons/github.svg'
-                alt=''
-                width={22}
-                height={22}
-              />
+              <img src='/icons/github.svg' alt='' width={22} height={22} />
             </a>
           )}
           {beat.instagram && (
@@ -451,12 +437,7 @@ function BeatText({
               aria-label='Instagram'
               className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
             >
-              <Image
-                src='/icons/instagram.svg'
-                alt=''
-                width={22}
-                height={22}
-              />
+              <img src='/icons/instagram.svg' alt='' width={22} height={22} />
             </a>
           )}
           {beat.linkedin && (
@@ -467,12 +448,7 @@ function BeatText({
               aria-label='LinkedIn'
               className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
             >
-              <Image
-                src='/icons/linkedin.svg'
-                alt=''
-                width={22}
-                height={22}
-              />
+              <img src='/icons/linkedin.svg' alt='' width={22} height={22} />
             </a>
           )}
         </div>
@@ -498,13 +474,7 @@ function TeamPill({ team }: { team: Team }) {
         aria-label={team.name}
         title={team.name}
       >
-        <Image
-          src={team.logo}
-          alt={team.name}
-          width={28}
-          height={28}
-          className='h-7 w-7 object-contain'
-        />
+        <img src={team.logo} alt={team.name} width={28} height={28} className='h-7 w-7 object-contain' />
       </span>
       {links.map(
         (l) =>
@@ -517,7 +487,7 @@ function TeamPill({ team }: { team: Team }) {
               aria-label={`${team.name} ${l.label}`}
               className='inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-white/10'
             >
-              <Image src={l.src} alt='' width={18} height={18} />
+              <img src={l.src} alt='' width={18} height={18} />
             </a>
           )
       )}

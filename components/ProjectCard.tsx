@@ -1,6 +1,3 @@
-'use client';
-
-import Image from 'next/image';
 import { ProjectMetadata } from './Projects';
 import { motion } from 'framer-motion';
 import Magnetic from './ui/Magnetic';
@@ -28,12 +25,7 @@ export function ProjectCard({
             window.open(link);
           }}
         >
-          <Image
-            src={'/icons/rocket.svg'}
-            alt={'Click to takeoff!'}
-            width={32}
-            height={32}
-          />
+          <img src={'/icons/rocket.svg'} alt={'Click to takeoff!'} width={32} height={32} />
         </button>
       );
     }
@@ -48,12 +40,7 @@ export function ProjectCard({
             window.open(source);
           }}
         >
-          <Image
-            src={'/icons/github.svg'}
-            alt={'Click to visit source!'}
-            width={32}
-            height={32}
-          />
+          <img src={'/icons/github.svg'} alt={'Click to visit source!'} width={32} height={32} />
         </button>
       );
     }
@@ -77,13 +64,11 @@ export function ProjectCard({
           <div className='card-border-inner overflow-hidden'>
             {image && (
               <div className='relative aspect-video w-full overflow-hidden rounded-t-2xl'>
-                <Image
+                <img
                   src={image}
                   alt={title}
-                  fill
                   loading='lazy'
-                  className='object-cover'
-                  sizes='(max-width: 800px) 100vw, (max-width: 1300px) 50vw, 33vw'
+                  className='absolute inset-0 h-full w-full object-cover'
                 />
               </div>
             )}

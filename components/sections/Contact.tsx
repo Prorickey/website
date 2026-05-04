@@ -1,6 +1,3 @@
-'use client';
-
-import Image from 'next/image';
 import TextReveal from '@/components/ui/TextReveal';
 import Magnetic from '@/components/ui/Magnetic';
 
@@ -51,7 +48,7 @@ export function Contact() {
                 rel='noreferrer'
                 className='group flex items-center gap-3 rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] px-5 py-3 text-sm transition-colors hover:border-[color:var(--accent)]'
               >
-                <Image src={l.icon} alt='' width={22} height={22} />
+                <img src={l.icon} alt='' width={22} height={22} />
                 <span className='tracking-wide group-hover:text-[color:var(--accent)]'>
                   {l.label}
                 </span>

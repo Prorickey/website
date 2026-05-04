@@ -1,7 +1,4 @@
-'use client';
-
 import styles from '@/components/Navbar.module.css';
-import Link from 'next/link';
 import { useLayoutEffect, useState } from 'react';
 
 export default function Navbar() {
@@ -31,7 +28,7 @@ export default function Navbar() {
         }
       >
         <div className='flex items-center justify-between p-5 lg:pr-10'>
-          <Link
+          <a
             href={'/'}
             onClick={() => window.scrollTo({ top: 0 })}
             className={
@@ -40,7 +37,7 @@ export default function Navbar() {
             }
           >
             <p>Trevor Bedson</p>
-          </Link>
+          </a>
           <div className='flex w-full flex-row justify-end gap-x-3 text-lg lg:gap-x-10'>
             <NavbarItem text={'About'} link={'/#about'} />
             <NavbarItem text={'Projects'} link={'/#projects'} />

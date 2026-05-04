@@ -1,7 +1,4 @@
-'use client';
-
 import { useEffect, useMemo, useRef } from 'react';
-import Image from 'next/image';
 
 const EQUILIBRIUM_VELOCITY = -0.25;
 const WHEEL_FORCE = 0.0045;
@@ -159,13 +156,11 @@ export function ImageCarousel() {
                 key={`${image.src}-${index}`}
                 className='relative h-full w-[600px] shrink-0 overflow-hidden rounded-xl'
               >
-                <Image
+                <img
                   src={image.src}
                   alt={image.alt}
-                  fill
-                  className='object-cover'
-                  priority={index < 3}
-                  sizes='600px'
+                  className='absolute inset-0 h-full w-full object-cover'
+                  loading={index < 3 ? undefined : 'lazy'}
                   draggable={false}
                 />
               </div>
@@ -192,13 +187,11 @@ export function ImageCarousel() {
                   key={`${image.src}-${index}`}
                   className='relative h-full w-[280px] shrink-0 overflow-hidden rounded-xl'
                 >
-                  <Image
+                  <img
                     src={image.src}
                     alt={image.alt}
-                    fill
-                    className='object-cover'
-                    priority={index < 3}
-                    sizes='280px'
+                    className='absolute inset-0 h-full w-full object-cover'
+                    loading={index < 3 ? undefined : 'lazy'}
                     draggable={false}
                   />
                 </div>
@@ -223,13 +216,11 @@ export function ImageCarousel() {
                   key={`${image.src}-reverse-${index}`}
                   className='relative h-full w-[280px] shrink-0 overflow-hidden rounded-xl'
                 >
-                  <Image
+                  <img
                     src={image.src}
                     alt={image.alt}
-                    fill
-                    className='object-cover'
-                    priority={index < 3}
-                    sizes='280px'
+                    className='absolute inset-0 h-full w-full object-cover'
+                    loading={index < 3 ? undefined : 'lazy'}
                     draggable={false}
                   />
                 </div>

@@ -1,8 +1,4 @@
-'use client';
-
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
 import BlogData from '@/blogs';
 import TextReveal from '@/components/ui/TextReveal';
 
@@ -48,17 +44,16 @@ export function BlogTeaser() {
                 delay: i * 0.08,
               }}
             >
-              <Link
+              <a
                 href={`/blog/${post.name}`}
                 className='group block overflow-hidden rounded-3xl border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
               >
                 <div className='relative aspect-video w-full overflow-hidden'>
-                  <Image
+                  <img
                     src={post.image}
                     alt={post.title}
-                    fill
-                    sizes='(max-width: 768px) 100vw, 50vw'
-                    className='object-cover transition-transform duration-700 group-hover:scale-105'
+                    className='absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
+                    loading='lazy'
                   />
                 </div>
                 <div className='p-6'>
@@ -73,18 +68,18 @@ export function BlogTeaser() {
                     {post.description}
                   </p>
                 </div>
-              </Link>
+              </a>
             </motion.article>
           ))}
         </div>
 
         <div className='mt-10'>
-          <Link
+          <a
             href='/blog'
             className='inline-flex items-center gap-2 text-sm tracking-[0.3em] text-[color:var(--text-muted)] uppercase transition-colors hover:text-[color:var(--accent)]'
           >
             All writing →
-          </Link>
+          </a>
         </div>
       </div>
     </section>

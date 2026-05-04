@@ -1,9 +1,6 @@
-'use client';
-
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import type { ProjectMetadata } from '@/components/Projects';
-import { useLenis } from '@/components/providers/LenisProvider';
 import { Panel } from './featured/Panel';
 import { ExpandedCaseStudy } from './featured/ExpandedCaseStudy';
 
@@ -86,8 +83,6 @@ export function FeaturedProjects() {
   const [langlinks, setLanglinks] = useState<Record<string, string>>({});
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const reducedMotion = useReducedMotion();
-  const lenisRef = useLenis();
-
   useEffect(() => {
     let cancelled = false;
     loadFeatured().then((projects) => {
@@ -104,11 +99,11 @@ export function FeaturedProjects() {
   }, []);
 
   useEffect(() => {
-    const lenis = lenisRef?.current;
+    const lenis = (window as any).__lenis;
     if (!lenis) return;
     if (expandedIndex !== null) lenis.stop();
     else lenis.start();
-  }, [expandedIndex, lenisRef]);
+  }, [expandedIndex]);
 
   useEffect(() => {
     if (featured.length === 0 || reducedMotion) return;

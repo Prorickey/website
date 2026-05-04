@@ -1,5 +1,3 @@
-'use client';
-
 import {
   animate,
   motion,
@@ -8,7 +6,6 @@ import {
   useScroll,
   useTransform,
 } from 'framer-motion';
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import type { Dot } from '@/components/animation.worker';
 import TextReveal from '@/components/ui/TextReveal';
@@ -165,12 +162,10 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Image
+          <img
             src='/trevor.png'
-            priority
             height={250}
             width={250}
-            sizes='(max-width: 768px) 250px, 250px'
             alt='Portrait'
             className='aspect-square w-full rounded-full border-2 border-[color:var(--accent)]'
           />
@@ -182,12 +177,7 @@ export default function Hero() {
                 rel='noreferrer'
                 aria-label='GitHub'
               >
-                <Image
-                  src='/icons/github.svg'
-                  alt='GitHub'
-                  width={35}
-                  height={35}
-                />
+                <img src='/icons/github.svg' alt='GitHub' width={35} height={35} />
               </a>
             </Magnetic>
             <Magnetic>
@@ -197,12 +187,7 @@ export default function Hero() {
                 rel='noreferrer'
                 aria-label='LinkedIn'
               >
-                <Image
-                  src='/icons/linkedin.svg'
-                  alt='LinkedIn'
-                  width={50}
-                  height={50}
-                />
+                <img src='/icons/linkedin.svg' alt='LinkedIn' width={50} height={50} />
               </a>
             </Magnetic>
             <Magnetic>
@@ -211,12 +196,7 @@ export default function Hero() {
                 aria-label='Email'
                 className='group relative flex'
               >
-                <Image
-                  src='/icons/mail.svg'
-                  alt='Email'
-                  width={50}
-                  height={50}
-                />
+                <img src='/icons/mail.svg' alt='Email' width={50} height={50} />
                 <span className='pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 rounded bg-white px-2 py-1 text-sm text-stone-900 opacity-0 transition-opacity duration-200 group-hover:opacity-100'>
                   trevor@bedson.tech
                 </span>

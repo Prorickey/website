@@ -1,6 +1,3 @@
-'use client';
-
-import Image from 'next/image';
 
 type Props = {
   langs: string[];
@@ -33,12 +30,7 @@ export function LanguageIcons({
         const href = langlinks?.[lang];
 
         const img = (
-          <Image
-            src={`/knows/${icon}`}
-            alt={lang}
-            height={iconSize}
-            width={iconSize}
-          />
+          <img src={`/knows/${icon}`} alt={lang} height={iconSize} width={iconSize} />
         );
 
         if (!href) return <span key={lang}>{img}</span>;
