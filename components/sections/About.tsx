@@ -23,7 +23,15 @@ type Experience = {
 
 const experiences: Experience[] = [
   {
-    date: 'Feburary 2026 — Present',
+    date: "June 2026 - Present",
+    role: "Software Engineer",
+    org: "Enhanced Radar",
+    location: "San Francisco, CA",
+    body: "Building production backend systems and prototyping new products.",
+    tags: ['AI', 'Databases']
+  },
+  {
+    date: 'Feburary 2026 — May 2026',
     role: 'Team Member & Programmer',
     org: 'FTC 22377 SigmaCorns',
     location: 'Raleigh, NC',
@@ -31,7 +39,7 @@ const experiences: Experience[] = [
     tags: ['Kotlin', 'Python', 'C++', 'Rust', 'Typescript', 'OpenCV'],
   },
   {
-    date: '2024 — Present',
+    date: '2024 — May 2026',
     role: 'Captain & Lead Programmer',
     org: 'FTC 8569 RoboKnights',
     location: 'Raleigh, NC',
@@ -40,7 +48,7 @@ const experiences: Experience[] = [
   },
   {
     date: '2024 — 2025',
-    role: 'Mobile Developer',
+    role: 'Mobile App Developer',
     org: 'North Carolina TSA',
     location: 'Remote',
     body: 'Designed and shipped the official NC TSA conference app used by thousands of students with features like schedules, results, chatbots, messaging, and push notifications. Production Expo/React Native build with a Go backend.',
@@ -48,7 +56,7 @@ const experiences: Experience[] = [
   },
   {
     date: '2021 — 2023',
-    role: 'Software Engineer',
+    role: 'Explorer',
     org: 'Independent Projects',
     body: 'Shipped Minecraft plugins and multiplayer game servers with tens of thousands of monthly players. Gained experience on databases, Redis pub/sub, and the realities of running something in production.',
     tags: ['Java', 'Node.js', 'Redis', 'MySQL'],
@@ -95,11 +103,11 @@ export function About({ age }: { age: number }) {
           <div className='mt-2 text-lg leading-relaxed text-[color:var(--text-primary)] lg:text-xl'>
             <p>
               Hey there! I&#39;m a {age} year old full-stack developer who loves
-              to learn by building. I study at the{' '}
-              <AccentLink href='https://ncssm.edu'>
-                North Carolina School of Science and Mathematics
+              to learn by building. I study at{' '}
+              <AccentLink href='https://duke.edu'>
+                Duke University
               </AccentLink>
-              , and in my free time I ship web and mobile apps with React, lead 
+              , and in my free time I ship web and mobile apps with React, mentor
               a robotics team, and much more!
             </p>
             <p className='mt-4'>
