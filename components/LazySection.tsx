@@ -13,7 +13,8 @@ export default function LazySection({ children }: { children: ReactNode }) {
         ? requestIdleCallback(() => setMounted(true))
         : setTimeout(() => setMounted(true), 0);
     return () => {
-      if (typeof cancelIdleCallback !== 'undefined') cancelIdleCallback(id as number);
+      if (typeof cancelIdleCallback !== 'undefined')
+        cancelIdleCallback(id as number);
       else clearTimeout(id as number);
     };
   }, []);

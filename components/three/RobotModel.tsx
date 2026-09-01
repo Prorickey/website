@@ -107,4 +107,3 @@ export function RobotModel({ rotationY, tilt }: Props) {
     </group>
   );
 }
-

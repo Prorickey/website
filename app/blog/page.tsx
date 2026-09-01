@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar';
 import * as BlogData from '@/blogs';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const featuredBlog = BlogData.default.NCTSAApp;
 
@@ -20,9 +21,9 @@ export default function BlogPage() {
       <Navbar />
       <p className='mx-10 mb-4 text-3xl font-semibold'>Featured Blog</p>
       <div className='mx-10 flex flex-row'>
-        <div
-          className='content-background w-full max-w-1/3 cursor-pointer rounded-2xl pb-4'
-          onClick={() => (window.location.href = `/blog/${featuredBlog.name}`)}
+        <Link
+          href={`/blog/${featuredBlog.name}`}
+          className='content-background block w-full max-w-1/3 rounded-2xl pb-4'
         >
           <Image
             src={featuredBlog.image}
@@ -50,7 +51,7 @@ export default function BlogPage() {
                 )
               : ''}
           </p>
-        </div>
+        </Link>
       </div>
     </main>
   );

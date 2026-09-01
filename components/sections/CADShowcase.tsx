@@ -356,8 +356,7 @@ function BeatText({
 
   const hasTeams = !!(beat.teams && beat.teams.length);
   const hasLinks =
-    hasTeams ||
-    !!(beat.link || beat.source || beat.instagram || beat.linkedin);
+    hasTeams || !!(beat.link || beat.source || beat.instagram || beat.linkedin);
   const interactive = hasLinks && opacity > 0.9;
 
   const mobileX = x * 0.25;
@@ -376,8 +375,8 @@ function BeatText({
         'absolute top-20 right-4 left-4 z-10 mx-auto flex max-w-md flex-col gap-3 px-6 text-center ' +
         'md:top-1/2 md:mx-0 md:max-w-md ' +
         (isLeft
-          ? 'md:right-auto md:left-4 md:text-left md:[text-align:left] lg:md:left-16'
-          : 'md:right-4 md:left-auto md:text-right md:[text-align:right] lg:md:right-16')
+          ? 'md:right-auto md:left-4 md:[text-align:left] md:text-left lg:md:left-16'
+          : 'md:right-4 md:left-auto md:[text-align:right] md:text-right lg:md:right-16')
       }
     >
       <span className='text-xs tracking-[0.4em] text-[color:var(--accent)] uppercase'>
@@ -395,7 +394,7 @@ function BeatText({
       {hasTeams && (
         <div
           className={
-            'mt-2 flex flex-col gap-2 items-center ' +
+            'mt-2 flex flex-col items-center gap-2 ' +
             (isLeft ? 'md:items-start' : 'md:items-end')
           }
         >
@@ -407,7 +406,7 @@ function BeatText({
       {!hasTeams && hasLinks && (
         <div
           className={
-            'mt-2 flex items-center gap-3 justify-center ' +
+            'mt-2 flex items-center justify-center gap-3 ' +
             (isLeft ? 'md:justify-start' : 'md:justify-end')
           }
         >
@@ -419,12 +418,7 @@ function BeatText({
               aria-label='Visit project'
               className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
             >
-              <Image
-                src='/icons/rocket.svg'
-                alt=''
-                width={22}
-                height={22}
-              />
+              <Image src='/icons/rocket.svg' alt='' width={22} height={22} />
             </a>
           )}
           {beat.source && (
@@ -435,12 +429,7 @@ function BeatText({
               aria-label='View source'
               className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
             >
-              <Image
-                src='/icons/github.svg'
-                alt=''
-                width={22}
-                height={22}
-              />
+              <Image src='/icons/github.svg' alt='' width={22} height={22} />
             </a>
           )}
           {beat.instagram && (
@@ -451,12 +440,7 @@ function BeatText({
               aria-label='Instagram'
               className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
             >
-              <Image
-                src='/icons/instagram.svg'
-                alt=''
-                width={22}
-                height={22}
-              />
+              <Image src='/icons/instagram.svg' alt='' width={22} height={22} />
             </a>
           )}
           {beat.linkedin && (
@@ -467,12 +451,7 @@ function BeatText({
               aria-label='LinkedIn'
               className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] transition-colors hover:border-[color:var(--accent)]'
             >
-              <Image
-                src='/icons/linkedin.svg'
-                alt=''
-                width={22}
-                height={22}
-              />
+              <Image src='/icons/linkedin.svg' alt='' width={22} height={22} />
             </a>
           )}
         </div>

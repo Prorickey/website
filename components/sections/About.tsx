@@ -23,19 +23,19 @@ type Experience = {
 
 const experiences: Experience[] = [
   {
-    date: "June 2026 - Present",
-    role: "Software Engineer",
-    org: "Enhanced Radar",
-    location: "San Francisco, CA",
-    body: "Building production backend systems and prototyping new products.",
-    tags: ['AI', 'Databases']
+    date: 'June 2026 - Present',
+    role: 'Software Engineer',
+    org: 'Enhanced Radar',
+    location: 'San Francisco, CA',
+    body: 'Building production backend systems and prototyping new products.',
+    tags: ['AI', 'Databases'],
   },
   {
     date: 'Feburary 2026 — May 2026',
     role: 'Team Member & Programmer',
     org: 'FTC 22377 SigmaCorns',
     location: 'Raleigh, NC',
-    body: 'Collaborating and working to push the limits in high school robotics. From pathing to flywheel control, I\'ve been working to fully optimize as much as possible on my team\'s robot.',
+    body: "Collaborating and working to push the limits in high school robotics. From pathing to flywheel control, I've been working to fully optimize as much as possible on my team's robot.",
     tags: ['Kotlin', 'Python', 'C++', 'Rust', 'Typescript', 'OpenCV'],
   },
   {
@@ -104,18 +104,16 @@ export function About({ age }: { age: number }) {
             <p>
               Hey there! I&#39;m a {age} year old full-stack developer who loves
               to learn by building. I study at{' '}
-              <AccentLink href='https://duke.edu'>
-                Duke University
-              </AccentLink>
-              , and in my free time I ship web and mobile apps with React, mentor
+              <AccentLink href='https://duke.edu'>Duke University</AccentLink>,
+              and in my free time I ship web and mobile apps with React, mentor
               a robotics team, and much more!
             </p>
             <p className='mt-4'>
               My journey into code started with Java and Node.js, running
-              Minecraft servers and building discord bots. That introduced 
-              me to databases and big codebases early. Now I build with 
-              organizations like TSA and DECA, and design, fabricate, and program 
-              robots with FTC teams{' '}
+              Minecraft servers and building discord bots. That introduced me to
+              databases and big codebases early. Now I build with organizations
+              like TSA and DECA, and design, fabricate, and program robots with
+              FTC teams{' '}
               <AccentLink href='https://roboknights.net/'>
                 8569 RoboKnights
               </AccentLink>{' '}

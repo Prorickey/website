@@ -43,11 +43,7 @@ export default function Scene({ rotationY, tilt }: Props) {
       }}
     >
       <ambientLight intensity={0.7} color='#fff2e4' />
-      <directionalLight
-        position={[4, 6, 4]}
-        intensity={1.25}
-        color='#fff0dc'
-      />
+      <directionalLight position={[4, 6, 4]} intensity={1.25} color='#fff0dc' />
       <directionalLight
         position={[-4, 2, -3]}
         intensity={0.55}
