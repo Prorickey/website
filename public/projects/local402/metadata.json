@@ -1,0 +1,9 @@
+{
+  "title": "Local402 - Agentic Commerce Build Day",
+  "shortDescription": "Local LLM macOS app that connects on-device models to Coinbase wallets and pays for web searches with x402 micropayments. Built at the Coinbase and Microsoft agentic commerce hackathon during NY Tech Week 2026.",
+  "langs": ["swiftui", "typescript", "nodejs", "git"],
+  "link": null,
+  "source": "https://github.com/Prorickey/Local402",
+  "date": "June 2, 2026",
+  "image": null
+}

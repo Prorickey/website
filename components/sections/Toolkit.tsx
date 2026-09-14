@@ -100,9 +100,9 @@ function ToolTile({ item, delay }: { item: Item; delay: number }) {
       <Image
         src={item.icon}
         alt={item.name}
-        width={40}
-        height={40}
-        className='h-10 w-10 object-contain transition-transform group-hover:scale-110'
+        width={32}
+        height={32}
+        className='size-8 object-contain transition-transform group-hover:scale-110'
       />
       <span className='text-center text-xs text-[color:var(--text-muted)] group-hover:text-[color:var(--text-primary)]'>
         {item.name}

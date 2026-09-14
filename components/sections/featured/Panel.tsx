@@ -81,7 +81,7 @@ export const Panel = forwardRef<HTMLElement, Props>(function Panel(
                 fill
                 sizes='(max-width: 768px) 84vw, (max-width: 1280px) 45vw, 40rem'
                 className='object-cover'
-                priority={index === 0}
+                loading='eager'
               />
             </div>
           )}

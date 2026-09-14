@@ -167,7 +167,7 @@ export default function Hero() {
         >
           <Image
             src='/trevor.png'
-            priority
+            preload
             height={250}
             width={250}
             sizes='(max-width: 768px) 250px, 250px'

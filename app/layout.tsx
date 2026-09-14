@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang='en'>
-        <body className={inter.className}>
+        <body className={inter.className} suppressHydrationWarning>
           <LenisProvider>{children}</LenisProvider>
           <SmoothCursor />
         </body>

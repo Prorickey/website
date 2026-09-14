@@ -38,6 +38,7 @@ export function LanguageIcons({
             alt={lang}
             height={iconSize}
             width={iconSize}
+            className='aspect-square object-contain'
           />
         );
 

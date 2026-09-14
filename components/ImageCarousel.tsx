@@ -13,9 +13,19 @@ const HORIZONTAL_ENTRY_BIAS = 1.4;
 
 const images = [
   { src: '/images/nctsa.png', alt: 'NC TSA' },
+  {
+    src: '/images/copilot-hackathon-win.jpg',
+    alt: 'Distill team with the Copilot hackathon trophy',
+  },
   { src: '/images/robotics.jpeg', alt: 'Robotics' },
+  { src: '/images/atc-tower.jpg', alt: 'Team in an air traffic control tower' },
   { src: '/images/smathhacks.jpg', alt: 'SMath Hacks' },
+  { src: '/images/arena-event.jpg', alt: 'Group selfie at an arena event' },
   { src: '/images/glasses.jpeg', alt: 'Glasses' },
+  {
+    src: '/images/copilot-hackathon-team.jpg',
+    alt: 'Distill team showing the app at the Copilot hackathon',
+  },
   { src: '/images/lenovo.jpeg', alt: 'Lenovo' },
   { src: '/images/attaches.jpeg', alt: 'Attaché Cohort' },
 ];
@@ -24,11 +34,13 @@ const topImages = images.slice(0, Math.ceil(images.length / 2));
 const bottomImages = images.slice(Math.ceil(images.length / 2));
 
 export function ImageCarousel() {
-  const desktopWrapRef = useRef<HTMLDivElement | null>(null);
+  const desktopTopWrapRef = useRef<HTMLDivElement | null>(null);
+  const desktopBottomWrapRef = useRef<HTMLDivElement | null>(null);
   const mobileTopWrapRef = useRef<HTMLDivElement | null>(null);
   const mobileBottomWrapRef = useRef<HTMLDivElement | null>(null);
 
   const scrollContainerRefDesktop = useRef<HTMLDivElement | null>(null);
+  const reverseScrollContainerRefDesktop = useRef<HTMLDivElement | null>(null);
   const scrollContainerRefMobile = useRef<HTMLDivElement | null>(null);
   const reverseScrollContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -39,9 +51,9 @@ export function ImageCarousel() {
   const lastInteractionRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
 
-  const desktopImageWidth = 600 + 32;
+  const desktopImageWidth = 480 + 24;
   const mobileImageWidth = 280 + 16;
-  const desktopLoopWidth = images.length * desktopImageWidth;
+  const desktopLoopWidth = topImages.length * desktopImageWidth;
   const mobileLoopWidth = topImages.length * mobileImageWidth;
 
   useEffect(() => {
@@ -78,14 +90,19 @@ export function ImageCarousel() {
       if (reverseOffsetRef.current < -loopWidth)
         reverseOffsetRef.current += loopWidth;
 
+      const forward = `translate3d(${offsetRef.current}px, 0, 0)`;
+      const reverse = `translate3d(${reverseOffsetRef.current}px, 0, 0)`;
       if (scrollContainerRefDesktop.current) {
-        scrollContainerRefDesktop.current.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
+        scrollContainerRefDesktop.current.style.transform = forward;
+      }
+      if (reverseScrollContainerRefDesktop.current) {
+        reverseScrollContainerRefDesktop.current.style.transform = reverse;
       }
       if (scrollContainerRefMobile.current) {
-        scrollContainerRefMobile.current.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
+        scrollContainerRefMobile.current.style.transform = forward;
       }
       if (reverseScrollContainerRef.current) {
-        reverseScrollContainerRef.current.style.transform = `translate3d(${reverseOffsetRef.current}px, 0, 0)`;
+        reverseScrollContainerRef.current.style.transform = reverse;
       }
 
       animationFrameRef.current = requestAnimationFrame(animate);
@@ -114,7 +131,8 @@ export function ImageCarousel() {
     };
 
     const wraps = [
-      desktopWrapRef.current,
+      desktopTopWrapRef.current,
+      desktopBottomWrapRef.current,
       mobileTopWrapRef.current,
       mobileBottomWrapRef.current,
     ].filter((w): w is HTMLDivElement => w !== null);
@@ -127,10 +145,6 @@ export function ImageCarousel() {
     };
   }, []);
 
-  const duplicatedImages = useMemo(
-    () => [...images, ...images, ...images, ...images],
-    []
-  );
   const duplicatedTopImages = useMemo(
     () => [...topImages, ...topImages, ...topImages, ...topImages],
     []
@@ -142,34 +156,66 @@ export function ImageCarousel() {
 
   return (
     <div className='relative w-full overflow-hidden py-10'>
-      {/* Desktop carousel - single row */}
-      <div
-        ref={desktopWrapRef}
-        className='relative hidden h-[350px] w-full overflow-hidden md:block'
-      >
-        <div className='pointer-events-none absolute top-0 left-0 z-10 h-full w-48 bg-linear-to-r from-[color:var(--background)] to-transparent' />
-        <div className='pointer-events-none absolute top-0 right-0 z-10 h-full w-48 bg-linear-to-l from-[color:var(--background)] to-transparent' />
-        <div className='flex h-full gap-8'>
-          <div
-            ref={scrollContainerRefDesktop}
-            className='flex h-full gap-8 will-change-transform'
-          >
-            {duplicatedImages.map((image, index) => (
-              <div
-                key={`${image.src}-${index}`}
-                className='relative h-full w-[600px] shrink-0 overflow-hidden rounded-xl'
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className='object-cover'
-                  priority={index < 3}
-                  sizes='600px'
-                  draggable={false}
-                />
-              </div>
-            ))}
+      {/* Desktop carousels - two rows going opposite directions */}
+      <div className='hidden space-y-6 md:block'>
+        <div
+          ref={desktopTopWrapRef}
+          className='relative h-[280px] w-full overflow-hidden'
+        >
+          <div className='pointer-events-none absolute top-0 left-0 z-10 h-full w-48 bg-linear-to-r from-[color:var(--background)] to-transparent' />
+          <div className='pointer-events-none absolute top-0 right-0 z-10 h-full w-48 bg-linear-to-l from-[color:var(--background)] to-transparent' />
+          <div className='flex h-full gap-6'>
+            <div
+              ref={scrollContainerRefDesktop}
+              className='flex h-full gap-6 will-change-transform'
+            >
+              {duplicatedTopImages.map((image, index) => (
+                <div
+                  key={`${image.src}-${index}`}
+                  className='relative h-full w-[480px] shrink-0 overflow-hidden rounded-xl'
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className='object-cover'
+                    loading={index < 3 ? 'eager' : 'lazy'}
+                    sizes='480px'
+                    draggable={false}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div
+          ref={desktopBottomWrapRef}
+          className='relative h-[280px] w-full overflow-hidden'
+        >
+          <div className='pointer-events-none absolute top-0 left-0 z-10 h-full w-48 bg-linear-to-r from-[color:var(--background)] to-transparent' />
+          <div className='pointer-events-none absolute top-0 right-0 z-10 h-full w-48 bg-linear-to-l from-[color:var(--background)] to-transparent' />
+          <div className='flex h-full gap-6'>
+            <div
+              ref={reverseScrollContainerRefDesktop}
+              className='flex h-full gap-6 will-change-transform'
+            >
+              {duplicatedBottomImages.map((image, index) => (
+                <div
+                  key={`${image.src}-reverse-${index}`}
+                  className='relative h-full w-[480px] shrink-0 overflow-hidden rounded-xl'
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className='object-cover'
+                    sizes='480px'
+                    draggable={false}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -197,7 +243,7 @@ export function ImageCarousel() {
                     alt={image.alt}
                     fill
                     className='object-cover'
-                    priority={index < 3}
+                    loading={index < 3 ? 'eager' : 'lazy'}
                     sizes='280px'
                     draggable={false}
                   />
@@ -228,7 +274,7 @@ export function ImageCarousel() {
                     alt={image.alt}
                     fill
                     className='object-cover'
-                    priority={index < 3}
+                    loading={index < 3 ? 'eager' : 'lazy'}
                     sizes='280px'
                     draggable={false}
                   />

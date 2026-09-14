@@ -1,0 +1,18 @@
+{
+  "title": "Distill - Microsoft Copilot Hackathon 1st Place",
+  "shortDescription": "Turns research paper PDFs into focused Markdown summaries and self-contained HTML visuals. Won 1st place at Microsoft's Copilot hackathon during NY Tech Week 2026.",
+  "langs": [
+    "nodejs",
+    "react",
+    "typescript",
+    "javascript",
+    "html",
+    "css",
+    "nextjs",
+    "git"
+  ],
+  "link": null,
+  "source": "https://github.com/Miscodings/distill",
+  "date": "June 4, 2026",
+  "image": "image.jpg"
+}
