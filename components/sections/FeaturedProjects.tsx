@@ -1,51 +1,14 @@
 'use client';
 
 import { AnimatePresence } from 'framer-motion';
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import type { ProjectMetadata } from '@/components/Projects';
 import { useLenis } from '@/components/providers/LenisProvider';
-import { Panel } from './featured/Panel';
 import { ExpandedCaseStudy } from './featured/ExpandedCaseStudy';
+import { PinnedSheets } from './featured/PinnedSheets';
+import { StaticSheets } from './featured/StaticSheets';
 
 const N_FEATURED = 3;
-const EXTRA_SCROLL_VH = 40;
-const HOLD_FRACTION = 0.45;
-
-function clamp01(v: number) {
-  return v < 0 ? 0 : v > 1 ? 1 : v;
-}
-
-function smoothstep(t: number) {
-  return t * t * (3 - 2 * t);
-}
-
-function displacedProgress(
-  p: number,
-  n: number,
-  holdFraction = HOLD_FRACTION
-): number {
-  if (n <= 1) return 0;
-  const holdPer = holdFraction / n;
-  const transPer = (1 - holdFraction) / (n - 1);
-  const step = 1 / (n - 1);
-
-  let input = 0;
-  for (let i = 0; i < n; i++) {
-    const holdEnd = input + holdPer;
-    if (p < holdEnd) return i * step;
-    input = holdEnd;
-
-    if (i === n - 1) return 1;
-
-    const transEnd = input + transPer;
-    if (p < transEnd) {
-      const t = (p - input) / transPer;
-      return i * step + smoothstep(t) * step;
-    }
-    input = transEnd;
-  }
-  return 1;
-}
 
 function useReducedMotion() {
   return useSyncExternalStore(
@@ -76,12 +39,12 @@ async function loadFeatured(): Promise<ProjectMetadata[]> {
   );
 }
 
+/**
+ * The first three projects in `public/projects/index.json`, presented as a
+ * pinned drawing set on desktop and as a plain run of sheets on phones or
+ * with reduced motion. Clicking a sheet opens the case study.
+ */
 export function FeaturedProjects() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const progressBarRef = useRef<HTMLDivElement | null>(null);
-  const panelRefs = useRef<Array<HTMLElement | null>>([]);
-  const mobilePanelRefs = useRef<Array<HTMLElement | null>>([]);
   const [featured, setFeatured] = useState<ProjectMetadata[]>([]);
   const [langlinks, setLanglinks] = useState<Record<string, string>>({});
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -110,145 +73,24 @@ export function FeaturedProjects() {
     else lenis.start();
   }, [expandedIndex, lenisRef]);
 
-  useEffect(() => {
-    if (featured.length === 0 || reducedMotion) return;
-    const n = featured.length;
-
-    let raf = 0;
-    const tick = () => {
-      const section = sectionRef.current;
-      const track = trackRef.current;
-      const bar = progressBarRef.current;
-      if (section && track) {
-        const rect = section.getBoundingClientRect();
-        const total = rect.height - window.innerHeight;
-        const scrolled = -rect.top;
-        const progress =
-          total > 0 ? Math.max(0, Math.min(1, scrolled / total)) : 0;
-        const displaced = displacedProgress(progress, n);
-
-        const translateX = -displaced * (n - 1) * window.innerWidth;
-        track.style.transform = `translate3d(${translateX}px, 0, 0)`;
-
-        if (bar) bar.style.transform = `scaleX(${progress})`;
-
-        for (let i = 0; i < n; i++) {
-          const el = panelRefs.current[i];
-          if (!el) continue;
-          const localP = displaced * (n - 1) - i;
-
-          const imgWrap = el.querySelector<HTMLElement>(
-            '[data-panel-image-wrap]'
-          );
-          if (imgWrap) {
-            imgWrap.style.transform = `translateX(${localP * 6}%)`;
-          }
-
-          const title = el.querySelector<HTMLElement>('[data-panel-title]');
-          if (title) {
-            const revealIn = clamp01((localP + 0.55) / 0.5);
-            const revealOut = clamp01((localP - 0.3) / 0.5);
-            const clipRight = (1 - revealIn) * 100;
-            const clipLeft = revealOut * 100;
-            title.style.clipPath = `inset(0 ${clipRight.toFixed(2)}% 0 ${clipLeft.toFixed(2)}%)`;
-          }
-        }
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [featured.length, reducedMotion]);
-
   if (featured.length === 0) return null;
-
-  const n = featured.length;
-  const sectionHeight = n * 100 + EXTRA_SCROLL_VH;
-
-  const desktopVisibility = reducedMotion ? 'hidden' : 'hidden md:block';
-  const mobileVisibility = reducedMotion ? 'block' : 'md:hidden';
 
   return (
     <>
-      <section
-        ref={sectionRef}
-        id='featured'
-        className={`relative ${desktopVisibility}`}
-        style={{ height: `${sectionHeight}vh` }}
-        aria-label='Featured projects'
-      >
-        <div className='sticky top-0 flex h-screen w-full flex-col overflow-hidden bg-[color:var(--background)]'>
-          <header className='pointer-events-none absolute top-[3.5vh] left-[8vw] z-10'>
-            <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
-              03 — Featured Work
-            </span>
-          </header>
-
-          <div
-            ref={trackRef}
-            className='flex min-h-0 flex-1 will-change-transform'
-            style={{ width: `${n * 100}vw` }}
-          >
-            {featured.map((project, i) => (
-              <Panel
-                key={project.slug}
-                ref={(el) => {
-                  panelRefs.current[i] = el;
-                }}
-                project={project}
-                index={i}
-                total={n}
-                onExpand={() => setExpandedIndex(i)}
-                langlinks={langlinks}
-              />
-            ))}
-          </div>
-
-          <div className='relative h-[2px] w-full'>
-            <div
-              ref={progressBarRef}
-              className='h-full origin-left bg-[color:var(--accent)]'
-              style={{ transform: 'scaleX(0)' }}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section
-        id='featured-mobile'
-        className={`relative ${mobileVisibility}`}
-        aria-label='Featured projects'
-      >
-        <div className='px-6 pt-16 pb-2'>
-          <span className='text-xs tracking-[0.4em] text-[color:var(--text-muted)] uppercase'>
-            03 — Featured Work
-          </span>
-          <p className='mt-4 text-sm tracking-[0.25em] text-[color:var(--text-muted)] uppercase'>
-            Swipe →
-          </p>
-        </div>
-
-        <div className='hide-scrollbar flex snap-x snap-mandatory overflow-x-auto overflow-y-hidden'>
-          {featured.map((project, i) => (
-            <div
-              key={project.slug}
-              className='h-[92vh] w-screen shrink-0 snap-center'
-            >
-              <Panel
-                ref={(el) => {
-                  mobilePanelRefs.current[i] = el;
-                }}
-                project={project}
-                index={i}
-                total={n}
-                onExpand={() => setExpandedIndex(i)}
-                revealMode='static'
-                langlinks={langlinks}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
+      {!reducedMotion && (
+        <PinnedSheets
+          className='hidden md:block'
+          projects={featured}
+          langlinks={langlinks}
+          onExpand={setExpandedIndex}
+        />
+      )}
+      <StaticSheets
+        className={reducedMotion ? 'block' : 'md:hidden'}
+        projects={featured}
+        langlinks={langlinks}
+        onExpand={setExpandedIndex}
+      />
 
       <AnimatePresence>
         {expandedIndex !== null && (
