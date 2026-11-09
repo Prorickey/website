@@ -81,8 +81,9 @@ export function Projects() {
 
       <div className='mx-auto mt-16 max-w-6xl px-6 lg:px-10'>
         <ResponsiveMasonry
-          columnsCountBreakPoints={{ 350: 1, 800: 2, 1300: 3 }}
-          gutterBreakPoints={{ 350: 24, 800: 24, 1300: 24 }}
+          // Breakpoints match the grid's own width (max 1072px), not the window.
+          columnsCountBreakPoints={{ 350: 1, 750: 2, 1000: 3 }}
+          gutterBreakPoints={{ 350: '24px', 750: '24px', 1000: '24px' }}
         >
           <Masonry>
             {rest.map((project) => (
