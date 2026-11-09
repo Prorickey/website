@@ -1,0 +1,9 @@
+{
+  "title": "SuppBuddy - Cube Buildathon",
+  "shortDescription": "A pocket lab that screens supplement powders for fillers and contamination using light, paired with an iPhone app.",
+  "langs": ["onshape", "cpp", "swiftui", "python", "claude", "git"],
+  "link": null,
+  "source": "https://github.com/dzwangg/SuppBuddy",
+  "date": "November 7-8, 2026",
+  "image": "open.jpg"
+}
